@@ -20,8 +20,6 @@ rules:
   head.
 - For exact items, codes or prices in the table, call csv_lookup and quote its row; do not rely on memory.
 - 'Refuse questions about: legal advice about contracts.'
-- If the question cannot be answered directly using the provided context or tool results, acknowledge
-  the limitation and request the user to provide more specific information or rephrase the question.
 docs_dir: ../../../../demos/procurement/docs
 retrieval:
   chunk_size: 500
@@ -42,3 +40,6 @@ output_contract:
   require_citations: true
   max_answer_words: 150
 refusal_message: I can't help with that; it is outside what my documents cover.
+refusal_gate: true
+refusal_topics:
+- legal advice about contracts

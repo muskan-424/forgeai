@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import math
+import time
 from collections import defaultdict
 
 from .agent_runtime import Agent
@@ -20,13 +21,25 @@ def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
     return (round(max(centre - half, 0), 3), round(min(centre + half, 1), 3))
 
 
-def run_eval(agent: Agent, cases: list[EvalCase], judge: Judge, progress=print) -> list[CaseResult]:
+RETRY_WAITS_S = (15, 45)     # a restarting model server needs seconds, not milliseconds
+
+
+def is_infra_error(trace) -> bool:
+    """The agent produced no answer because the run itself failed (server down, timeout), not because it answered badly."""
+    return bool(trace.error) and not trace.answer.answer.strip() and not trace.answer.refused
+
+
+def run_eval(agent: Agent, cases: list[EvalCase], judge: Judge, progress=print, sleep=time.sleep,
+             retry_waits=RETRY_WAITS_S) -> list[CaseResult]:
     results = []
     for i, case in enumerate(cases, 1):
         trace = agent.ask(case.question)
-        if trace.error and not trace.answer.answer.strip() and not trace.answer.refused:
-            progress(f"  ... agent error on {case.id} ({trace.error[:60]}); retrying once")
-            trace = agent.ask(case.question)            # a dropped connection or a timeout is not a wrong answer
+        for wait in retry_waits:
+            if not is_infra_error(trace):
+                break
+            progress(f"  ... agent error on {case.id} ({trace.error[:60]}); waiting {wait}s, then retrying")
+            sleep(wait)                                  # a dropped connection or a timeout is not a wrong answer
+            trace = agent.ask(case.question)
         verdict = judge.judge(case, trace)
         results.append(CaseResult(case=case, trace=trace, verdict=verdict))
         progress(f"  [{i}/{len(cases)}] {case.id:<8} {'PASS' if verdict.passed else 'FAIL'}  "

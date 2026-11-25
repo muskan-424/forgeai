@@ -9,8 +9,8 @@ import yaml
 
 from . import config
 from .ingest import build_chunks
-from .llm import LLM, LLMError
-from .retrieval import Retriever
+from .llm import LLM, LLMError, LLMUnavailable
+from .retrieval import Retriever, tokenize
 from .schemas import AgentAnswer, AgentDefinition, AgentTrace, Chunk, Citation
 from .tools import build_tool
 
@@ -28,6 +28,10 @@ ANSWER_SCHEMA = {
     "required": ["answer", "citations", "refused", "refusal_reason"],
 }
 
+GATE_SCHEMA = {"type": "object", "properties": {"user_wants": {"type": "string"}, "forbidden": {"type": "boolean"},
+                                                "topic": {"type": "string"}},
+               "required": ["user_wants", "forbidden", "topic"]}
+
 TOOL_SCHEMA = {
     "type": "object",
     "properties": {**ANSWER_SCHEMA["properties"],
@@ -36,7 +40,8 @@ TOOL_SCHEMA = {
 }
 
 
-from .textmatch import norm, quote_verified  # noqa: E402  (shared with eval generator and judge)
+from .textmatch import coverage, norm, quote_verified  # noqa: E402  (shared with eval generator and judge)
+from .prompts import render  # noqa: E402
 
 
 def load_definition(path: str | Path) -> AgentDefinition:
@@ -97,9 +102,40 @@ class Agent:
             return "(no relevant passages found)"
         return "\n\n".join(f"[{c.doc}]\n{c.text}" for c in chunks)
 
+    def _gate(self, question: str) -> str:
+        """The forbidden topic this question asks about ('' if none). Fails open: an error never blocks a question,
+        and a 'yes' only counts if the topic the model names really is one of the listed topics."""
+        # Precondition (measured on the real 3B model: with the model alone it blocked 4 of 5 legitimate questions that
+        # merely mentioned suppliers, payments or warranties): the question must share a content word with a topic.
+        qwords = set(tokenize(question))
+        topics = [t for t in self.d.refusal_topics if set(tokenize(t)) & qwords]
+        if not topics:
+            return ""
+        try:
+            obj = self.llm.json([{"role": "user", "content": render(
+                "refusal_gate", topics="\n".join(f"- {t}" for t in topics), question=question)}],
+                schema=GATE_SCHEMA, temperature=0.0, max_tokens=60)
+        except LLMUnavailable:
+            raise
+        except LLMError:
+            return ""
+        if not (isinstance(obj, dict) and obj.get("forbidden") is True):
+            return ""
+        named = str(obj.get("topic", ""))
+        best = max(topics, key=lambda t: max(coverage(named, t), coverage(t, named)))
+        return best if max(coverage(named, best), coverage(best, named)) >= 0.5 else ""
+
     def ask(self, question: str, history: list[tuple[str, str]] | None = None) -> AgentTrace:
         t0 = time.time()
         trace = AgentTrace(question=question)
+        if self.d.refusal_gate and self.d.refusal_topics:
+            blocked = self._gate(question)
+            if blocked:
+                trace.gate_blocked = blocked
+                trace.answer = AgentAnswer(answer=self.d.refusal_message, refused=True,
+                                           refusal_reason=f"forbidden topic: {blocked}")
+                trace.latency_s = time.time() - t0
+                return trace
         hits = self.retriever.search(question)
         trace.retrieved = [c for c, _ in hits]
 

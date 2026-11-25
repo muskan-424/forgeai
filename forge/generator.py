@@ -135,6 +135,18 @@ def build_rules(req: Requirements, tools: list[ToolRef]) -> list[str]:
     return rules
 
 
+def refusal_topics(req: Requirements) -> list[str]:
+    """What the runtime refusal gate checks against: the brief's forbidden topics and the unsupported gaps
+    (without the generic 'anything not covered' default, which is not a topic)."""
+    generic = SLOT_QUESTIONS["must_refuse"][1]
+    out = []
+    for t in req.must_refuse:
+        t = t.replace(" (not covered by the documents)", "").strip()
+        if t and t != generic and t not in out:
+            out.append(t)
+    return out
+
+
 def _slug(text: str) -> str:
     words = re.findall(r"[a-z0-9]+", text.lower())
     stop = {"i", "need", "an", "a", "the", "that", "for", "to", "of", "and", "assistant", "answers", "answer"}
@@ -168,7 +180,8 @@ def generate_definition(req: Requirements, docs_dir: str, llm: LLM, out_dir: str
     d = AgentDefinition(
         name=_slug(req.brief), description=req.scope, system_prompt=persona,
         rules=build_rules(req, tools), docs_dir=rel_docs.replace("\\", "/"), retrieval=retrieval, tools=tools,
-        refusal_message="I can't help with that; it is outside what my documents cover.")
+        refusal_message="I can't help with that; it is outside what my documents cover.",
+        refusal_topics=refusal_topics(req))
     notes = {"tool_decisions": tool_decisions, "persona_source": persona_src,
              "retrieval_basis": {"documents": len(inv), "chunks": len(build_chunks(docs_dir, retrieval.chunk_size, retrieval.chunk_overlap))}}
     return d, notes

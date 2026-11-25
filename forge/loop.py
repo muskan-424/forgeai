@@ -18,7 +18,7 @@ from typing import Callable
 
 from .agent_runtime import Agent, save_definition
 from .critic import classify_all
-from .evalrun import run_eval, scorecard
+from .evalrun import is_infra_error, run_eval, scorecard
 from .ingest import build_chunks
 from .judge import Judge
 from .llm import LLM
@@ -40,10 +40,11 @@ def save_definition_at(d: AgentDefinition, path: Path) -> None:
     save_definition(c, path)
 
 
-def evaluate(d: AgentDefinition, cases: list[EvalCase], judge: Judge, agent_factory, progress) -> list[CaseResult]:
+def evaluate(d: AgentDefinition, cases: list[EvalCase], judge: Judge, agent_factory, progress,
+             sleep=time.sleep) -> list[CaseResult]:
     if not cases:
         return []
-    return run_eval(agent_factory(d), cases, judge, progress=progress)
+    return run_eval(agent_factory(d), cases, judge, progress=progress, sleep=sleep)
 
 
 def _n_chunks(d: AgentDefinition) -> int:
@@ -81,15 +82,15 @@ def _save_iteration(out: Path, n: int, d: AgentDefinition, dev: list[CaseResult]
 
 def run_loop(definition: AgentDefinition, dev_cases: list[EvalCase], holdout_cases: list[EvalCase], judge: Judge,
              out_dir: str, opt_llm: LLM | None = None, max_iters: int = 3, budget_s: float | None = None,
-             agent_factory: Callable = default_agent_factory, progress=print, clock=time.time) -> dict:
+             agent_factory: Callable = default_agent_factory, progress=print, clock=time.time, sleep=time.sleep) -> dict:
     out = Path(out_dir)
     t_start = clock()
 
     # ---------------- iteration 0: baseline (dev AND holdout) ----------------
     progress(f"== baseline: {len(dev_cases)} dev + {len(holdout_cases)} holdout cases")
-    dev0 = evaluate(definition, dev_cases, judge, agent_factory, progress)
+    dev0 = evaluate(definition, dev_cases, judge, agent_factory, progress, sleep)
     dev_seconds = max(compute_seconds(dev0), 1e-6)             # one dev pass: used to budget later iterations
-    hold0 = evaluate(definition, holdout_cases, judge, agent_factory, progress)
+    hold0 = evaluate(definition, holdout_cases, judge, agent_factory, progress, sleep)
     spent = compute_seconds(dev0) + compute_seconds(hold0)     # compute time used so far (stalls capped)
     _save_iteration(out, 0, definition, dev0, hold0, None, "baseline")
 
@@ -100,6 +101,11 @@ def run_loop(definition: AgentDefinition, dev_cases: list[EvalCase], holdout_cas
                    "holdout": scorecard(hold0) if hold0 else None}]
     consecutive_reverts = 0
     stop_reason = f"reached the maximum of {max_iters} iterations"
+    base_infra = [r.case.id for r in dev0 + hold0 if is_infra_error(r.trace)]
+    if base_infra:
+        max_iters = 0
+        stop_reason = (f"the model server failed on {base_infra} during the baseline even after retries; "
+                       "the baseline is not trustworthy, so no patch was tried")
 
     for n in range(1, max_iters + 1):
         failures = classify_all(best_dev)
@@ -117,30 +123,38 @@ def run_loop(definition: AgentDefinition, dev_cases: list[EvalCase], holdout_cas
             break
         progress(f"== iteration {n}: {patch['category']} x{len(patch['addresses'])} -> {describe(patch)}")
         candidate = apply_patch(best, patch)
-        history.append(patch)
 
         before_ids = _passed(best_dev)
         t1 = clock()
-        cand_dev = evaluate(candidate, dev_cases, judge, agent_factory, progress)
+        cand_dev = evaluate(candidate, dev_cases, judge, agent_factory, progress, sleep)
         dev_seconds = max(compute_seconds(cand_dev), 1e-6)
         spent += compute_seconds(cand_dev)
         after_ids = _passed(cand_dev)
+        infra = [r.case.id for r in cand_dev if is_infra_error(r.trace)]
         fixed, broken = sorted(after_ids - before_ids), sorted(before_ids - after_ids)
-        kept = len(after_ids) > len(before_ids)
-        decision = "kept" if kept else "reverted"
+        if infra:      # the server failed: this iteration says nothing about the patch (real incident: Ollama restarted)
+            fixed, broken = [], []
+        kept = not infra and len(after_ids) > len(before_ids)
+        decision = "inconclusive" if infra else ("kept" if kept else "reverted")
         changelog.append({
             "iteration": n, "category": patch["category"], "source": patch["source"],
             "what_changed": describe(patch), "why": patch["rationale"],
             "failures_addressed": patch["addresses"], "fixed": fixed, "broken": broken,
             "dev_passed_before": len(before_ids), "dev_passed_after": len(after_ids), "dev_total": len(dev_cases),
             "decision": decision,
-            "decision_reason": ("net gain on dev cases" if kept else
+            "infrastructure_errors": infra,
+            "decision_reason": (f"INCONCLUSIVE: the model server failed on {infra} even after retries, so these results say "
+                                "nothing about the patch; it was reverted and will be tried again" if infra else
+                                "net gain on dev cases" if kept else
                                 "no net gain: " + (f"broke {broken}" if broken else "fixed nothing") + "; patch reverted"),
             "seconds": round(clock() - t1, 1)})
         _save_iteration(out, n, candidate, cand_dev, [], patch, decision)
         scorecards.append({"iteration": n, "decision": decision, "dev": scorecard(cand_dev), "holdout": None})
         progress(f"   dev {len(before_ids)} -> {len(after_ids)} of {len(dev_cases)}: {decision}"
                  + (f" (fixed {fixed})" if fixed else "") + (f" (broke {broken})" if broken else ""))
+        if infra:
+            continue           # not recorded as tried and not counted against the early stop: the patch was never judged
+        history.append(patch)
         if kept:
             best, best_dev, consecutive_reverts = candidate, cand_dev, 0
         else:
@@ -154,7 +168,7 @@ def run_loop(definition: AgentDefinition, dev_cases: list[EvalCase], holdout_cas
         hold_final = hold0
     else:
         progress("== final holdout run with the best definition")
-        hold_final = evaluate(best, holdout_cases, judge, agent_factory, progress)
+        hold_final = evaluate(best, holdout_cases, judge, agent_factory, progress, sleep)
     scorecards.append({"iteration": "final", "decision": "final", "dev": scorecard(best_dev),
                        "holdout": scorecard(hold_final) if hold_final else None})
     save_definition_at(best, out / "final_agent_definition.yaml")

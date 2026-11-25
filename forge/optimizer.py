@@ -16,7 +16,7 @@ from .textmatch import norm, question_similarity
 
 RULE_SCHEMA = {"type": "object", "properties": {"rule": {"type": "string"}}, "required": ["rule"]}
 
-ALLOWED_PARAMS = {"temperature", "retrieval.top_k", "retrieval.use_embeddings", "retrieval.bm25_weight",
+ALLOWED_PARAMS = {"refusal_gate", "temperature", "retrieval.top_k", "retrieval.use_embeddings", "retrieval.bm25_weight",
                   "retrieval.chunk_size", "retrieval.chunk_overlap", "retrieval.min_score"}
 
 LIBRARY = {
@@ -115,6 +115,14 @@ def propose(d: AgentDefinition, failures: list[dict], history: list[dict], n_chu
                 return {"category": cat, "ops": ops, "rationale": why, "addresses": addresses, "source": "ladder"}
         return None
 
+    if cat == "wrong_refusal" and any(f["subtype"] == "gate" for f in targets):
+        # the gate blocked legitimate questions: switching it off is the fix
+        if d.refusal_gate and "param:refusal_gate=False" not in tried:
+            return {"category": cat, "ops": [{"op": "set_param", "path": "refusal_gate", "value": False}],
+                    "rationale": "turn the refusal gate off: it blocked answerable questions",
+                    "addresses": addresses, "source": "ladder"}
+        return None
+
     existing = {norm(r) for r in d.rules}
     subtypes = sorted({f["subtype"] for f in targets})
     ops, why, source = [], [], "library"
@@ -125,6 +133,12 @@ def propose(d: AgentDefinition, failures: list[dict], history: list[dict], n_chu
         if norm(lib) not in existing and f"rule:{norm(lib)[:80]}" not in tried:
             ops.append({"op": "append_rule", "text": lib})
             why.append(f"add proven rule for {cat}/{st or 'general'}")
+    if (not ops and cat == "hallucination" and "out_of_scope" in subtypes and d.refusal_topics
+            and not d.refusal_gate and "param:refusal_gate=True" not in tried):
+        # prompt rules did not make the model refuse: enforce it with a runtime classification before answering
+        ops.append({"op": "set_param", "path": "refusal_gate", "value": True})
+        why.append("enable the runtime refusal gate (rules alone did not make the agent refuse forbidden topics)")
+        source = "ladder"
     if not ops:   # library wording already tried: escalate to a rule written from the failing examples
         ex = [examples[f["case_id"]] for f in targets if examples and f["case_id"] in examples]
         rule = _tailored_rule(cat, ex, d.rules, llm)

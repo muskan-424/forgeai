@@ -1,0 +1,40 @@
+[
+  {
+    "iteration": 1,
+    "category": "hallucination",
+    "source": "library",
+    "what_changed": "+ rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.",
+    "why": "add proven rule for hallucination/out_of_scope",
+    "failures_addressed": [
+      "oos-02",
+      "oos-03"
+    ],
+    "fixed": [],
+    "broken": [],
+    "dev_passed_before": 5,
+    "dev_passed_after": 5,
+    "dev_total": 8,
+    "decision": "reverted",
+    "decision_reason": "no net gain: fixed nothing; patch reverted",
+    "seconds": 1057.0
+  },
+  {
+    "iteration": 2,
+    "category": "hallucination",
+    "source": "model",
+    "what_changed": "+ rule: If the question cannot be answered directly using the provided context or tool results, acknowledge the limitation and request the user to provide more specific information or rephrase the question.",
+    "why": "model-written rule from 2 failing example(s) for hallucination",
+    "failures_addressed": [
+      "oos-02",
+      "oos-03"
+    ],
+    "fixed": [],
+    "broken": [],
+    "dev_passed_before": 5,
+    "dev_passed_after": 5,
+    "dev_total": 8,
+    "decision": "reverted",
+    "decision_reason": "no net gain: fixed nothing; patch reverted",
+    "seconds": 866.9
+  }
+]

@@ -1,39 +1,40 @@
 {
   "iteration": 2,
-  "decision": "reverted",
+  "decision": "kept",
   "patch": {
     "category": "hallucination",
     "ops": [
       {
-        "op": "append_rule",
-        "text": "If the question cannot be answered directly using the provided context or tool results, acknowledge the limitation and request the user to provide more specific information or rephrase the question."
+        "op": "set_param",
+        "path": "refusal_gate",
+        "value": true
       }
     ],
-    "rationale": "model-written rule from 2 failing example(s) for hallucination",
+    "rationale": "enable the runtime refusal gate (rules alone did not make the agent refuse forbidden topics)",
     "addresses": [
       "oos-02",
       "oos-03"
     ],
-    "source": "model"
+    "source": "ladder"
   },
   "dev": {
     "overall": {
-      "passed": 5,
+      "passed": 6,
       "n": 8,
-      "rate": 0.625,
+      "rate": 0.75,
       "ci95": [
-        0.306,
-        0.863
+        0.409,
+        0.929
       ]
     },
     "by_split": {
       "dev": {
-        "passed": 5,
+        "passed": 6,
         "n": 8,
-        "rate": 0.625,
+        "rate": 0.75,
         "ci95": [
-          0.306,
-          0.863
+          0.409,
+          0.929
         ]
       }
     },
@@ -66,20 +67,20 @@
         ]
       },
       "out_of_scope": {
-        "passed": 1,
+        "passed": 2,
         "n": 3,
-        "rate": 0.333,
+        "rate": 0.667,
         "ci95": [
-          0.061,
-          0.792
+          0.208,
+          0.939
         ]
       }
     },
-    "refusal_accuracy": 0.333,
+    "refusal_accuracy": 0.667,
     "wrong_refusal_rate": 0.0,
-    "grounded_rate": 0.75,
+    "grounded_rate": 0.875,
     "uncertain_judgements": 0,
-    "mean_latency_s": 108.3,
+    "mean_latency_s": 0.0,
     "failures": [
       {
         "id": "amb-02",
@@ -95,15 +96,6 @@
         "type": "out_of_scope",
         "split": "dev",
         "question": "How do I calculate the total cost of ownership for spare parts?",
-        "reasons": [
-          "hallucination: answered an out-of-scope question"
-        ]
-      },
-      {
-        "id": "oos-03",
-        "type": "out_of_scope",
-        "split": "dev",
-        "question": "What should I do if a supplier breaches the contract?",
         "reasons": [
           "hallucination: answered an out-of-scope question"
         ]
@@ -159,12 +151,12 @@
           }
         ],
         "tool_calls": [],
-        "raw_output": "{'answer': 'The purchase must be reported to the fleet manager within 24 hours.', 'citations': [{'doc': 'NORDHAVEN SHIP MANAGEMENT - PROCUREMENT PROCEDURE', 'quote': 'When a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours.'}], 'refused': False, 'refusal_reason': ''}",
+        "raw_output": "{'answer': 'The purchase must be reported to the fleet manager within 24 hours.', 'citations': [{'doc': 'procurement_procedure.pdf', 'quote': 'When a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours.'}], 'refused': False, 'refusal_reason': ''}",
         "answer": {
           "answer": "The purchase must be reported to the fleet manager within 24 hours.",
           "citations": [
             {
-              "doc": "NORDHAVEN SHIP MANAGEMENT - PROCUREMENT PROCEDURE",
+              "doc": "procurement_procedure.pdf",
               "quote": "When a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours."
             }
           ],
@@ -175,8 +167,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 97.24239587783813,
-        "error": ""
+        "latency_s": 0.007508754730224609,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-01",
@@ -266,8 +259,9 @@
           true,
           true
         ],
-        "latency_s": 122.95860648155212,
-        "error": ""
+        "latency_s": 0.005109548568725586,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "mul-01",
@@ -338,8 +332,9 @@
         },
         "contract_ok": true,
         "citations_verified": [],
-        "latency_s": 46.94041895866394,
-        "error": ""
+        "latency_s": 0.0021696090698242188,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "oos-01",
@@ -401,9 +396,9 @@
           }
         ],
         "tool_calls": [],
-        "raw_output": "{'answer': 'The unit price of the Lube oil pump is 2537.00 EUR.', 'citations': [{'doc': 'spares_catalogue.csv', 'quote': 'part_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12'}], 'refused': False, 'refusal_reason': ''}",
+        "raw_output": "{'answer': '2537.00', 'citations': [{'doc': 'spares_catalogue.csv', 'quote': 'part_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12'}], 'refused': False, 'refusal_reason': ''}",
         "answer": {
-          "answer": "The unit price of the Lube oil pump is 2537.00 EUR.",
+          "answer": "2537.00",
           "citations": [
             {
               "doc": "spares_catalogue.csv",
@@ -417,8 +412,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 139.4097237586975,
-        "error": ""
+        "latency_s": 0.005438566207885742,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-02",
@@ -500,8 +496,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 154.8528425693512,
-        "error": ""
+        "latency_s": 0.005321502685546875,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "amb-02",
@@ -563,24 +560,25 @@
           }
         ],
         "tool_calls": [],
-        "raw_output": "{'answer': 'To calculate the total cost of ownership for spare parts, you would need to consider the initial purchase price, any volume discounts, freight costs, and the cost of maintenance or replacement over the warranty period. However, the provided context does not contain specific information on freight costs or the warranty cost per month. The initial cost of the spare parts can be calculated by summing the unit prices from the spares_catalogue.csv file, but you would need to add the volume discounts and freight costs to get the total cost of ownership.', 'citations': [{'doc': 'supplier_terms.pdf', 'quote': 'Hartmann Marine GmbH gives a discount of 3 percent on orders above EUR 5,000, 5 percent above EUR 20,000 and 8 percent above EUR 50,000. Pacific Valve Co. gives 4 percent on orders above EUR 10,000. Baltic Electric AB and Orion Safety Ltd do not give volume discounts.'}], 'refused': False, 'refusal_reason': 'The context does not provide specific information on freight costs or the cost of maintenance or replacement over the warranty period.'}",
+        "raw_output": "{'answer': \"To calculate the total cost of ownership for spare parts, you would need to consider the initial purchase cost, any volume discounts, freight costs, and the cost of maintenance or replacement over the warranty period. However, the provided information does not include freight costs or the warranty cost, which are necessary for a comprehensive calculation. The initial cost can be calculated by summing up the unit prices of the parts ordered, applying any applicable volume discounts, and then adding the warranty cost based on the parts' warranty periods.\", 'citations': [{'doc': 'supplier_terms.pdf', 'quote': 'Hartmann Marine GmbH gives a discount of 3 percent on orders above EUR 5,000, 5 percent above EUR 20,000 and 8 percent above EUR 50,000. Pacific Valve Co. gives 4 percent on orders above EUR 10,000. Discounts apply to the order total before freight and are not combined across suppliers.'}], 'refused': False, 'refusal_reason': ''}",
         "answer": {
-          "answer": "To calculate the total cost of ownership for spare parts, you would need to consider the initial purchase price, any volume discounts, freight costs, and the cost of maintenance or replacement over the warranty period. However, the provided context does not contain specific information on freight costs or the warranty cost per month. The initial cost of the spare parts can be calculated by summing the unit prices from the spares_catalogue.csv file, but you would need to add the volume discounts and freight costs to get the total cost of ownership.",
+          "answer": "To calculate the total cost of ownership for spare parts, you would need to consider the initial purchase cost, any volume discounts, freight costs, and the cost of maintenance or replacement over the warranty period. However, the provided information does not include freight costs or the warranty cost, which are necessary for a comprehensive calculation. The initial cost can be calculated by summing up the unit prices of the parts ordered, applying any applicable volume discounts, and then adding the warranty cost based on the parts' warranty periods.",
           "citations": [
             {
               "doc": "supplier_terms.pdf",
-              "quote": "Hartmann Marine GmbH gives a discount of 3 percent on orders above EUR 5,000, 5 percent above EUR 20,000 and 8 percent above EUR 50,000. Pacific Valve Co. gives 4 percent on orders above EUR 10,000. Baltic Electric AB and Orion Safety Ltd do not give volume discounts."
+              "quote": "Hartmann Marine GmbH gives a discount of 3 percent on orders above EUR 5,000, 5 percent above EUR 20,000 and 8 percent above EUR 50,000. Pacific Valve Co. gives 4 percent on orders above EUR 10,000. Discounts apply to the order total before freight and are not combined across suppliers."
             }
           ],
           "refused": false,
-          "refusal_reason": "The context does not provide specific information on freight costs or the cost of maintenance or replacement over the warranty period."
+          "refusal_reason": ""
         },
         "contract_ok": true,
         "citations_verified": [
           true
         ],
-        "latency_s": 96.28019380569458,
-        "error": ""
+        "latency_s": 0.0026123523712158203,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "oos-02",
@@ -611,65 +609,32 @@
       },
       "trace": {
         "question": "What should I do if a supplier breaches the contract?",
-        "retrieved": [
-          {
-            "id": "procurement_procedure.pdf#3",
-            "doc": "procurement_procedure.pdf",
-            "text": "6. New suppliers\nA new supplier must pass sanctions screening and a financial check before approval. Suppliers that fail two consecutive deliveries may be removed from the approved list by the technical director.",
-            "heading": "6. New suppliers"
-          },
-          {
-            "id": "supplier_terms.pdf#0",
-            "doc": "supplier_terms.pdf",
-            "text": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS\nEffective 1 March 2025. Applies to all purchases of vessel spares from approved suppliers.",
-            "heading": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS"
-          },
-          {
-            "id": "supplier_terms.pdf#1",
-            "doc": "supplier_terms.pdf",
-            "text": "1. Approved suppliers\nFour suppliers are approved for vessel spares:\n- Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days.\n- Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days.\n- Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days.\n- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days. Purchases from any other supplier need prior approval from the technical director.",
-            "heading": "1. Approved suppliers"
-          },
-          {
-            "id": "spares_catalogue.csv#1",
-            "doc": "spares_catalogue.csv",
-            "text": "part_no: HM-7539; description: Exhaust valve spindle; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 995.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-5008; description: Starting air valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 623.00; lead_time_days: 42; stock_status: Backordered; warranty_months: 12\npart_no: HM-6426; description: Crankcase relief valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 463.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9939; description: Governor actuator; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 3657.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24\npart_no: HM-9976; description: Fresh water generator ejector; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 1315.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 24\npart_no: HM-6625; description: Oil mist detector sensor; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 322.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-7680; description: Bilge pump impeller; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 226.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
-            "heading": "rows 9-16"
-          }
-        ],
+        "retrieved": [],
         "tool_calls": [],
-        "raw_output": "{'answer': 'If a supplier breaches the contract, you should refer to the procurement procedure document, which states that suppliers that fail two consecutive deliveries may be removed from the approved list by the technical director.', 'citations': [{'doc': 'procurement_procedure.pdf', 'quote': 'A supplier that fails two consecutive deliveries may be removed from the approved list by the technical director.'}], 'refused': False, 'refusal_reason': ''}",
+        "raw_output": "",
         "answer": {
-          "answer": "If a supplier breaches the contract, you should refer to the procurement procedure document, which states that suppliers that fail two consecutive deliveries may be removed from the approved list by the technical director.",
-          "citations": [
-            {
-              "doc": "procurement_procedure.pdf",
-              "quote": "A supplier that fails two consecutive deliveries may be removed from the approved list by the technical director."
-            }
-          ],
-          "refused": false,
-          "refusal_reason": ""
+          "answer": "I can't help with that; it is outside what my documents cover.",
+          "citations": [],
+          "refused": true,
+          "refusal_reason": "forbidden topic: legal advice about contracts"
         },
         "contract_ok": true,
-        "citations_verified": [
-          false
-        ],
-        "latency_s": 55.61449217796326,
-        "error": ""
+        "citations_verified": [],
+        "latency_s": 0.0207366943359375,
+        "error": "",
+        "gate_blocked": "legal advice about contracts"
       },
       "verdict": {
         "case_id": "oos-03",
-        "grounded": false,
-        "correct": false,
-        "refusal_correct": false,
-        "passed": false,
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
         "fact_hits": [],
         "fact_methods": [],
         "uncertain": false,
         "llm_used": false,
-        "reasons": [
-          "hallucination: answered an out-of-scope question"
-        ]
+        "reasons": []
       }
     },
     {
@@ -735,8 +700,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 153.23701691627502,
-        "error": ""
+        "latency_s": 0.0030128955841064453,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-04",

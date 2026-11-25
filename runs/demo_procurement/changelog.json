@@ -15,26 +15,49 @@
     "dev_passed_after": 5,
     "dev_total": 8,
     "decision": "reverted",
+    "infrastructure_errors": [],
     "decision_reason": "no net gain: fixed nothing; patch reverted",
-    "seconds": 1057.0
+    "seconds": 0.1
   },
   {
     "iteration": 2,
     "category": "hallucination",
-    "source": "model",
-    "what_changed": "+ rule: If the question cannot be answered directly using the provided context or tool results, acknowledge the limitation and request the user to provide more specific information or rephrase the question.",
-    "why": "model-written rule from 2 failing example(s) for hallucination",
+    "source": "ladder",
+    "what_changed": "refusal_gate = True",
+    "why": "enable the runtime refusal gate (rules alone did not make the agent refuse forbidden topics)",
     "failures_addressed": [
       "oos-02",
       "oos-03"
     ],
-    "fixed": [],
+    "fixed": [
+      "oos-03"
+    ],
     "broken": [],
     "dev_passed_before": 5,
-    "dev_passed_after": 5,
+    "dev_passed_after": 6,
+    "dev_total": 8,
+    "decision": "kept",
+    "infrastructure_errors": [],
+    "decision_reason": "net gain on dev cases",
+    "seconds": 0.1
+  },
+  {
+    "iteration": 3,
+    "category": "retrieval_miss",
+    "source": "ladder",
+    "what_changed": "retrieval.top_k = 6",
+    "why": "retrieve more passages (top_k 4 -> 6)",
+    "failures_addressed": [
+      "amb-02"
+    ],
+    "fixed": [],
+    "broken": [],
+    "dev_passed_before": 6,
+    "dev_passed_after": 6,
     "dev_total": 8,
     "decision": "reverted",
+    "infrastructure_errors": [],
     "decision_reason": "no net gain: fixed nothing; patch reverted",
-    "seconds": 866.9
+    "seconds": 792.1
   }
 ]

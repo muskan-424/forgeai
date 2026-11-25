@@ -471,5 +471,67 @@ def test_infrastructure_errors_are_retried_once_before_judging():
             if calls["n"] == 1:
                 return AgentTrace(question=q, error="Ollama call failed (Read timed out)")
             return result_for(c).trace
-    out = run_eval(Flaky(), [c], NO_LLM_JUDGE(), progress=lambda *_: None)
+    out = run_eval(Flaky(), [c], NO_LLM_JUDGE(), progress=lambda *_: None, sleep=lambda s: None)
     assert calls["n"] == 2 and out[0].verdict.passed
+
+
+# ------------------------------------------------------------------ infrastructure failures must not be blamed on a patch
+def test_agent_errors_are_retried_with_backoff_before_a_case_is_scored():
+    from forge.evalrun import run_eval
+    c = mk_case("ok1")
+    waits, calls = [], {"n": 0}
+
+    class Down:
+        def ask(self, q):
+            calls["n"] += 1
+            if calls["n"] <= 2:
+                return AgentTrace(question=q, error="Ollama call failed (connection refused)")
+            return result_for(c).trace
+    out = run_eval(Down(), [c], NO_LLM_JUDGE(), progress=lambda *_: None, sleep=waits.append)
+    assert waits == [15, 45] and calls["n"] == 3 and out[0].verdict.passed              # server came back on the third try
+    calls["n"] = -100                                                                   # never recovers
+    out = run_eval(Down(), [c], NO_LLM_JUDGE(), progress=lambda *_: None, sleep=lambda s: None)
+    assert not out[0].verdict.passed and "agent error" in out[0].verdict.reasons[0]
+
+
+class ServerDownAfterPatch(FakeAgent):
+    """Real incident: Ollama restarted during iteration 3. With top_k >= 5 every call fails like a dead server."""
+    def _ask(self, q):
+        if self.d.retrieval.top_k >= 5:
+            return AgentTrace(question=q, error="Ollama call failed (connection refused)")
+        return super()._ask(q)
+
+
+def test_an_iteration_with_server_errors_is_inconclusive_not_blamed_on_the_patch(tmp_path):
+    dev, hold, factory, tick = loop_setup()
+    res = run_loop(base_def(), dev, hold, NO_LLM_JUDGE(), str(tmp_path), None, 3, None,
+                   lambda d: ServerDownAfterPatch(d, dev + hold, tick), progress=lambda *_: None,
+                   clock=lambda: tick[0], sleep=lambda s: None)
+    log = res["changelog"]
+    assert log and log[0]["decision"] == "inconclusive" and log[0]["fixed"] == [] and log[0]["broken"] == []
+    assert log[0]["infrastructure_errors"] and "INCONCLUSIVE" in log[0]["decision_reason"]
+    # the same patch is tried again (never recorded as tried) and the early-stop counter was not advanced
+    assert len(log) == 3 and {c["what_changed"] for c in log} == {log[0]["what_changed"]}
+    assert "early stop" not in res["stop_reason"] and res["best_definition"].retrieval.top_k == 3
+    assert res["scorecards"][-1]["dev"]["overall"]["passed"] == res["scorecards"][0]["dev"]["overall"]["passed"]
+
+
+def test_a_broken_baseline_stops_the_loop_and_the_report_says_inconclusive(tmp_path):
+    dev, hold, factory, tick = loop_setup()
+
+    class AllDown:
+        def __init__(self, d): pass
+        def ask(self, q): return AgentTrace(question=q, error="Ollama has no model 'x' (HTTP 404)")
+    res = run_loop(base_def(), dev, hold, NO_LLM_JUDGE(), str(tmp_path), None, 3, None, AllDown,
+                   progress=lambda *_: None, clock=lambda: 0.0, sleep=lambda s: None)
+    assert res["changelog"] == [] and "baseline is not trustworthy" in res["stop_reason"]
+    dev, hold, factory, tick = loop_setup()
+    res = run_loop(base_def(), dev, hold, NO_LLM_JUDGE(), str(tmp_path / "b"), None, 3, None,
+                   lambda d: ServerDownAfterPatch(d, dev + hold, tick), progress=lambda *_: None,
+                   clock=lambda: tick[0], sleep=lambda s: None)
+    ctx = {"name": "t", "requirements": {"brief": "b", "scope": "s", "audience": "a", "tone": "t", "must_answer": [], "must_refuse": []},
+           "groundability": {"entries": [], "warnings": []}, "notes": {"tool_decisions": []}, "eval_report": None,
+           "calibration": None, "cases": dev + hold, "loop": res, "final_definition": res["best_definition"],
+           "total_seconds": 1.0, "usage": {}}
+    md, _ = build_report(ctx)
+    assert "INCONCLUSIVE" in md and "says nothing about its patch" in md

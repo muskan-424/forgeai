@@ -42,3 +42,6 @@ output_contract:
   require_citations: true
   max_answer_words: 150
 refusal_message: I can't help with that; it is outside what my documents cover.
+refusal_gate: false
+refusal_topics:
+- legal advice about contracts

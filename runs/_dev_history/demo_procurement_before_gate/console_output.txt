@@ -1,0 +1,58 @@
+[1/6] intake: reading the brief and the documents
+      1 clarifying question(s), 7 assumption(s)
+[2/6] groundability guard: can the documents support the brief?
+      ! PARTIAL: the documents cover 'approved-supplier terms' only in part; expect refusals or gaps there.
+[3/6] generator: tools, retrieval parameters, system prompt
+      tools attached: ['csv_lookup', 'calculator']
+[4/6] eval generator: building a verified test set from the documents
+  [answerable] 1/5: How long does the purchase need to be reported to the fleet manager?
+  [answerable] 2/5: What is the unit price of the Lube oil pump?
+  [answerable] 3/5: What does Orion Safety Ltd (Aberdeen) provide?
+  [answerable] 4/5: What is the unit price of the Gate valve DN50 in euros?
+  [answerable] 5/5: What is the minimum amount for orders that require at least 2 written quotations
+  [multi_doc] 1/2: How many suppliers are approved for vessel spares, and what is the unit price of
+  [multi_doc] 2/2: What is the warranty period for the SCBA cylinder, and what is the maximum purch
+  [ambiguous] 1/2: What's the reporting time for purchases?
+  [ambiguous] 2/2: What's the unit price?
+  [out_of_scope/near_domain] What are the environmental impact assessments for new suppliers?
+  [out_of_scope/near_domain] How do I calculate the total cost of ownership for spare parts?
+  [out_of_scope/must_refuse] What should I do if a supplier breaches the contract?
+      12 cases (8 dev / 4 holdout)
+[5/6] judge calibration: scoring synthetic answers with known verdicts
+      judge accuracy 100%, false passes 0
+[6/6] critic-optimizer loop
+== baseline: 8 dev + 4 holdout cases
+  [1/8] ans-01   PASS    0.0s  How long does the purchase need to be reported to the fleet 
+  [2/8] mul-01   PASS    0.0s  How many suppliers are approved for vessel spares, and what 
+  [3/8] oos-01   PASS    0.0s  What are the environmental impact assessments for new suppli
+  [4/8] ans-02   PASS    0.0s  What is the unit price of the Lube oil pump?
+  [5/8] amb-02   FAIL    0.0s  What's the unit price?
+  [6/8] oos-02   FAIL    0.0s  How do I calculate the total cost of ownership for spare par
+  [7/8] oos-03   FAIL   30.0s  What should I do if a supplier breaches the contract?
+  [8/8] ans-04   PASS    0.0s  What is the unit price of the Gate valve DN50 in euros?
+  [1/4] amb-01   FAIL    0.0s  What's the reporting time for purchases?
+  [2/4] mul-02   PASS    0.0s  What is the warranty period for the SCBA cylinder, and what 
+  [3/4] ans-03   PASS    0.0s  What does Orion Safety Ltd (Aberdeen) provide?
+  [4/4] ans-05   PASS    0.0s  What is the minimum amount for orders that require at least 
+== iteration 1: hallucination x2 -> + rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.
+  [1/8] ans-01   PASS   75.2s  How long does the purchase need to be reported to the fleet 
+  [2/8] mul-01   PASS  166.8s  How many suppliers are approved for vessel spares, and what 
+  [3/8] oos-01   PASS   65.9s  What are the environmental impact assessments for new suppli
+  [4/8] ans-02   PASS  155.0s  What is the unit price of the Lube oil pump?
+  [5/8] amb-02   FAIL  133.6s  What's the unit price?
+  [6/8] oos-02   FAIL  134.3s  How do I calculate the total cost of ownership for spare par
+  [7/8] oos-03   FAIL   84.4s  What should I do if a supplier breaches the contract?
+  [8/8] ans-04   PASS  209.3s  What is the unit price of the Gate valve DN50 in euros?
+   dev 5 -> 5 of 8: reverted
+== iteration 2: hallucination x2 -> + rule: If the question cannot be answered directly using the provided context or tool results, acknowledge the limitation and request the user to provide more specific information or rephrase the question.
+  [1/8] ans-01   PASS   97.2s  How long does the purchase need to be reported to the fleet 
+  [2/8] mul-01   PASS  123.0s  How many suppliers are approved for vessel spares, and what 
+  [3/8] oos-01   PASS   46.9s  What are the environmental impact assessments for new suppli
+  [4/8] ans-02   PASS  139.4s  What is the unit price of the Lube oil pump?
+  [5/8] amb-02   FAIL  154.9s  What's the unit price?
+  [6/8] oos-02   FAIL   96.3s  How do I calculate the total cost of ownership for spare par
+  [7/8] oos-03   FAIL   55.6s  What should I do if a supplier breaches the contract?
+  [8/8] ans-04   PASS  153.2s  What is the unit price of the Gate valve DN50 in euros?
+   dev 5 -> 5 of 8: reverted
+Done in 34.4 min. Report: runs\demo_procurement\report.md
+exit 0

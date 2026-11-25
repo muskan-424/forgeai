@@ -1,0 +1,9 @@
+REFUSAL GATE. A document-based assistant must refuse requests about these FORBIDDEN TOPICS:
+<<topics>>
+
+USER QUESTION: <<question>>
+
+Step 1: in a few words, say what the user actually wants to know or get done.
+Step 2: decide whether that is the SAME as a forbidden topic. A question that merely mentions a related word (for example a supplier, a payment, a deadline, a price or a warranty) is NOT forbidden unless the user is asking for the forbidden help itself.
+
+Reply with JSON only: {"user_wants": "...", "forbidden": true, "topic": "the matching forbidden topic, copied from the list, or empty"}

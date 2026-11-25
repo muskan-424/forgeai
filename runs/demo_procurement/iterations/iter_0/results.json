@@ -65,7 +65,7 @@
     "wrong_refusal_rate": 0.0,
     "grounded_rate": 0.75,
     "uncertain_judgements": 0,
-    "mean_latency_s": 3.8,
+    "mean_latency_s": 0.0,
     "failures": [
       {
         "id": "amb-02",
@@ -227,8 +227,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 0.005867481231689453,
-        "error": ""
+        "latency_s": 0.0023620128631591797,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-01",
@@ -318,8 +319,9 @@
           true,
           true
         ],
-        "latency_s": 0.0077648162841796875,
-        "error": ""
+        "latency_s": 0.0041005611419677734,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "mul-01",
@@ -390,8 +392,9 @@
         },
         "contract_ok": true,
         "citations_verified": [],
-        "latency_s": 0.00377655029296875,
-        "error": ""
+        "latency_s": 0.0017976760864257812,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "oos-01",
@@ -469,8 +472,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 0.0060117244720458984,
-        "error": ""
+        "latency_s": 0.0032930374145507812,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-02",
@@ -552,8 +556,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 0.005468845367431641,
-        "error": ""
+        "latency_s": 0.0024547576904296875,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "amb-02",
@@ -631,8 +636,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 0.00464177131652832,
-        "error": ""
+        "latency_s": 0.0024023056030273438,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "oos-02",
@@ -706,8 +712,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 29.956758737564087,
-        "error": ""
+        "latency_s": 0.0026836395263671875,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "oos-03",
@@ -787,8 +794,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 0.0354313850402832,
-        "error": ""
+        "latency_s": 0.0033278465270996094,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-04",
@@ -872,8 +880,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 0.005085468292236328,
-        "error": ""
+        "latency_s": 0.0029370784759521484,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "amb-01",
@@ -965,8 +974,9 @@
           true,
           true
         ],
-        "latency_s": 0.007015705108642578,
-        "error": ""
+        "latency_s": 0.003678560256958008,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "mul-02",
@@ -1050,8 +1060,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 0.003961086273193359,
-        "error": ""
+        "latency_s": 0.003026247024536133,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-03",
@@ -1133,8 +1144,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 0.0025787353515625,
-        "error": ""
+        "latency_s": 0.0017197132110595703,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-05",

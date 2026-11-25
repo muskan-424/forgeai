@@ -47,6 +47,9 @@ def classify(result: CaseResult) -> dict | None:
     if c.should_refuse:
         return {"category": "hallucination", "subtype": "out_of_scope",
                 "detail": "refusal leaked content" if refused else "answered an out-of-scope question"}
+    if t.gate_blocked:      # an answerable question that the refusal gate blocked: the gate, not retrieval, is at fault
+        return {"category": "wrong_refusal", "subtype": "gate",
+                "detail": f"refusal gate blocked it as '{t.gate_blocked}'"}
     has = context_has_answer(result)
     if refused:
         return ({"category": "wrong_refusal", "subtype": "", "detail": "context had the answer; agent refused"} if has else

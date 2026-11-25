@@ -47,6 +47,11 @@ class AgentDefinition(BaseModel):
     tools: list[ToolRef] = Field(default_factory=list)
     output_contract: OutputContract = Field(default_factory=OutputContract)
     refusal_message: str = "I can't help with that; it is outside what my documents cover."
+    # Runtime refusal gate: a cheap classification BEFORE answering. Off by default; the optimizer switches it on when
+    # prompt rules fail to make the model refuse. `refusal_topics` = the brief's forbidden topics + topics the
+    # groundability guard found unsupported.
+    refusal_gate: bool = False
+    refusal_topics: list[str] = Field(default_factory=list)
 
 
 class Citation(BaseModel):
@@ -73,6 +78,7 @@ class AgentTrace(BaseModel):
     citations_verified: list[bool] = Field(default_factory=list)
     latency_s: float = 0.0
     error: str = ""
+    gate_blocked: str = ""       # the forbidden topic the refusal gate matched (empty if the gate did not block)
 
 
 # ---------- requirements (milestone 2+) ----------

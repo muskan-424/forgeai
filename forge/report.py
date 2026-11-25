@@ -34,6 +34,7 @@ def build_report(ctx: dict) -> tuple[str, dict]:
     h1 = last["holdout"]["overall"] if last["holdout"] else None
     residual = _residual(loop["final"]["dev"], "dev") + _residual(loop["final"]["holdout"], "holdout")
     kept = [c for c in loop["changelog"] if c["decision"] == "kept"]
+    inconclusive = [c for c in loop["changelog"] if c["decision"] == "inconclusive"]
     n_total = len(cases)
 
     L: list[str] = []
@@ -48,6 +49,9 @@ def build_report(ctx: dict) -> tuple[str, dict]:
     if h1:
         add(f"- **Holdout set** (never used to patch): {fmt(h0)} at baseline -> {fmt(h1)} final.")
     add(f"- The loop stopped because: {loop['stop_reason']}.")
+    for c in inconclusive:
+        add(f"- **Iteration {c['iteration']} is INCONCLUSIVE:** the model server failed on {', '.join(c['infrastructure_errors'])} "
+            "even after retries, so that iteration says nothing about its patch.")
     dev_n = d1["n"] if d1 else 0
     for c in kept:
         net = c["dev_passed_after"] - c["dev_passed_before"]
@@ -76,7 +80,10 @@ def build_report(ctx: dict) -> tuple[str, dict]:
     add(f"- **Tools attached:** {', '.join(t.name for t in d.tools) or 'none'}")
     for t in ctx["notes"]["tool_decisions"]:
         add(f"  - `{t['tool']}`: {'ATTACHED' if t['attached'] else 'not attached'}: {t['reason']}")
-    add(f"- **Rules in the final prompt:** {len(d.rules)}\n")
+    add(f"- **Rules in the final prompt:** {len(d.rules)}")
+    add(f"- **Refusal gate:** {'ON' if d.refusal_gate else 'off'}" +
+        (f" (forbidden topics checked before answering: {', '.join(d.refusal_topics)})" if d.refusal_topics else
+         " (no forbidden topics to check)") + "\n")
 
     # ---------------- groundability ----------------
     g = ctx["groundability"]

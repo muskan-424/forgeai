@@ -4,10 +4,11 @@
 
 ## Verdict
 
-- **Dev set** (used by the optimizer): 5/8 (62%; 95% CI 31%-86%) at baseline -> 5/8 (62%; 95% CI 31%-86%) after 0 kept patch(es) (2 tried).
+- **Dev set** (used by the optimizer): 5/8 (62%; 95% CI 31%-86%) at baseline -> 6/8 (75%; 95% CI 41%-93%) after 1 kept patch(es) (3 tried).
 - **Holdout set** (never used to patch): 3/4 (75%; 95% CI 30%-95%) at baseline -> 3/4 (75%; 95% CI 30%-95%) final.
-- The loop stopped because: two consecutive patches did not pay for themselves (early stop).
-- 4 case(s) still fail; see 'What still fails and why'.
+- The loop stopped because: reached the maximum of 3 iterations.
+- **Check iteration 2's kept patch:** a gain of 1 case(s) on 8 dev cases is within normal run-to-run noise, so it does not prove the patch helped.
+- 3 case(s) still fail; see 'What still fails and why'.
 - **How much to trust these numbers:** the eval set has only 12 cases, so every rate carries a wide confidence interval (shown above). Differences of one or two cases are within noise.
 
 ## What was built
@@ -24,6 +25,7 @@
   - `open_meteo`: not attached: no evidence in the brief that this tool is needed
   - `current_date`: not attached: no evidence in the brief that this tool is needed
 - **Rules in the final prompt:** 9
+- **Refusal gate:** ON (forbidden topics checked before answering: legal advice about contracts)
 
 ## Can the documents support the brief?
 
@@ -56,8 +58,9 @@
 |---|---|---|---|
 | 0 | baseline | 5/8 (62%; 95% CI 31%-86%) | 3/4 (75%; 95% CI 30%-95%) |
 | 1 | reverted | 5/8 (62%; 95% CI 31%-86%) | - |
-| 2 | reverted | 5/8 (62%; 95% CI 31%-86%) | - |
-| final | final | 5/8 (62%; 95% CI 31%-86%) | 3/4 (75%; 95% CI 30%-95%) |
+| 2 | kept | 6/8 (75%; 95% CI 41%-93%) | - |
+| 3 | reverted | 6/8 (75%; 95% CI 41%-93%) | - |
+| final | final | 6/8 (75%; 95% CI 41%-93%) | 3/4 (75%; 95% CI 30%-95%) |
 
 ## Changelog
 
@@ -69,11 +72,19 @@
 - **Fixed:** none; **broke:** none
 - **Decision:** no net gain: fixed nothing; patch reverted
 
-### Iteration 2: REVERTED (hallucination)
-- **Changed:** + rule: If the question cannot be answered directly using the provided context or tool results, acknowledge the limitation and request the user to provide more specific information or rephrase the question.
-- **Why:** model-written rule from 2 failing example(s) for hallucination (source: model)
+### Iteration 2: KEPT (hallucination)
+- **Changed:** refusal_gate = True
+- **Why:** enable the runtime refusal gate (rules alone did not make the agent refuse forbidden topics) (source: ladder)
 - **Failures addressed:** oos-02, oos-03
-- **Score before -> after (dev):** 5 -> 5 of 8
+- **Score before -> after (dev):** 5 -> 6 of 8
+- **Fixed:** oos-03; **broke:** none
+- **Decision:** net gain on dev cases
+
+### Iteration 3: REVERTED (retrieval_miss)
+- **Changed:** retrieval.top_k = 6
+- **Why:** retrieve more passages (top_k 4 -> 6) (source: ladder)
+- **Failures addressed:** amb-02
+- **Score before -> after (dev):** 6 -> 6 of 8
 - **Fixed:** none; **broke:** none
 - **Decision:** no net gain: fixed nothing; patch reverted
 
@@ -87,24 +98,20 @@
   - Root cause: **hallucination**, meaning the answer asserted content that the context does not support (or answered an out-of-scope question).
   - Judge: hallucination: answered an out-of-scope question
   - Agent said: "To calculate the total cost of ownership for spare parts, you would need to consider the initial purchase cost, any volume discounts, freight costs, and the cost of maintenance or replacement over the warranty period. However, the provided "
-- **oos-03** (dev, out_of_scope): "What should I do if a supplier breaches the contract?"
-  - Root cause: **hallucination**, meaning the answer asserted content that the context does not support (or answered an out-of-scope question).
-  - Judge: hallucination: answered an out-of-scope question
-  - Agent said: "If a supplier breaches the contract, you should contact the technical director to remove the supplier from the approved list. The procurement team should then seek approval for any future purchases from that supplier."
 - **amb-01** (holdout, ambiguous): "What's the reporting time for purchases?"
   - Root cause: **hallucination**, meaning the answer asserted content that the context does not support (or answered an out-of-scope question).
   - Judge: ungrounded: cited [] but expected ['procurement_procedure.pdf']
   - Agent said: "The reporting time for purchases is within 2 working days for differences between the delivery and the purchase order, and within 24 hours for safety-critical items or vessel risks going off-hire."
 
-Failure categories remaining: retrieval_miss x1, hallucination x3.
+Failure categories remaining: retrieval_miss x1, hallucination x2.
 
 ## Cost
 
-- factory (intake, guard, generator, evalgen): 3 fresh model calls, 18 answered from the cache; 107s of fresh model time
-- agent: 17 fresh model calls, 11 answered from the cache; 1920s of fresh model time + 95s replayed from the cache
-- judge: 1 fresh model calls, 19 answered from the cache; 32s of fresh model time + 32s replayed from the cache
+- factory (intake, guard, generator, evalgen): 0 fresh model calls, 20 answered from the cache; 0s of fresh model time + 43s replayed from the cache
+- agent: 4 fresh model calls, 36 answered from the cache; 758s of fresh model time + 1616s replayed from the cache
+- judge: 1 fresh model calls, 23 answered from the cache; 34s of fresh model time + 98s replayed from the cache
 - NOTE: this run mostly replayed identical requests from the cache, so the time above understates what a first, uncached run costs (on this CPU roughly 30-150 s per agent call).
-- Total wall-clock: 34.4 min
+- Total wall-clock: 13.2 min
 
 ## Known limits of this run
 
