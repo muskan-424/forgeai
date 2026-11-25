@@ -1,0 +1,29 @@
+{
+  "tool_decisions": [
+    {
+      "tool": "csv_lookup",
+      "attached": true,
+      "reason": "the brief explicitly mentions 'catalogue'; model: explicitly requested in the brief"
+    },
+    {
+      "tool": "calculator",
+      "attached": true,
+      "reason": "the brief explicitly mentions 'calculate'; model: explicitly requested in the brief"
+    },
+    {
+      "tool": "open_meteo",
+      "attached": false,
+      "reason": "no evidence in the brief that this tool is needed"
+    },
+    {
+      "tool": "current_date",
+      "attached": false,
+      "reason": "no evidence in the brief that this tool is needed"
+    }
+  ],
+  "persona_source": "model",
+  "retrieval_basis": {
+    "documents": 3,
+    "chunks": 18
+  }
+}

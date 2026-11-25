@@ -1,0 +1,688 @@
+{
+  "name": "procurement-team-ship-management-agent",
+  "scorecards": [
+    {
+      "iteration": 0,
+      "decision": "baseline",
+      "dev": {
+        "overall": {
+          "passed": 5,
+          "n": 8,
+          "rate": 0.625,
+          "ci95": [
+            0.306,
+            0.863
+          ]
+        },
+        "by_split": {
+          "dev": {
+            "passed": 5,
+            "n": 8,
+            "rate": 0.625,
+            "ci95": [
+              0.306,
+              0.863
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 3,
+            "n": 3,
+            "rate": 1.0,
+            "ci95": [
+              0.438,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "out_of_scope": {
+            "passed": 1,
+            "n": 3,
+            "rate": 0.333,
+            "ci95": [
+              0.061,
+              0.792
+            ]
+          }
+        },
+        "refusal_accuracy": 0.333,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 0.75,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 3.8,
+        "failures": [
+          {
+            "id": "amb-02",
+            "type": "ambiguous",
+            "split": "dev",
+            "question": "What's the unit price?",
+            "reasons": [
+              "facts matched 0/1"
+            ]
+          },
+          {
+            "id": "oos-02",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "How do I calculate the total cost of ownership for spare parts?",
+            "reasons": [
+              "hallucination: answered an out-of-scope question"
+            ]
+          },
+          {
+            "id": "oos-03",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "What should I do if a supplier breaches the contract?",
+            "reasons": [
+              "hallucination: answered an out-of-scope question"
+            ]
+          }
+        ]
+      },
+      "holdout": {
+        "overall": {
+          "passed": 3,
+          "n": 4,
+          "rate": 0.75,
+          "ci95": [
+            0.301,
+            0.954
+          ]
+        },
+        "by_split": {
+          "holdout": {
+            "passed": 3,
+            "n": 4,
+            "rate": 0.75,
+            "ci95": [
+              0.301,
+              0.954
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          }
+        },
+        "refusal_accuracy": null,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 0.75,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 0.0,
+        "failures": [
+          {
+            "id": "amb-01",
+            "type": "ambiguous",
+            "split": "holdout",
+            "question": "What's the reporting time for purchases?",
+            "reasons": [
+              "ungrounded: cited [] but expected ['procurement_procedure.pdf']"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 1,
+      "decision": "reverted",
+      "dev": {
+        "overall": {
+          "passed": 5,
+          "n": 8,
+          "rate": 0.625,
+          "ci95": [
+            0.306,
+            0.863
+          ]
+        },
+        "by_split": {
+          "dev": {
+            "passed": 5,
+            "n": 8,
+            "rate": 0.625,
+            "ci95": [
+              0.306,
+              0.863
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 3,
+            "n": 3,
+            "rate": 1.0,
+            "ci95": [
+              0.438,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "out_of_scope": {
+            "passed": 1,
+            "n": 3,
+            "rate": 0.333,
+            "ci95": [
+              0.061,
+              0.792
+            ]
+          }
+        },
+        "refusal_accuracy": 0.333,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 0.75,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 128.0,
+        "failures": [
+          {
+            "id": "amb-02",
+            "type": "ambiguous",
+            "split": "dev",
+            "question": "What's the unit price?",
+            "reasons": [
+              "facts matched 0/1"
+            ]
+          },
+          {
+            "id": "oos-02",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "How do I calculate the total cost of ownership for spare parts?",
+            "reasons": [
+              "hallucination: refusal flag set but the answer still asserts content"
+            ]
+          },
+          {
+            "id": "oos-03",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "What should I do if a supplier breaches the contract?",
+            "reasons": [
+              "hallucination: answered an out-of-scope question"
+            ]
+          }
+        ]
+      },
+      "holdout": null
+    },
+    {
+      "iteration": 2,
+      "decision": "reverted",
+      "dev": {
+        "overall": {
+          "passed": 5,
+          "n": 8,
+          "rate": 0.625,
+          "ci95": [
+            0.306,
+            0.863
+          ]
+        },
+        "by_split": {
+          "dev": {
+            "passed": 5,
+            "n": 8,
+            "rate": 0.625,
+            "ci95": [
+              0.306,
+              0.863
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 3,
+            "n": 3,
+            "rate": 1.0,
+            "ci95": [
+              0.438,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "out_of_scope": {
+            "passed": 1,
+            "n": 3,
+            "rate": 0.333,
+            "ci95": [
+              0.061,
+              0.792
+            ]
+          }
+        },
+        "refusal_accuracy": 0.333,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 0.75,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 108.3,
+        "failures": [
+          {
+            "id": "amb-02",
+            "type": "ambiguous",
+            "split": "dev",
+            "question": "What's the unit price?",
+            "reasons": [
+              "facts matched 0/1"
+            ]
+          },
+          {
+            "id": "oos-02",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "How do I calculate the total cost of ownership for spare parts?",
+            "reasons": [
+              "hallucination: answered an out-of-scope question"
+            ]
+          },
+          {
+            "id": "oos-03",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "What should I do if a supplier breaches the contract?",
+            "reasons": [
+              "hallucination: answered an out-of-scope question"
+            ]
+          }
+        ]
+      },
+      "holdout": null
+    },
+    {
+      "iteration": "final",
+      "decision": "final",
+      "dev": {
+        "overall": {
+          "passed": 5,
+          "n": 8,
+          "rate": 0.625,
+          "ci95": [
+            0.306,
+            0.863
+          ]
+        },
+        "by_split": {
+          "dev": {
+            "passed": 5,
+            "n": 8,
+            "rate": 0.625,
+            "ci95": [
+              0.306,
+              0.863
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 3,
+            "n": 3,
+            "rate": 1.0,
+            "ci95": [
+              0.438,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "out_of_scope": {
+            "passed": 1,
+            "n": 3,
+            "rate": 0.333,
+            "ci95": [
+              0.061,
+              0.792
+            ]
+          }
+        },
+        "refusal_accuracy": 0.333,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 0.75,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 3.8,
+        "failures": [
+          {
+            "id": "amb-02",
+            "type": "ambiguous",
+            "split": "dev",
+            "question": "What's the unit price?",
+            "reasons": [
+              "facts matched 0/1"
+            ]
+          },
+          {
+            "id": "oos-02",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "How do I calculate the total cost of ownership for spare parts?",
+            "reasons": [
+              "hallucination: answered an out-of-scope question"
+            ]
+          },
+          {
+            "id": "oos-03",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "What should I do if a supplier breaches the contract?",
+            "reasons": [
+              "hallucination: answered an out-of-scope question"
+            ]
+          }
+        ]
+      },
+      "holdout": {
+        "overall": {
+          "passed": 3,
+          "n": 4,
+          "rate": 0.75,
+          "ci95": [
+            0.301,
+            0.954
+          ]
+        },
+        "by_split": {
+          "holdout": {
+            "passed": 3,
+            "n": 4,
+            "rate": 0.75,
+            "ci95": [
+              0.301,
+              0.954
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          }
+        },
+        "refusal_accuracy": null,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 0.75,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 0.0,
+        "failures": [
+          {
+            "id": "amb-01",
+            "type": "ambiguous",
+            "split": "holdout",
+            "question": "What's the reporting time for purchases?",
+            "reasons": [
+              "ungrounded: cited [] but expected ['procurement_procedure.pdf']"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "changelog": [
+    {
+      "iteration": 1,
+      "category": "hallucination",
+      "source": "library",
+      "what_changed": "+ rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.",
+      "why": "add proven rule for hallucination/out_of_scope",
+      "failures_addressed": [
+        "oos-02",
+        "oos-03"
+      ],
+      "fixed": [],
+      "broken": [],
+      "dev_passed_before": 5,
+      "dev_passed_after": 5,
+      "dev_total": 8,
+      "decision": "reverted",
+      "decision_reason": "no net gain: fixed nothing; patch reverted",
+      "seconds": 1057.0
+    },
+    {
+      "iteration": 2,
+      "category": "hallucination",
+      "source": "model",
+      "what_changed": "+ rule: If the question cannot be answered directly using the provided context or tool results, acknowledge the limitation and request the user to provide more specific information or rephrase the question.",
+      "why": "model-written rule from 2 failing example(s) for hallucination",
+      "failures_addressed": [
+        "oos-02",
+        "oos-03"
+      ],
+      "fixed": [],
+      "broken": [],
+      "dev_passed_before": 5,
+      "dev_passed_after": 5,
+      "dev_total": 8,
+      "decision": "reverted",
+      "decision_reason": "no net gain: fixed nothing; patch reverted",
+      "seconds": 866.9
+    }
+  ],
+  "stop_reason": "two consecutive patches did not pay for themselves (early stop)",
+  "residual_failures": [
+    {
+      "set": "dev",
+      "id": "amb-02",
+      "type": "ambiguous",
+      "question": "What's the unit price?",
+      "category": "retrieval_miss",
+      "why_category": "the passage that answers the question was not among the retrieved context",
+      "detail": "answer not in retrieved context",
+      "judge_reasons": [
+        "facts matched 0/1"
+      ],
+      "agent_answer": "The unit prices are provided in the 'unit_price_eur' column of the spares_catalogue.csv file. For example, the Fire extinguisher 9 kg, foam (part_no: OS-3736) has a unit price of 103.04 EUR.",
+      "refused": false
+    },
+    {
+      "set": "dev",
+      "id": "oos-02",
+      "type": "out_of_scope",
+      "question": "How do I calculate the total cost of ownership for spare parts?",
+      "category": "hallucination",
+      "why_category": "the answer asserted content that the context does not support (or answered an out-of-scope question)",
+      "detail": "answered an out-of-scope question",
+      "judge_reasons": [
+        "hallucination: answered an out-of-scope question"
+      ],
+      "agent_answer": "To calculate the total cost of ownership for spare parts, you would need to consider the initial purchase cost, any volume discounts, freight costs, and the cost of maintenance or replacement over the warranty period. However, the provided ",
+      "refused": false
+    },
+    {
+      "set": "dev",
+      "id": "oos-03",
+      "type": "out_of_scope",
+      "question": "What should I do if a supplier breaches the contract?",
+      "category": "hallucination",
+      "why_category": "the answer asserted content that the context does not support (or answered an out-of-scope question)",
+      "detail": "answered an out-of-scope question",
+      "judge_reasons": [
+        "hallucination: answered an out-of-scope question"
+      ],
+      "agent_answer": "If a supplier breaches the contract, you should contact the technical director to remove the supplier from the approved list. The procurement team should then seek approval for any future purchases from that supplier.",
+      "refused": false
+    },
+    {
+      "set": "holdout",
+      "id": "amb-01",
+      "type": "ambiguous",
+      "question": "What's the reporting time for purchases?",
+      "category": "hallucination",
+      "why_category": "the answer asserted content that the context does not support (or answered an out-of-scope question)",
+      "detail": "ungrounded: cited [] but expected ['procurement_procedure.pdf']",
+      "judge_reasons": [
+        "ungrounded: cited [] but expected ['procurement_procedure.pdf']"
+      ],
+      "agent_answer": "The reporting time for purchases is within 2 working days for differences between the delivery and the purchase order, and within 24 hours for safety-critical items or vessel risks going off-hire.",
+      "refused": false
+    }
+  ],
+  "calibration": {
+    "probes": 16,
+    "accuracy": 1.0,
+    "false_pass": 0,
+    "false_fail": 0,
+    "llm_false_accepts": 0,
+    "by_kind": {
+      "gold": "2/2",
+      "padded_gold": "2/2",
+      "wrong_facts": "2/2",
+      "padded_wrong": "2/2",
+      "wrong_refusal": "2/2",
+      "oos_refused": "2/2",
+      "oos_answered": "2/2",
+      "oos_hedged": "2/2"
+    }
+  },
+  "eval_composition": {
+    "types": {
+      "answerable": 5,
+      "multi_doc": 2,
+      "ambiguous": 2,
+      "out_of_scope": 3
+    },
+    "splits": {
+      "dev": 8,
+      "holdout": 4
+    }
+  },
+  "usage": {
+    "factory (intake, guard, generator, evalgen)": {
+      "calls": 3,
+      "cache_hits": 18,
+      "prompt_tokens": 1101,
+      "completion_tokens": 99,
+      "seconds": 106.56194138526917,
+      "cached_seconds": 0.0
+    },
+    "agent": {
+      "calls": 17,
+      "cache_hits": 11,
+      "prompt_tokens": 31210,
+      "completion_tokens": 2239,
+      "seconds": 1919.6407153606415,
+      "cached_seconds": 95.21
+    },
+    "judge": {
+      "calls": 1,
+      "cache_hits": 19,
+      "prompt_tokens": 221,
+      "completion_tokens": 29,
+      "seconds": 32.18999743461609,
+      "cached_seconds": 32.19
+    }
+  },
+  "total_seconds": 2062.215316772461
+}

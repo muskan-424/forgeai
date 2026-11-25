@@ -1,0 +1,11 @@
+TOOL NECESSITY CHECK.
+
+ASSISTANT BRIEF: <<brief>>
+TOPICS IT MUST ANSWER: <<topics>>
+
+CANDIDATE TOOL: <<tool>> - <<tool_description>>
+THE TOOL IS JUSTIFIED WHEN: <<when_needed>>
+
+The assistant already has the documents. Does it NEED this tool to fulfil the brief, meaning the documents alone would not be enough? Answer false if the documents alone are sufficient.
+
+Reply with JSON only: {"needed": true, "reason": "one short sentence"}

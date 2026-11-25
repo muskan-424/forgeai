@@ -1,0 +1,15 @@
+You are a QA engineer writing a test question for a document-based assistant.
+
+DOCUMENT: <<doc>>
+SECTION: <<heading>>
+SENTENCE:
+<<sentence>>
+
+Write ONE question that a real user could ask and that is answered by this SENTENCE.
+
+Rules:
+- Self-contained: never write "the sentence", "the passage", "the document" or "above".
+- Ask about what the sentence actually says. Keep its direction: if the sentence gives a minimum ("over", "at least"), do not ask for a maximum, and the other way round.
+- expected_facts: 1 to 3 SHORT phrases of at most 6 words, such as "10 days", "65 euros per day" or "approval from the department head". Never write a full sentence as a fact. Copy the wording from the sentence.
+
+Reply with JSON only: {"question": "...", "expected_facts": ["..."]}

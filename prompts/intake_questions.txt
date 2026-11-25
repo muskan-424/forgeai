@@ -1,0 +1,11 @@
+INTAKE QUESTIONS. You are interviewing someone who wants a document-based assistant built.
+
+BRIEF:
+<<brief>>
+
+DOCUMENTS PROVIDED (names, sections or columns):
+<<inventory>>
+
+Write <<n>> short clarifying question(s) about things that are genuinely unclear from the brief AND the documents together (for example: two documents that might conflict, a document that seems out of scope for the brief, or a term in the brief that could mean two things). Do NOT ask about tone, audience or refusals: those are asked separately. Each question must be answerable in one sentence.
+
+Reply with JSON only: {"questions": ["..."]}

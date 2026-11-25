@@ -1,0 +1,16 @@
+INTAKE EXTRACT. You read a request to build a document-based assistant.
+
+BRIEF:
+<<brief>>
+
+DOCUMENTS PROVIDED (names, sections or columns):
+<<inventory>>
+
+Fill the fields below using ONLY what the brief says. Leave a field empty ("" or []) if the brief does not say it. Do not guess and do not invent defaults.
+- scope: one sentence saying what the assistant covers.
+- audience: who asks the assistant questions.
+- tone: the required style of the answers (for example formal or friendly), only if the brief states it.
+- topics: EVERY distinct subject the brief asks the assistant to handle, one short phrase each (2 to 5 words), in the brief's own words. Include every subject the brief names, even if the documents seem not to cover it. Do not add subjects the brief does not mention. Do not copy document section names unless the brief uses the same words.
+- must_refuse: things the brief says the assistant must NOT do or answer, or must hand off. Only what the brief forbids. If the brief forbids nothing, use [].
+
+Reply with JSON only: {"scope": "", "audience": "", "tone": "", "topics": [], "must_refuse": []}

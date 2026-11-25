@@ -1,0 +1,788 @@
+{
+  "judge_calibration": {
+    "probes": 19,
+    "accuracy": 1.0,
+    "false_pass": 0,
+    "false_fail": 0,
+    "llm_false_accepts": 0,
+    "by_kind": {
+      "gold": "3/3",
+      "padded_gold": "3/3",
+      "wrong_facts": "3/3",
+      "padded_wrong": "3/3",
+      "wrong_refusal": "3/3",
+      "oos_refused": "2/2",
+      "oos_answered": "2/2"
+    }
+  },
+  "scorecard": {
+    "overall": {
+      "passed": 9,
+      "n": 10,
+      "rate": 0.9,
+      "ci95": [
+        0.596,
+        0.982
+      ]
+    },
+    "by_split": {
+      "dev": {
+        "passed": 8,
+        "n": 9,
+        "rate": 0.889,
+        "ci95": [
+          0.565,
+          0.98
+        ]
+      },
+      "holdout": {
+        "passed": 1,
+        "n": 1,
+        "rate": 1.0,
+        "ci95": [
+          0.207,
+          1.0
+        ]
+      }
+    },
+    "by_type": {
+      "ambiguous": {
+        "passed": 2,
+        "n": 2,
+        "rate": 1.0,
+        "ci95": [
+          0.342,
+          1.0
+        ]
+      },
+      "answerable": {
+        "passed": 4,
+        "n": 4,
+        "rate": 1.0,
+        "ci95": [
+          0.51,
+          1.0
+        ]
+      },
+      "multi_doc": {
+        "passed": 2,
+        "n": 2,
+        "rate": 1.0,
+        "ci95": [
+          0.342,
+          1.0
+        ]
+      },
+      "out_of_scope": {
+        "passed": 1,
+        "n": 2,
+        "rate": 0.5,
+        "ci95": [
+          0.095,
+          0.905
+        ]
+      }
+    },
+    "refusal_accuracy": 0.5,
+    "wrong_refusal_rate": 0.0,
+    "grounded_rate": 0.9,
+    "uncertain_judgements": 0,
+    "mean_latency_s": 33.0,
+    "failures": [
+      {
+        "id": "oos-02",
+        "type": "out_of_scope",
+        "split": "dev",
+        "question": "What are the procedures for Shore staff to follow if they need to extend their leave beyond the standard policy?",
+        "reasons": [
+          "hallucination: refusal flag set but the answer still asserts content"
+        ]
+      }
+    ]
+  },
+  "results": [
+    {
+      "case": {
+        "id": "ans-01",
+        "type": "answerable",
+        "question": "What is the meal allowance for domestic travel for staff?",
+        "expected_facts": [
+          "40 euros per day"
+        ],
+        "source_docs": [
+          "expenses_policy.md"
+        ],
+        "source_quotes": [
+          "Staff travelling domestically receive a meal allowance of 40 euros per day."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=expenses_policy.md#0"
+      },
+      "trace": {
+        "question": "What is the meal allowance for domestic travel for staff?",
+        "retrieved": [
+          {
+            "id": "expenses_policy.md#0",
+            "doc": "expenses_policy.md",
+            "text": "All business travel must be booked through the corporate travel desk at least 7 days before departure. Flights over 6 hours may be booked in premium economy with line manager approval.\nStaff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.\nExpense claims must be submitted within 30 days of the trip together with original receipts. Claims above 500 euros require approval from the department head before reimbursement.",
+            "heading": "Booking Travel"
+          },
+          {
+            "id": "leave_policy.md#0",
+            "doc": "leave_policy.md",
+            "text": "Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at\nleast 14 days in advance through the HR portal.\nUnused annual leave may be carried over, up to a maximum of 5 days, into the following year.\nEmployees may take up to 10 days of paid sick leave per year. A medical certificate is required for any\nabsence longer than 3 consecutive days.",
+            "heading": "Annual Leave"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'The meal allowance for domestic travel for staff is 40 euros per day.', 'citations': [{'doc': 'expenses_policy.md', 'quote': 'Staff travelling domestically receive a meal allowance of 40 euros per day.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "The meal allowance for domestic travel for staff is 40 euros per day.",
+          "citations": [
+            {
+              "doc": "expenses_policy.md",
+              "quote": "Staff travelling domestically receive a meal allowance of 40 euros per day."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 64.26111817359924,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "ans-01",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-02",
+        "type": "answerable",
+        "question": "How many days of paid annual leave do Shore staff get per year?",
+        "expected_facts": [
+          "25 days"
+        ],
+        "source_docs": [
+          "leave_policy.md"
+        ],
+        "source_quotes": [
+          "Shore staff are entitled to 25 days of paid annual leave per calendar year."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=leave_policy.md#0"
+      },
+      "trace": {
+        "question": "How many days of paid annual leave do Shore staff get per year?",
+        "retrieved": [
+          {
+            "id": "leave_policy.md#0",
+            "doc": "leave_policy.md",
+            "text": "Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at\nleast 14 days in advance through the HR portal.\nUnused annual leave may be carried over, up to a maximum of 5 days, into the following year.\nEmployees may take up to 10 days of paid sick leave per year. A medical certificate is required for any\nabsence longer than 3 consecutive days.",
+            "heading": "Annual Leave"
+          },
+          {
+            "id": "expenses_policy.md#0",
+            "doc": "expenses_policy.md",
+            "text": "All business travel must be booked through the corporate travel desk at least 7 days before departure. Flights over 6 hours may be booked in premium economy with line manager approval.\nStaff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.\nExpense claims must be submitted within 30 days of the trip together with original receipts. Claims above 500 euros require approval from the department head before reimbursement.",
+            "heading": "Booking Travel"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'Shore staff are entitled to 25 days of paid annual leave per calendar year.', 'citations': [{'doc': 'leave_policy.md', 'quote': 'Shore staff are entitled to 25 days of paid annual leave per calendar year.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "Shore staff are entitled to 25 days of paid annual leave per calendar year.",
+          "citations": [
+            {
+              "doc": "leave_policy.md",
+              "quote": "Shore staff are entitled to 25 days of paid annual leave per calendar year."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 33.385923624038696,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "ans-02",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-03",
+        "type": "answerable",
+        "question": "What is the minimum duration for booking a flight in premium economy?",
+        "expected_facts": [
+          "over 6 hours"
+        ],
+        "source_docs": [
+          "expenses_policy.md"
+        ],
+        "source_quotes": [
+          "Flights over 6 hours may be booked in premium economy with line manager approval."
+        ],
+        "should_refuse": false,
+        "split": "holdout",
+        "notes": "chunk=expenses_policy.md#0"
+      },
+      "trace": {
+        "question": "What is the minimum duration for booking a flight in premium economy?",
+        "retrieved": [
+          {
+            "id": "expenses_policy.md#0",
+            "doc": "expenses_policy.md",
+            "text": "All business travel must be booked through the corporate travel desk at least 7 days before departure. Flights over 6 hours may be booked in premium economy with line manager approval.\nStaff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.\nExpense claims must be submitted within 30 days of the trip together with original receipts. Claims above 500 euros require approval from the department head before reimbursement.",
+            "heading": "Booking Travel"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'The minimum duration for booking a flight in premium economy is over 6 hours.', 'citations': [{'doc': 'expenses_policy.md', 'quote': 'Flights over 6 hours may be booked in premium economy with line manager approval.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "The minimum duration for booking a flight in premium economy is over 6 hours.",
+          "citations": [
+            {
+              "doc": "expenses_policy.md",
+              "quote": "Flights over 6 hours may be booked in premium economy with line manager approval."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 19.5185227394104,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "ans-03",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-04",
+        "type": "answerable",
+        "question": "How many days of paid sick leave can an employee take per year?",
+        "expected_facts": [
+          "10 days"
+        ],
+        "source_docs": [
+          "leave_policy.md"
+        ],
+        "source_quotes": [
+          "Employees may take up to 10 days of paid sick leave per year."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=leave_policy.md#0"
+      },
+      "trace": {
+        "question": "How many days of paid sick leave can an employee take per year?",
+        "retrieved": [
+          {
+            "id": "leave_policy.md#0",
+            "doc": "leave_policy.md",
+            "text": "Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at\nleast 14 days in advance through the HR portal.\nUnused annual leave may be carried over, up to a maximum of 5 days, into the following year.\nEmployees may take up to 10 days of paid sick leave per year. A medical certificate is required for any\nabsence longer than 3 consecutive days.",
+            "heading": "Annual Leave"
+          },
+          {
+            "id": "expenses_policy.md#0",
+            "doc": "expenses_policy.md",
+            "text": "All business travel must be booked through the corporate travel desk at least 7 days before departure. Flights over 6 hours may be booked in premium economy with line manager approval.\nStaff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.\nExpense claims must be submitted within 30 days of the trip together with original receipts. Claims above 500 euros require approval from the department head before reimbursement.",
+            "heading": "Booking Travel"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'An employee can take up to 10 days of paid sick leave per year.', 'citations': [{'doc': 'leave_policy.md', 'quote': 'Employees may take up to 10 days of paid sick leave per year.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "An employee can take up to 10 days of paid sick leave per year.",
+          "citations": [
+            {
+              "doc": "leave_policy.md",
+              "quote": "Employees may take up to 10 days of paid sick leave per year."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 31.545928478240967,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "ans-04",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "mul-01",
+        "type": "multi_doc",
+        "question": "How many days of paid sick leave can an employee take per year, and what is the minimum notice required for business travel?",
+        "expected_facts": [
+          "10 days",
+          "7 days"
+        ],
+        "source_docs": [
+          "expenses_policy.md",
+          "leave_policy.md"
+        ],
+        "source_quotes": [
+          "All business travel must be booked through the corporate travel desk at least 7 days before departure.",
+          "Employees may take up to 10 days of paid sick leave per year."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunks=expenses_policy.md#0,leave_policy.md#0"
+      },
+      "trace": {
+        "question": "How many days of paid sick leave can an employee take per year, and what is the minimum notice required for business travel?",
+        "retrieved": [
+          {
+            "id": "leave_policy.md#0",
+            "doc": "leave_policy.md",
+            "text": "Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at\nleast 14 days in advance through the HR portal.\nUnused annual leave may be carried over, up to a maximum of 5 days, into the following year.\nEmployees may take up to 10 days of paid sick leave per year. A medical certificate is required for any\nabsence longer than 3 consecutive days.",
+            "heading": "Annual Leave"
+          },
+          {
+            "id": "expenses_policy.md#0",
+            "doc": "expenses_policy.md",
+            "text": "All business travel must be booked through the corporate travel desk at least 7 days before departure. Flights over 6 hours may be booked in premium economy with line manager approval.\nStaff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.\nExpense claims must be submitted within 30 days of the trip together with original receipts. Claims above 500 euros require approval from the department head before reimbursement.",
+            "heading": "Booking Travel"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'An employee can take up to 10 days of paid sick leave per year. The minimum notice required for business travel is at least 7 days.', 'citations': [{'doc': 'expenses_policy.md', 'quote': 'All business travel must be booked through the corporate travel desk at least 7 days before departure.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "An employee can take up to 10 days of paid sick leave per year. The minimum notice required for business travel is at least 7 days.",
+          "citations": [
+            {
+              "doc": "expenses_policy.md",
+              "quote": "All business travel must be booked through the corporate travel desk at least 7 days before departure."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 24.557350397109985,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "mul-01",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true,
+          true
+        ],
+        "fact_methods": [
+          "exact",
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "mul-02",
+        "type": "multi_doc",
+        "question": "How many days of paid annual leave do Shore staff have per calendar year, and what is the minimum notice period required for business travel through the corporate travel desk?",
+        "expected_facts": [
+          "25 days",
+          "7 days"
+        ],
+        "source_docs": [
+          "leave_policy.md",
+          "expenses_policy.md"
+        ],
+        "source_quotes": [
+          "Shore staff are entitled to 25 days of paid annual leave per calendar year.",
+          "All business travel must be booked through the corporate travel desk at least 7 days before departure."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunks=leave_policy.md#0,expenses_policy.md#0"
+      },
+      "trace": {
+        "question": "How many days of paid annual leave do Shore staff have per calendar year, and what is the minimum notice period required for business travel through the corporate travel desk?",
+        "retrieved": [
+          {
+            "id": "leave_policy.md#0",
+            "doc": "leave_policy.md",
+            "text": "Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at\nleast 14 days in advance through the HR portal.\nUnused annual leave may be carried over, up to a maximum of 5 days, into the following year.\nEmployees may take up to 10 days of paid sick leave per year. A medical certificate is required for any\nabsence longer than 3 consecutive days.",
+            "heading": "Annual Leave"
+          },
+          {
+            "id": "expenses_policy.md#0",
+            "doc": "expenses_policy.md",
+            "text": "All business travel must be booked through the corporate travel desk at least 7 days before departure. Flights over 6 hours may be booked in premium economy with line manager approval.\nStaff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.\nExpense claims must be submitted within 30 days of the trip together with original receipts. Claims above 500 euros require approval from the department head before reimbursement.",
+            "heading": "Booking Travel"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'Shore staff have 25 days of paid annual leave per calendar year, and the minimum notice period required for business travel through the corporate travel desk is at least 7 days.', 'citations': [{'doc': 'leave_policy.md', 'quote': 'Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at least 14 days in advance through the HR portal.'}, {'doc': 'expenses_policy.md', 'quote': 'All business travel must be booked through the corporate travel desk at least 7 days before departure.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "Shore staff have 25 days of paid annual leave per calendar year, and the minimum notice period required for business travel through the corporate travel desk is at least 7 days.",
+          "citations": [
+            {
+              "doc": "leave_policy.md",
+              "quote": "Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at least 14 days in advance through the HR portal."
+            },
+            {
+              "doc": "expenses_policy.md",
+              "quote": "All business travel must be booked through the corporate travel desk at least 7 days before departure."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true,
+          true
+        ],
+        "latency_s": 40.732219219207764,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "mul-02",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true,
+          true
+        ],
+        "fact_methods": [
+          "exact",
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "amb-01",
+        "type": "ambiguous",
+        "question": "What's the meal allowance?",
+        "expected_facts": [
+          "40 euros per day"
+        ],
+        "source_docs": [
+          "expenses_policy.md"
+        ],
+        "source_quotes": [
+          "Staff travelling domestically receive a meal allowance of 40 euros per day."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "rewrite of chunk=expenses_policy.md#0; vagueness: no longer says ['domestic', 'staff', 'travel']"
+      },
+      "trace": {
+        "question": "What's the meal allowance?",
+        "retrieved": [
+          {
+            "id": "expenses_policy.md#0",
+            "doc": "expenses_policy.md",
+            "text": "All business travel must be booked through the corporate travel desk at least 7 days before departure. Flights over 6 hours may be booked in premium economy with line manager approval.\nStaff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.\nExpense claims must be submitted within 30 days of the trip together with original receipts. Claims above 500 euros require approval from the department head before reimbursement.",
+            "heading": "Booking Travel"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'The meal allowance varies based on the type of travel. For domestic travel, it is 40 euros per day, and for international travel, it is 65 euros per day, paid with the monthly payroll.', 'citations': [{'doc': 'expenses_policy.md', 'quote': 'Staff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "The meal allowance varies based on the type of travel. For domestic travel, it is 40 euros per day, and for international travel, it is 65 euros per day, paid with the monthly payroll.",
+          "citations": [
+            {
+              "doc": "expenses_policy.md",
+              "quote": "Staff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 35.99046611785889,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "amb-01",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "amb-02",
+        "type": "ambiguous",
+        "question": "What's the sick leave?",
+        "expected_facts": [
+          "10 days"
+        ],
+        "source_docs": [
+          "leave_policy.md"
+        ],
+        "source_quotes": [
+          "Employees may take up to 10 days of paid sick leave per year."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "rewrite of chunk=leave_policy.md#0; vagueness: no longer says ['day', 'employee', 'many', 'paid', 'per', 'take', 'year']"
+      },
+      "trace": {
+        "question": "What's the sick leave?",
+        "retrieved": [
+          {
+            "id": "leave_policy.md#0",
+            "doc": "leave_policy.md",
+            "text": "Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at\nleast 14 days in advance through the HR portal.\nUnused annual leave may be carried over, up to a maximum of 5 days, into the following year.\nEmployees may take up to 10 days of paid sick leave per year. A medical certificate is required for any\nabsence longer than 3 consecutive days.",
+            "heading": "Annual Leave"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'Shore staff are entitled to 10 days of paid sick leave per year. A medical certificate is required for any absence longer than 3 consecutive days.', 'citations': [{'doc': 'leave_policy.md', 'quote': 'Employees may take up to 10 days of paid sick leave per year.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "Shore staff are entitled to 10 days of paid sick leave per year. A medical certificate is required for any absence longer than 3 consecutive days.",
+          "citations": [
+            {
+              "doc": "leave_policy.md",
+              "quote": "Employees may take up to 10 days of paid sick leave per year."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 23.622599601745605,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "amb-02",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "oos-01",
+        "type": "out_of_scope",
+        "question": "Can Shore staff use their personal vehicles for official business, and if so, what are the guidelines?",
+        "expected_facts": [],
+        "source_docs": [],
+        "source_quotes": [],
+        "should_refuse": true,
+        "split": "dev",
+        "notes": "kind=near_domain"
+      },
+      "trace": {
+        "question": "Can Shore staff use their personal vehicles for official business, and if so, what are the guidelines?",
+        "retrieved": [
+          {
+            "id": "leave_policy.md#0",
+            "doc": "leave_policy.md",
+            "text": "Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at\nleast 14 days in advance through the HR portal.\nUnused annual leave may be carried over, up to a maximum of 5 days, into the following year.\nEmployees may take up to 10 days of paid sick leave per year. A medical certificate is required for any\nabsence longer than 3 consecutive days.",
+            "heading": "Annual Leave"
+          },
+          {
+            "id": "expenses_policy.md#0",
+            "doc": "expenses_policy.md",
+            "text": "All business travel must be booked through the corporate travel desk at least 7 days before departure. Flights over 6 hours may be booked in premium economy with line manager approval.\nStaff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.\nExpense claims must be submitted within 30 days of the trip together with original receipts. Claims above 500 euros require approval from the department head before reimbursement.",
+            "heading": "Booking Travel"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': \"I can't help with that; it is outside what my documents cover.\", 'citations': [], 'refused': True, 'refusal_reason': 'The provided documents do not contain any information regarding the use of personal vehicles for official business.'}",
+        "answer": {
+          "answer": "I can't help with that; it is outside what my documents cover.",
+          "citations": [],
+          "refused": true,
+          "refusal_reason": "The provided documents do not contain any information regarding the use of personal vehicles for official business."
+        },
+        "contract_ok": true,
+        "citations_verified": [],
+        "latency_s": 23.548727989196777,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "oos-01",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [],
+        "fact_methods": [],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "oos-02",
+        "type": "out_of_scope",
+        "question": "What are the procedures for Shore staff to follow if they need to extend their leave beyond the standard policy?",
+        "expected_facts": [],
+        "source_docs": [],
+        "source_quotes": [],
+        "should_refuse": true,
+        "split": "dev",
+        "notes": "kind=near_domain"
+      },
+      "trace": {
+        "question": "What are the procedures for Shore staff to follow if they need to extend their leave beyond the standard policy?",
+        "retrieved": [
+          {
+            "id": "leave_policy.md#0",
+            "doc": "leave_policy.md",
+            "text": "Shore staff are entitled to 25 days of paid annual leave per calendar year. Leave must be requested at\nleast 14 days in advance through the HR portal.\nUnused annual leave may be carried over, up to a maximum of 5 days, into the following year.\nEmployees may take up to 10 days of paid sick leave per year. A medical certificate is required for any\nabsence longer than 3 consecutive days.",
+            "heading": "Annual Leave"
+          },
+          {
+            "id": "expenses_policy.md#0",
+            "doc": "expenses_policy.md",
+            "text": "All business travel must be booked through the corporate travel desk at least 7 days before departure. Flights over 6 hours may be booked in premium economy with line manager approval.\nStaff travelling domestically receive a meal allowance of 40 euros per day. International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll.\nExpense claims must be submitted within 30 days of the trip together with original receipts. Claims above 500 euros require approval from the department head before reimbursement.",
+            "heading": "Booking Travel"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'If Shore staff need to extend their leave beyond the standard policy, they must request the extension through the HR portal at least 14 days in advance. There is no specific procedure mentioned in the provided documents for extending leave beyond the standard policy.', 'citations': [{'doc': 'leave_policy.md', 'quote': 'Leave must be requested at least 14 days in advance through the HR portal.'}], 'refused': True, 'refusal_reason': 'The provided documents do not cover procedures for extending leave beyond the standard policy.'}",
+        "answer": {
+          "answer": "If Shore staff need to extend their leave beyond the standard policy, they must request the extension through the HR portal at least 14 days in advance. There is no specific procedure mentioned in the provided documents for extending leave beyond the standard policy.",
+          "citations": [
+            {
+              "doc": "leave_policy.md",
+              "quote": "Leave must be requested at least 14 days in advance through the HR portal."
+            }
+          ],
+          "refused": true,
+          "refusal_reason": "The provided documents do not cover procedures for extending leave beyond the standard policy."
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 33.20828080177307,
+        "error": ""
+      },
+      "verdict": {
+        "case_id": "oos-02",
+        "grounded": false,
+        "correct": false,
+        "refusal_correct": false,
+        "passed": false,
+        "fact_hits": [],
+        "fact_methods": [],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": [
+          "hallucination: refusal flag set but the answer still asserts content"
+        ]
+      }
+    }
+  ],
+  "rejudged_with_current_judge": true
+}

@@ -1,0 +1,46 @@
+{
+  "attempted_accepted": {
+    "answerable:attempted": 5,
+    "answerable:accepted": 4,
+    "multi_doc:attempted": 5,
+    "multi_doc:accepted": 2,
+    "ambiguous:attempted": 4,
+    "ambiguous:accepted": 1,
+    "out_of_scope:attempted": 6
+  },
+  "rejections": {
+    "answerable:question strays from its source sentence": 1,
+    "multi_doc:fact not in sources": 2,
+    "multi_doc:compares values with different units": 1,
+    "ambiguous:rewrite lost the topic": 1,
+    "ambiguous:not actually vaguer than the original": 1,
+    "ambiguous:duplicate question": 1,
+    "out_of_scope:too similar to the documents (might be answerable)": 6
+  },
+  "rejection_examples": {
+    "answerable:question strays from its source sentence": [
+      "Q='What is the minimum number of consecutive days for an absence to be considered?' facts=['3 consecutive days'] sentence='absence longer than 3 consecutive days.'"
+    ],
+    "multi_doc:fact not in sources": [
+      "Q='How many days of absence require a notice if longer than the business travel booking requirement, and how much is the daily allowance for leave?' facts=['7 days', '3 consecutive days', '65 euros per day'] in_A=[True, False, False] in_B=[False, True, False]",
+      "Q='Compare the number of paid annual leave days for Shore staff with the cost of premium economy flights over 6 hours. How many paid annual leave days do Shore staff get? And what is the cost per flight over 6 hours in premium economy?' facts=['25 days', 'cost per flight over 6 hours'] in_A=[True, False] in_B=[False, False]"
+    ],
+    "multi_doc:compares values with different units": [
+      "Q='Compare the meal allowance for staff travelling domestically with the paid annual leave for shore staff. Which allowance is higher and by how much?' facts=['40 euros per day', '25 days'] in_A=[True, False] in_B=[False, True]"
+    ],
+    "ambiguous:rewrite lost the topic": [
+      "Q=\"What's the leave?\" original='How many days of paid annual leave do Shore staff get per year?' dropped=['annual', 'day', 'get', 'many', 'paid', 'per', 'shor', 'staff', 'year']"
+    ],
+    "ambiguous:not actually vaguer than the original": [
+      "Q=\"What's the minimum booking duration for flights in premium economy?\" original='What is the minimum duration for booking a flight in premium economy?' dropped=[]"
+    ],
+    "ambiguous:duplicate question": [
+      "Q=\"What's the meal allowance?\" original='What is the meal allowance for international travel in euros per day?' dropped=['day', 'euro', 'international', 'per', 'travel']"
+    ],
+    "out_of_scope:too similar to the documents (might be answerable)": [
+      "Q='What is the maximum amount of annual leave a shore staff member can request in a calendar year?'",
+      "Q=\"How do we reimburse travel expenses for official business when the policy doesn't specify the reimbursement percentage?\"",
+      "Q='Who is responsible for approving travel expenses over a certain amount under the policy?'"
+    ]
+  }
+}

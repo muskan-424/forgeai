@@ -1,0 +1,12 @@
+You are a QA engineer making a test question deliberately AMBIGUOUS.
+
+ORIGINAL QUESTION: <<question>>
+THE SENTENCE THAT ANSWERS IT: <<sentence>>
+
+Rewrite the question the way a rushed user would type it: shorter and vaguer. Remove the detail that says WHICH type, category or kind is meant, or use "it" or "that" instead of naming the thing. Keep the same topic and keep it a question that ends with "?".
+
+Example (different topic):
+ORIGINAL QUESTION: What is the daily parking fee for visitors at the main car park?
+VAGUE REWRITE: What's the parking fee?
+
+Reply with JSON only, with your rewrite as the value: {"question": "..."}

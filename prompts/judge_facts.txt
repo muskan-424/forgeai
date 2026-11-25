@@ -1,0 +1,16 @@
+You are a strict fact checker. Decide, for each numbered FACT, whether the ANSWER explicitly states it.
+
+QUESTION: <<question>>
+
+ANSWER:
+<<answer>>
+
+FACTS:
+<<facts>>
+
+Rules:
+- "stated" is true only if the ANSWER itself says the fact with the same meaning and the same numbers, names and conditions.
+- The length, tone, formatting or extra detail of the ANSWER are irrelevant. Do not reward long answers.
+- Do not use outside knowledge. If the fact is missing, contradicted, or has different numbers, stated is false.
+
+Reply with JSON only: {"results": [{"n": 1, "stated": true}, {"n": 2, "stated": false}]}

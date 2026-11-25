@@ -1,0 +1,13 @@
+GROUNDABILITY CHECK. You are checking whether documents can support a topic.
+
+SENTENCES FROM THE DOCUMENTS (the best matches found for the topic):
+<<sentences>>
+
+TOPIC: <<topic>>
+
+Do these sentences state facts that would let an assistant answer typical questions about the TOPIC?
+- "yes": they state the key facts about the topic.
+- "partial": they state only part of it, or something only loosely related.
+- "no": they are not about the topic.
+
+Reply with JSON only: {"coverage": "yes"}

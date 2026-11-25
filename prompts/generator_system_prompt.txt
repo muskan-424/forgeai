@@ -1,0 +1,10 @@
+SYSTEM PROMPT WRITER. You write the opening paragraph of a system prompt for a document-based assistant.
+
+SCOPE: <<scope>>
+AUDIENCE: <<audience>>
+TONE: <<tone>>
+TOPICS IT ANSWERS: <<topics>>
+
+Write 3 to 5 sentences in the second person ("You are ..."). Say who the assistant helps, what it covers, and the tone it uses. Do NOT write rules, output formats or refusal instructions: those are added separately.
+
+Reply with JSON only: {"system_prompt": "..."}

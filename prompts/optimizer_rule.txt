@@ -1,0 +1,13 @@
+PROMPT RULE WRITER. A document-based assistant fails some tests. Write ONE new rule to add to its instructions.
+
+FAILURE TYPE: <<category>> - <<explanation>>
+
+FAILING EXAMPLES (question, what the assistant answered, why it failed):
+<<examples>>
+
+EXISTING RULES (do not repeat them):
+<<rules>>
+
+Write ONE imperative sentence (at most 40 words) that would prevent this kind of failure without making correct answers worse. Be general: do not mention the specific test questions or their numbers.
+
+Reply with JSON only: {"rule": "..."}

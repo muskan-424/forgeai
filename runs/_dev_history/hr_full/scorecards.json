@@ -1,0 +1,367 @@
+[
+  {
+    "iteration": 0,
+    "decision": "baseline",
+    "dev": {
+      "overall": {
+        "passed": 5,
+        "n": 6,
+        "rate": 0.833,
+        "ci95": [
+          0.436,
+          0.97
+        ]
+      },
+      "by_split": {
+        "dev": {
+          "passed": 5,
+          "n": 6,
+          "rate": 0.833,
+          "ci95": [
+            0.436,
+            0.97
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        },
+        "answerable": {
+          "passed": 3,
+          "n": 3,
+          "rate": 1.0,
+          "ci95": [
+            0.438,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 2,
+          "n": 2,
+          "rate": 1.0,
+          "ci95": [
+            0.342,
+            1.0
+          ]
+        }
+      },
+      "refusal_accuracy": null,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 32.6,
+      "failures": [
+        {
+          "id": "amb-01",
+          "type": "ambiguous",
+          "split": "dev",
+          "question": "What's the meal allowance?",
+          "reasons": [
+            "facts matched 0/1"
+          ]
+        }
+      ]
+    },
+    "holdout": {
+      "overall": {
+        "passed": 0,
+        "n": 1,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.793
+        ]
+      },
+      "by_split": {
+        "holdout": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        }
+      },
+      "by_type": {
+        "answerable": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        }
+      },
+      "refusal_accuracy": null,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 35.2,
+      "failures": [
+        {
+          "id": "ans-03",
+          "type": "answerable",
+          "split": "holdout",
+          "question": "What is the minimum duration for booking a flight in premium economy?",
+          "reasons": [
+            "facts matched 0/1"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "iteration": 1,
+    "decision": "reverted",
+    "dev": {
+      "overall": {
+        "passed": 5,
+        "n": 6,
+        "rate": 0.833,
+        "ci95": [
+          0.436,
+          0.97
+        ]
+      },
+      "by_split": {
+        "dev": {
+          "passed": 5,
+          "n": 6,
+          "rate": 0.833,
+          "ci95": [
+            0.436,
+            0.97
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        },
+        "answerable": {
+          "passed": 3,
+          "n": 3,
+          "rate": 1.0,
+          "ci95": [
+            0.438,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 2,
+          "n": 2,
+          "rate": 1.0,
+          "ci95": [
+            0.342,
+            1.0
+          ]
+        }
+      },
+      "refusal_accuracy": null,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 0.833,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 48.5,
+      "failures": [
+        {
+          "id": "amb-01",
+          "type": "ambiguous",
+          "split": "dev",
+          "question": "What's the meal allowance?",
+          "reasons": [
+            "facts matched 0/1",
+            "ungrounded: citation quote not found in retrieved context (fabricated)"
+          ]
+        }
+      ]
+    },
+    "holdout": null
+  },
+  {
+    "iteration": 2,
+    "decision": "kept",
+    "dev": {
+      "overall": {
+        "passed": 6,
+        "n": 6,
+        "rate": 1.0,
+        "ci95": [
+          0.61,
+          1.0
+        ]
+      },
+      "by_split": {
+        "dev": {
+          "passed": 6,
+          "n": 6,
+          "rate": 1.0,
+          "ci95": [
+            0.61,
+            1.0
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "ci95": [
+            0.207,
+            1.0
+          ]
+        },
+        "answerable": {
+          "passed": 3,
+          "n": 3,
+          "rate": 1.0,
+          "ci95": [
+            0.438,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 2,
+          "n": 2,
+          "rate": 1.0,
+          "ci95": [
+            0.342,
+            1.0
+          ]
+        }
+      },
+      "refusal_accuracy": null,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 52.5,
+      "failures": []
+    },
+    "holdout": null
+  },
+  {
+    "iteration": "final",
+    "decision": "final",
+    "dev": {
+      "overall": {
+        "passed": 6,
+        "n": 6,
+        "rate": 1.0,
+        "ci95": [
+          0.61,
+          1.0
+        ]
+      },
+      "by_split": {
+        "dev": {
+          "passed": 6,
+          "n": 6,
+          "rate": 1.0,
+          "ci95": [
+            0.61,
+            1.0
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "ci95": [
+            0.207,
+            1.0
+          ]
+        },
+        "answerable": {
+          "passed": 3,
+          "n": 3,
+          "rate": 1.0,
+          "ci95": [
+            0.438,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 2,
+          "n": 2,
+          "rate": 1.0,
+          "ci95": [
+            0.342,
+            1.0
+          ]
+        }
+      },
+      "refusal_accuracy": null,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 52.5,
+      "failures": []
+    },
+    "holdout": {
+      "overall": {
+        "passed": 0,
+        "n": 1,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.793
+        ]
+      },
+      "by_split": {
+        "holdout": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        }
+      },
+      "by_type": {
+        "answerable": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        }
+      },
+      "refusal_accuracy": null,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 32.8,
+      "failures": [
+        {
+          "id": "ans-03",
+          "type": "answerable",
+          "split": "holdout",
+          "question": "What is the minimum duration for booking a flight in premium economy?",
+          "reasons": [
+            "facts matched 0/1"
+          ]
+        }
+      ]
+    }
+  }
+]

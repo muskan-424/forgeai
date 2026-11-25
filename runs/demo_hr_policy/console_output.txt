@@ -1,0 +1,57 @@
+[1/6] intake: reading the brief and the documents
+      1 clarifying question(s), 2 assumption(s)
+[2/6] groundability guard: can the documents support the brief?
+      ! UNSUPPORTED: the documents do not cover 'pension contributions'. The agent will refuse it instead of guessing.
+      ! PARTIAL: the documents cover 'disciplinary process' only in part; expect refusals or gaps there.
+[3/6] generator: tools, retrieval parameters, system prompt
+      tools attached: none
+[4/6] eval generator: building a verified test set from the documents
+  [answerable] 1/6: How much notice does either party need to give during probation?
+  [answerable] 2/6: Who does this leave policy apply to?
+  [answerable] 3/6: How are daily allowances distributed?
+  [answerable] 4/6: How much leave do employees adopting a child receive?
+  [answerable] 5/6: How many days of paid annual leave do shore-based employees receive?
+  [answerable] 6/6: How much is reimbursed per kilometre for using a private car for business travel
+  [multi_doc] 1/3: How many months of unpaid leave can an employee request, and what is the maximum
+  [multi_doc] 2/3: How many months of annual leave do employees receive if they join in the middle 
+  [multi_doc] 3/3: How many days before departure must business travel be booked, and what applies 
+  [ambiguous] 1/2: What's the leave for adopting a child?
+  [ambiguous] 2/2: What's the paid leave?
+  [out_of_scope/must_refuse] How does the company handle pension contributions for its staff?
+  [out_of_scope/unrelated fallback] What are the specific health and safety measures implemented by Meridian Maritim
+      13 cases (9 dev / 4 holdout)
+[5/6] judge calibration: scoring synthetic answers with known verdicts
+      judge accuracy 100%, false passes 0
+[6/6] critic-optimizer loop
+== baseline: 9 dev + 4 holdout cases
+  [1/9] ans-01   PASS    0.0s  How much notice does either party need to give during probat
+  [2/9] mul-01   PASS    0.0s  How many months of unpaid leave can an employee request, and
+  [3/9] oos-01   PASS    0.0s  How does the company handle pension contributions for its st
+  [4/9] ans-02   PASS    0.0s  Who does this leave policy apply to?
+  [5/9] amb-02   FAIL    0.0s  What's the paid leave?
+  [6/9] oos-02   PASS    0.0s  What are the specific health and safety measures implemented
+  [7/9] mul-03   PASS    0.0s  How many days before departure must business travel be booke
+  [8/9] ans-04   PASS    0.0s  How much leave do employees adopting a child receive?
+  [9/9] ans-06   PASS    0.0s  How much is reimbursed per kilometre for using a private car
+  [1/4] amb-01   PASS    0.0s  What's the leave for adopting a child?
+  [2/4] mul-02   FAIL    0.0s  How many months of annual leave do employees receive if they
+  [3/4] ans-03   PASS    0.0s  How are daily allowances distributed?
+  [4/4] ans-05   PASS    0.0s  How many days of paid annual leave do shore-based employees 
+== iteration 1: hallucination x1 -> + rule: Each citation quote must be one or more whole sentences copied exactly, word for word, from the CONTEXT; never reword, shorten or merge sentences inside a quote.
+  [1/9] ans-01   PASS   65.5s  How much notice does either party need to give during probat
+  [2/9] mul-01   PASS   69.4s  How many months of unpaid leave can an employee request, and
+  [3/9] oos-01   PASS   20.6s  How does the company handle pension contributions for its st
+  [4/9] ans-02   PASS   42.9s  Who does this leave policy apply to?
+  [5/9] amb-02   PASS   83.7s  What's the paid leave?
+  [6/9] oos-02   PASS   40.3s  What are the specific health and safety measures implemented
+  [7/9] mul-03   PASS   64.8s  How many days before departure must business travel be booke
+  [8/9] ans-04   PASS   54.4s  How much leave do employees adopting a child receive?
+  [9/9] ans-06   PASS   42.2s  How much is reimbursed per kilometre for using a private car
+   dev 8 -> 9 of 9: kept (fixed ['amb-02'])
+== final holdout run with the best definition
+  [1/4] amb-01   PASS   38.2s  What's the leave for adopting a child?
+  [2/4] mul-02   FAIL   94.5s  How many months of annual leave do employees receive if they
+  [3/4] ans-03   PASS   69.0s  How are daily allowances distributed?
+  [4/4] ans-05   PASS   56.2s  How many days of paid annual leave do shore-based employees 
+Done in 13.1 min. Report: runs\demo_hr_policy\report.md
+exit 0

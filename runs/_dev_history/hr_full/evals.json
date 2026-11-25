@@ -1,0 +1,127 @@
+[
+  {
+    "id": "ans-01",
+    "type": "answerable",
+    "question": "What is the meal allowance for domestic travel for staff?",
+    "expected_facts": [
+      "40 euros per day"
+    ],
+    "source_docs": [
+      "expenses_policy.md"
+    ],
+    "source_quotes": [
+      "Staff travelling domestically receive a meal allowance of 40 euros per day."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=expenses_policy.md#0"
+  },
+  {
+    "id": "ans-02",
+    "type": "answerable",
+    "question": "How many days of paid annual leave do Shore staff get per year?",
+    "expected_facts": [
+      "25 days"
+    ],
+    "source_docs": [
+      "leave_policy.md"
+    ],
+    "source_quotes": [
+      "Shore staff are entitled to 25 days of paid annual leave per calendar year."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=leave_policy.md#0"
+  },
+  {
+    "id": "ans-03",
+    "type": "answerable",
+    "question": "What is the minimum duration for booking a flight in premium economy?",
+    "expected_facts": [
+      "over 6 hours"
+    ],
+    "source_docs": [
+      "expenses_policy.md"
+    ],
+    "source_quotes": [
+      "Flights over 6 hours may be booked in premium economy with line manager approval."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "chunk=expenses_policy.md#0"
+  },
+  {
+    "id": "ans-04",
+    "type": "answerable",
+    "question": "What is the meal allowance for international travel in euros per day?",
+    "expected_facts": [
+      "65 euros per day"
+    ],
+    "source_docs": [
+      "expenses_policy.md"
+    ],
+    "source_quotes": [
+      "International travel carries a meal allowance of 65 euros per day, paid with the monthly payroll."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=expenses_policy.md#0"
+  },
+  {
+    "id": "mul-01",
+    "type": "multi_doc",
+    "question": "How much sick leave can an employee take per year, and what is the threshold for reimbursement claims requiring department head approval?",
+    "expected_facts": [
+      "10 days",
+      "500 euros"
+    ],
+    "source_docs": [
+      "expenses_policy.md",
+      "leave_policy.md"
+    ],
+    "source_quotes": [
+      "Claims above 500 euros require approval from the department head before reimbursement.",
+      "Employees may take up to 10 days of paid sick leave per year."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunks=expenses_policy.md#0,leave_policy.md#0"
+  },
+  {
+    "id": "mul-02",
+    "type": "multi_doc",
+    "question": "How many days of paid annual leave do Shore staff have per calendar year, and what is the minimum notice period required for business travel through the corporate travel desk?",
+    "expected_facts": [
+      "25 days",
+      "7 days"
+    ],
+    "source_docs": [
+      "leave_policy.md",
+      "expenses_policy.md"
+    ],
+    "source_quotes": [
+      "Shore staff are entitled to 25 days of paid annual leave per calendar year.",
+      "All business travel must be booked through the corporate travel desk at least 7 days before departure."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunks=leave_policy.md#0,expenses_policy.md#0"
+  },
+  {
+    "id": "amb-01",
+    "type": "ambiguous",
+    "question": "What's the meal allowance?",
+    "expected_facts": [
+      "40 euros per day"
+    ],
+    "source_docs": [
+      "expenses_policy.md"
+    ],
+    "source_quotes": [
+      "Staff travelling domestically receive a meal allowance of 40 euros per day."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "rewrite of chunk=expenses_policy.md#0; vagueness: no longer says ['domestic', 'staff', 'travel']"
+  }
+]

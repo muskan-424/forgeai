@@ -1,0 +1,1 @@
+I need an assistant that answers HR policy questions for shore staff at a shipping company: leave and sick pay, travel and expenses, and working hours, notice periods and the disciplinary process. It should also tell staff how their pension contributions work. Keep a clear, friendly tone.

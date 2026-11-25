@@ -1,0 +1,29 @@
+{
+  "tool_decisions": [
+    {
+      "tool": "csv_lookup",
+      "attached": false,
+      "reason": "precondition failed: no .csv document provided"
+    },
+    {
+      "tool": "calculator",
+      "attached": false,
+      "reason": "no evidence in the brief that this tool is needed"
+    },
+    {
+      "tool": "open_meteo",
+      "attached": false,
+      "reason": "no evidence in the brief that this tool is needed"
+    },
+    {
+      "tool": "current_date",
+      "attached": false,
+      "reason": "no evidence in the brief that this tool is needed"
+    }
+  ],
+  "persona_source": "model",
+  "retrieval_basis": {
+    "documents": 2,
+    "chunks": 3
+  }
+}

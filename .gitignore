@@ -1,0 +1,10 @@
+__pycache__/
+.pytest_cache/
+.llm_cache/
+*.pyc
+
+# the assignment brief says not to copy or share it
+OceanAI_*.pdf
+
+# local machine helper, unrelated to ForgeAI
+scripts/

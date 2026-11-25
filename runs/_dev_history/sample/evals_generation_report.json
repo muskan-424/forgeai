@@ -1,0 +1,46 @@
+{
+  "attempted_accepted": {
+    "answerable:attempted": 4,
+    "answerable:accepted": 4,
+    "multi_doc:attempted": 5,
+    "multi_doc:accepted": 2,
+    "ambiguous:attempted": 4,
+    "ambiguous:accepted": 2,
+    "out_of_scope:attempted": 6,
+    "out_of_scope:accepted": 2
+  },
+  "rejections": {
+    "multi_doc:compares values with different units": 1,
+    "multi_doc:question strays from its source sentence": 1,
+    "multi_doc:fact not in sources": 1,
+    "ambiguous:rewrite lost the topic": 1,
+    "ambiguous:not actually vaguer than the original": 1,
+    "out_of_scope:too similar to the documents (might be answerable)": 3,
+    "out_of_scope:documents appear to answer it (model check)": 1
+  },
+  "rejection_examples": {
+    "multi_doc:compares values with different units": [
+      "Q='Compare the meal allowance for staff travelling domestically with the paid annual leave for shore staff. Which allowance is higher and by how much?' facts=['40 euros per day', '25 days'] in_A=[True, False] in_B=[False, True]"
+    ],
+    "multi_doc:question strays from its source sentence": [
+      "Q='How much is the minimum advance notice required for leave, and what is the threshold for reimbursement claims that need department head approval?' facts=['14 days', '500 euros'] in_A=[False, True] in_B=[True, False]"
+    ],
+    "multi_doc:fact not in sources": [
+      "Q='Compare the number of paid annual leave days for Shore staff with the cost of premium economy flights over 6 hours. How many paid annual leave days do Shore staff get? And what is the cost per flight over 6 hours in premium economy?' facts=['25 days', 'cost per flight over 6 hours'] in_A=[True, False] in_B=[False, False]"
+    ],
+    "ambiguous:rewrite lost the topic": [
+      "Q=\"What's the leave?\" original='How many days of paid annual leave do Shore staff get per year?' dropped=['annual', 'day', 'get', 'many', 'paid', 'per', 'shore', 'staff', 'year']"
+    ],
+    "ambiguous:not actually vaguer than the original": [
+      "Q=\"What's the minimum booking duration for flights in premium economy?\" original='What is the minimum duration for booking a flight in premium economy?' dropped=[]"
+    ],
+    "out_of_scope:too similar to the documents (might be answerable)": [
+      "Q='What is the maximum number of days Shore staff can request for a personal emergency not covered by the leave policy?'",
+      "Q='How does Shore handle the situation when an employee needs to travel for work-related reasons but does not have a Shore-issued travel card?'",
+      "Q='How does Shore handle the situation if a Shore staff member requests a travel expense reimbursement for an event that is not work-related?'"
+    ],
+    "out_of_scope:documents appear to answer it (model check)": [
+      "Q=\"Who is responsible for approving travel expenses that exceed the company's standard reimbursement rate?\""
+    ]
+  }
+}

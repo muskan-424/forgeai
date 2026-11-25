@@ -1,0 +1,416 @@
+{
+  "name": "procurement-team-ship-management-agent",
+  "scorecards": [
+    {
+      "iteration": 0,
+      "decision": "baseline",
+      "dev": {
+        "overall": {
+          "passed": 6,
+          "n": 8,
+          "rate": 0.75,
+          "ci95": [
+            0.409,
+            0.929
+          ]
+        },
+        "by_split": {
+          "dev": {
+            "passed": 6,
+            "n": 8,
+            "rate": 0.75,
+            "ci95": [
+              0.409,
+              0.929
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 3,
+            "n": 3,
+            "rate": 1.0,
+            "ci95": [
+              0.438,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "out_of_scope": {
+            "passed": 2,
+            "n": 3,
+            "rate": 0.667,
+            "ci95": [
+              0.208,
+              0.939
+            ]
+          }
+        },
+        "refusal_accuracy": 0.667,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 1.0,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 1273.1,
+        "failures": [
+          {
+            "id": "amb-02",
+            "type": "ambiguous",
+            "split": "dev",
+            "question": "What's the unit price?",
+            "reasons": [
+              "facts matched 0/1"
+            ]
+          },
+          {
+            "id": "oos-02",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "How do I calculate the total cost of ownership for spare parts?",
+            "reasons": [
+              "agent error: Ollama call failed (HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=300)). Is `ollama se"
+            ]
+          }
+        ]
+      },
+      "holdout": {
+        "overall": {
+          "passed": 3,
+          "n": 4,
+          "rate": 0.75,
+          "ci95": [
+            0.301,
+            0.954
+          ]
+        },
+        "by_split": {
+          "holdout": {
+            "passed": 3,
+            "n": 4,
+            "rate": 0.75,
+            "ci95": [
+              0.301,
+              0.954
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          }
+        },
+        "refusal_accuracy": null,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 0.75,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 102.7,
+        "failures": [
+          {
+            "id": "amb-01",
+            "type": "ambiguous",
+            "split": "holdout",
+            "question": "What's the reporting time for purchases?",
+            "reasons": [
+              "ungrounded: cited [] but expected ['procurement_procedure.pdf']"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "iteration": "final",
+      "decision": "final",
+      "dev": {
+        "overall": {
+          "passed": 6,
+          "n": 8,
+          "rate": 0.75,
+          "ci95": [
+            0.409,
+            0.929
+          ]
+        },
+        "by_split": {
+          "dev": {
+            "passed": 6,
+            "n": 8,
+            "rate": 0.75,
+            "ci95": [
+              0.409,
+              0.929
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 3,
+            "n": 3,
+            "rate": 1.0,
+            "ci95": [
+              0.438,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "out_of_scope": {
+            "passed": 2,
+            "n": 3,
+            "rate": 0.667,
+            "ci95": [
+              0.208,
+              0.939
+            ]
+          }
+        },
+        "refusal_accuracy": 0.667,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 1.0,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 1273.1,
+        "failures": [
+          {
+            "id": "amb-02",
+            "type": "ambiguous",
+            "split": "dev",
+            "question": "What's the unit price?",
+            "reasons": [
+              "facts matched 0/1"
+            ]
+          },
+          {
+            "id": "oos-02",
+            "type": "out_of_scope",
+            "split": "dev",
+            "question": "How do I calculate the total cost of ownership for spare parts?",
+            "reasons": [
+              "agent error: Ollama call failed (HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=300)). Is `ollama se"
+            ]
+          }
+        ]
+      },
+      "holdout": {
+        "overall": {
+          "passed": 3,
+          "n": 4,
+          "rate": 0.75,
+          "ci95": [
+            0.301,
+            0.954
+          ]
+        },
+        "by_split": {
+          "holdout": {
+            "passed": 3,
+            "n": 4,
+            "rate": 0.75,
+            "ci95": [
+              0.301,
+              0.954
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          }
+        },
+        "refusal_accuracy": null,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 0.75,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 102.7,
+        "failures": [
+          {
+            "id": "amb-01",
+            "type": "ambiguous",
+            "split": "holdout",
+            "question": "What's the reporting time for purchases?",
+            "reasons": [
+              "ungrounded: cited [] but expected ['procurement_procedure.pdf']"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "changelog": [],
+  "stop_reason": "time budget (4500s) would be exceeded by another iteration",
+  "residual_failures": [
+    {
+      "set": "dev",
+      "id": "amb-02",
+      "type": "ambiguous",
+      "question": "What's the unit price?",
+      "category": "retrieval_miss",
+      "why_category": "the passage that answers the question was not among the retrieved context",
+      "detail": "answer not in retrieved context",
+      "judge_reasons": [
+        "facts matched 0/1"
+      ],
+      "agent_answer": "The unit prices are provided in the 'unit_price_eur' column of the spares_catalogue.csv file. For example, the Fire extinguisher 9 kg, foam (part_no: OS-3736) has a unit price of 103.04 EUR.",
+      "refused": false
+    },
+    {
+      "set": "dev",
+      "id": "oos-02",
+      "type": "out_of_scope",
+      "question": "How do I calculate the total cost of ownership for spare parts?",
+      "category": "agent_error",
+      "why_category": "the agent run failed before producing an answer",
+      "detail": "Ollama call failed (HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=300)). Is `ollama serve` running and `ol",
+      "judge_reasons": [
+        "agent error: Ollama call failed (HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=300)). Is `ollama se"
+      ],
+      "agent_answer": "",
+      "refused": false
+    },
+    {
+      "set": "holdout",
+      "id": "amb-01",
+      "type": "ambiguous",
+      "question": "What's the reporting time for purchases?",
+      "category": "hallucination",
+      "why_category": "the answer asserted content that the context does not support (or answered an out-of-scope question)",
+      "detail": "ungrounded: cited [] but expected ['procurement_procedure.pdf']",
+      "judge_reasons": [
+        "ungrounded: cited [] but expected ['procurement_procedure.pdf']"
+      ],
+      "agent_answer": "The reporting time for purchases is within 2 working days for differences between the delivery and the purchase order, and within 24 hours for safety-critical items or vessel risks going off-hire.",
+      "refused": false
+    }
+  ],
+  "calibration": {
+    "probes": 16,
+    "accuracy": 1.0,
+    "false_pass": 0,
+    "false_fail": 0,
+    "llm_false_accepts": 0,
+    "by_kind": {
+      "gold": "2/2",
+      "padded_gold": "2/2",
+      "wrong_facts": "2/2",
+      "padded_wrong": "2/2",
+      "wrong_refusal": "2/2",
+      "oos_refused": "2/2",
+      "oos_answered": "2/2",
+      "oos_hedged": "2/2"
+    }
+  },
+  "eval_composition": {
+    "types": {
+      "answerable": 5,
+      "multi_doc": 2,
+      "ambiguous": 2,
+      "out_of_scope": 3
+    },
+    "splits": {
+      "dev": 8,
+      "holdout": 4
+    }
+  },
+  "usage": {
+    "factory (intake, guard, generator, evalgen)": {
+      "calls": 16,
+      "cache_hits": 4,
+      "prompt_tokens": 4659,
+      "completion_tokens": 541,
+      "seconds": 560.0650100708008
+    },
+    "agent": {
+      "calls": 11,
+      "cache_hits": 0,
+      "prompt_tokens": 18251,
+      "completion_tokens": 1439,
+      "seconds": 1283.5915203094482
+    },
+    "judge": {
+      "calls": 8,
+      "cache_hits": 4,
+      "prompt_tokens": 2155,
+      "completion_tokens": 232,
+      "seconds": 237.34744715690613
+    }
+  },
+  "total_seconds": 11399.751583576202
+}

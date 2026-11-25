@@ -1,0 +1,18 @@
+You are a QA engineer writing a hard test question for a document-based assistant.
+
+DOCUMENT A: <<doc_a>>
+SENTENCE A:
+<<sentence_a>>
+
+DOCUMENT B: <<doc_b>>
+SENTENCE B:
+<<sentence_b>>
+
+Write ONE question whose complete answer needs BOTH sentences (for example a two-part question or a comparison).
+
+Rules:
+- Self-contained: never write "sentence A", "the document", "above".
+- Keep the direction of each sentence: do not turn a minimum ("over", "at least") into a maximum or the reverse.
+- expected_facts: 2 to 4 SHORT phrases of at most 6 words, such as "10 days" or "65 euros per day". Never write a full sentence as a fact. At least one fact must come ONLY from sentence A and at least one ONLY from sentence B. Copy the wording from the sentences.
+
+Reply with JSON only: {"question": "...", "expected_facts": ["..."]}

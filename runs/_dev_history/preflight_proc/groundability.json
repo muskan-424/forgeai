@@ -1,0 +1,75 @@
+{
+  "entries": [
+    {
+      "topic": "Quotations",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "Orders above EUR 2,000 require at least 2 written quotations.",
+      "doc": "procurement_procedure.pdf",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "Volume discounts",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "Baltic Electric AB and Orion Safety Ltd do not give volume discounts.",
+      "doc": "supplier_terms.pdf",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "spare parts in the catalogue",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": "partial",
+      "evidence": "Applies to all purchases of vessel spares from approved suppliers.",
+      "doc": "supplier_terms.pdf",
+      "note": "model cautious ('partial'); topic words fully present (lexical 1.0) in the quoted sentence"
+    },
+    {
+      "topic": "lead times",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "part_no: HM-7539; description: Exhaust valve spindle; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 995.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24",
+      "doc": "spares_catalogue.csv",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "stock status",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "part_no: OS-3736; description: Fire extinguisher 9 kg, foam; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 103.04; lead_time_days: 56; stock_status: Backordered; warranty_months: 24",
+      "doc": "spares_catalogue.csv",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "order totals",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "Discounts apply to the order total before freight and are not combined across suppliers.",
+      "doc": "supplier_terms.pdf",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "approved-supplier terms",
+      "status": "partial",
+      "lexical": 0.35,
+      "model": "partial",
+      "evidence": "Payment terms: net 45 days.",
+      "doc": "supplier_terms.pdf",
+      "note": "model said 'partial', lexical coverage 0.35"
+    }
+  ],
+  "gaps": [],
+  "partial": [
+    "approved-supplier terms"
+  ],
+  "warnings": [
+    "PARTIAL: the documents cover 'approved-supplier terms' only in part; expect refusals or gaps there."
+  ],
+  "blocking": false
+}

@@ -1,0 +1,12 @@
+You are a QA engineer writing OUT-OF-SCOPE test questions for a document-based assistant.
+
+ASSISTANT PURPOSE: <<purpose>>
+
+DOCUMENTS IT HAS (names and section headings only):
+<<inventory>>
+
+KIND OF QUESTION TO WRITE: <<kind_instruction>>
+
+Write <<n>> different questions of that kind. Each must be something the documents above clearly do NOT answer, so the assistant should refuse. Make them realistic user questions, one sentence each, self-contained.
+
+Reply with JSON only: {"questions": ["...", "..."]}

@@ -1,0 +1,40 @@
+[
+  {
+    "iteration": 1,
+    "category": "prompt_defect",
+    "source": "library",
+    "what_changed": "+ rule: Answer the exact question asked, giving the exact figure and unit from the CONTEXT, and answer every part of a multi-part question.",
+    "why": "add proven rule for prompt_defect/general",
+    "failures_addressed": [
+      "amb-01"
+    ],
+    "fixed": [],
+    "broken": [],
+    "dev_passed_before": 5,
+    "dev_passed_after": 5,
+    "dev_total": 6,
+    "decision": "reverted",
+    "decision_reason": "no net gain: fixed nothing; patch reverted",
+    "seconds": 362.7
+  },
+  {
+    "iteration": 2,
+    "category": "prompt_defect",
+    "source": "model",
+    "what_changed": "+ rule: If the answer matches a fact in the context, explicitly state 'The context contains this information, but does not provide a refusal or correction, so I cannot answer this question based on the given context.'",
+    "why": "model-written rule from 1 failing example(s) for prompt_defect",
+    "failures_addressed": [
+      "amb-01"
+    ],
+    "fixed": [
+      "amb-01"
+    ],
+    "broken": [],
+    "dev_passed_before": 5,
+    "dev_passed_after": 6,
+    "dev_total": 6,
+    "decision": "kept",
+    "decision_reason": "net gain on dev cases",
+    "seconds": 315.5
+  }
+]

@@ -1,0 +1,61 @@
+part_no,description,category,supplier,unit_price_eur,lead_time_days,stock_status,warranty_months
+HM-2354,"Fuel injector, 6-cylinder main engine",Engine and pumps,Hartmann Marine GmbH,470.00,21,Made to order,24
+HM-4801,"Piston ring set, 400 mm bore",Engine and pumps,Hartmann Marine GmbH,657.00,21,Made to order,12
+HM-7152,"Cylinder liner, 400 mm bore",Engine and pumps,Hartmann Marine GmbH,2179.00,7,In stock,24
+HM-2094,Turbocharger cartridge assembly,Engine and pumps,Hartmann Marine GmbH,6914.00,3,In stock,12
+HM-7514,"Lube oil pump, 45 m3/h",Engine and pumps,Hartmann Marine GmbH,2537.00,7,In stock,12
+HM-9947,Fuel oil filter element,Engine and pumps,Hartmann Marine GmbH,41.93,3,In stock,12
+HM-7028,Cooling water pump seal kit,Engine and pumps,Hartmann Marine GmbH,128.00,56,Backordered,24
+HM-3884,Camshaft bearing shell set,Engine and pumps,Hartmann Marine GmbH,425.00,7,In stock,24
+HM-7539,Exhaust valve spindle,Engine and pumps,Hartmann Marine GmbH,995.00,56,Backordered,24
+HM-5008,Starting air valve,Engine and pumps,Hartmann Marine GmbH,623.00,42,Backordered,12
+HM-6426,Crankcase relief valve,Engine and pumps,Hartmann Marine GmbH,463.00,7,In stock,12
+HM-9939,Governor actuator,Engine and pumps,Hartmann Marine GmbH,3657.00,3,In stock,24
+HM-9976,Fresh water generator ejector,Engine and pumps,Hartmann Marine GmbH,1315.00,70,Backordered,24
+HM-6625,Oil mist detector sensor,Engine and pumps,Hartmann Marine GmbH,322.00,7,In stock,24
+HM-7680,Bilge pump impeller,Engine and pumps,Hartmann Marine GmbH,226.00,3,In stock,12
+PV-8265,"Gate valve DN50, bronze",Valves and fittings,Pacific Valve Co.,132.01,5,In stock,24
+PV-8108,"Gate valve DN100, cast steel",Valves and fittings,Pacific Valve Co.,289.00,3,In stock,12
+PV-5249,"Globe valve DN40, bronze",Valves and fittings,Pacific Valve Co.,132.50,7,In stock,12
+PV-3466,"Butterfly valve DN150, wafer type",Valves and fittings,Pacific Valve Co.,241.00,7,In stock,12
+PV-9355,"Check valve DN80, swing type",Valves and fittings,Pacific Valve Co.,134.00,28,Made to order,12
+PV-9461,"Ball valve DN25, stainless steel",Valves and fittings,Pacific Valve Co.,61.08,56,Backordered,12
+PV-3446,Sea chest strainer DN200,Valves and fittings,Pacific Valve Co.,435.00,70,Backordered,24
+PV-7837,Quick-closing valve DN50,Valves and fittings,Pacific Valve Co.,493.00,7,In stock,12
+PV-5217,Safety relief valve DN32,Valves and fittings,Pacific Valve Co.,448.00,3,In stock,6
+PV-3995,Flange gasket kit DN100,Valves and fittings,Pacific Valve Co.,33.37,3,In stock,12
+PV-1982,"Pipe coupling DN80, flexible",Valves and fittings,Pacific Valve Co.,121.95,7,In stock,24
+PV-6511,Non-return valve DN65,Valves and fittings,Pacific Valve Co.,170.60,7,In stock,12
+PV-4157,Pressure reducing valve DN25,Valves and fittings,Pacific Valve Co.,455.00,45,Made to order,12
+PV-5356,Expansion joint DN100,Valves and fittings,Pacific Valve Co.,317.00,5,In stock,6
+PV-1893,"Hose coupling set, 50 mm",Valves and fittings,Pacific Valve Co.,37.65,70,Backordered,12
+BE-2625,"Alternator AVR unit, 440 V",Electrical and navigation,Baltic Electric AB,1228.00,35,Made to order,12
+BE-2454,Gyro compass sensor,Electrical and navigation,Baltic Electric AB,6641.00,3,In stock,24
+BE-9054,"VHF marine radio, DSC class D",Electrical and navigation,Baltic Electric AB,540.00,5,In stock,6
+BE-7006,"GPS receiver, IEC 61108",Electrical and navigation,Baltic Electric AB,564.00,70,Backordered,6
+BE-8530,"Navigation light, LED masthead",Electrical and navigation,Baltic Electric AB,222.00,5,In stock,12
+BE-9002,Echo sounder transducer,Electrical and navigation,Baltic Electric AB,1201.00,70,Backordered,12
+BE-1747,"Circuit breaker, 630 A",Electrical and navigation,Baltic Electric AB,563.00,7,In stock,6
+BE-8131,Emergency lighting battery pack,Electrical and navigation,Baltic Electric AB,97.43,7,In stock,12
+BE-3199,AIS transponder class A,Electrical and navigation,Baltic Electric AB,2661.00,7,In stock,12
+BE-9165,Radar magnetron,Electrical and navigation,Baltic Electric AB,2208.00,28,Made to order,24
+BE-2784,"Cable gland set, brass",Electrical and navigation,Baltic Electric AB,32.79,3,In stock,12
+BE-5437,"Motor starter, 22 kW",Electrical and navigation,Baltic Electric AB,460.00,28,Made to order,6
+BE-4569,Voyage data recorder capsule battery,Electrical and navigation,Baltic Electric AB,343.00,56,Backordered,12
+BE-7407,Shaft generator controller,Electrical and navigation,Baltic Electric AB,3108.00,3,In stock,12
+BE-3427,Anemometer sensor,Electrical and navigation,Baltic Electric AB,307.00,3,In stock,6
+OS-1158,"Lifejacket, SOLAS approved",Lifesaving and fire-fighting,Orion Safety Ltd,41.76,5,In stock,24
+OS-1845,"Liferaft service kit, 25 person",Lifesaving and fire-fighting,Orion Safety Ltd,697.00,42,Backordered,12
+OS-4343,"EPIRB battery, 6 year",Lifesaving and fire-fighting,Orion Safety Ltd,286.00,5,In stock,12
+OS-3736,"Fire extinguisher 9 kg, foam",Lifesaving and fire-fighting,Orion Safety Ltd,103.04,56,Backordered,24
+OS-4521,"SCBA cylinder, 6.8 L",Lifesaving and fire-fighting,Orion Safety Ltd,409.00,7,In stock,24
+OS-1546,"Fireman outfit, complete",Lifesaving and fire-fighting,Orion Safety Ltd,983.00,3,In stock,12
+OS-5954,"Immersion suit, adult",Lifesaving and fire-fighting,Orion Safety Ltd,280.00,7,In stock,24
+OS-7783,Hydrostatic release unit,Lifesaving and fire-fighting,Orion Safety Ltd,73.66,56,Backordered,12
+OS-8384,Lifebuoy with light and smoke signal,Lifesaving and fire-fighting,Orion Safety Ltd,76.41,5,In stock,6
+OS-6547,"Fire hose, 20 m with couplings",Lifesaving and fire-fighting,Orion Safety Ltd,96.22,7,In stock,12
+OS-6098,"CO2 cylinder, 45 kg refill",Lifesaving and fire-fighting,Orion Safety Ltd,369.00,5,In stock,24
+OS-9458,"Rocket parachute flares, box of 4",Lifesaving and fire-fighting,Orion Safety Ltd,183.56,7,In stock,12
+OS-6544,Breathing apparatus compressor filter,Lifesaving and fire-fighting,Orion Safety Ltd,209.00,70,Backordered,6
+OS-6464,Emergency escape breathing device,Lifesaving and fire-fighting,Orion Safety Ltd,242.00,3,In stock,24
+OS-4046,"Fixed foam concentrate, 25 L",Lifesaving and fire-fighting,Orion Safety Ltd,151.11,7,In stock,12

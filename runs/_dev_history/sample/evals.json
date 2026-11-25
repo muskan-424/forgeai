@@ -1,0 +1,166 @@
+[
+  {
+    "id": "ans-01",
+    "type": "answerable",
+    "question": "What is the meal allowance for domestic travel for staff?",
+    "expected_facts": [
+      "40 euros per day"
+    ],
+    "source_docs": [
+      "expenses_policy.md"
+    ],
+    "source_quotes": [
+      "Staff travelling domestically receive a meal allowance of 40 euros per day."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=expenses_policy.md#0"
+  },
+  {
+    "id": "ans-02",
+    "type": "answerable",
+    "question": "How many days of paid annual leave do Shore staff get per year?",
+    "expected_facts": [
+      "25 days"
+    ],
+    "source_docs": [
+      "leave_policy.md"
+    ],
+    "source_quotes": [
+      "Shore staff are entitled to 25 days of paid annual leave per calendar year."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=leave_policy.md#0"
+  },
+  {
+    "id": "ans-03",
+    "type": "answerable",
+    "question": "What is the minimum duration for booking a flight in premium economy?",
+    "expected_facts": [
+      "over 6 hours"
+    ],
+    "source_docs": [
+      "expenses_policy.md"
+    ],
+    "source_quotes": [
+      "Flights over 6 hours may be booked in premium economy with line manager approval."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "chunk=expenses_policy.md#0"
+  },
+  {
+    "id": "ans-04",
+    "type": "answerable",
+    "question": "How many days of paid sick leave can an employee take per year?",
+    "expected_facts": [
+      "10 days"
+    ],
+    "source_docs": [
+      "leave_policy.md"
+    ],
+    "source_quotes": [
+      "Employees may take up to 10 days of paid sick leave per year."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=leave_policy.md#0"
+  },
+  {
+    "id": "mul-01",
+    "type": "multi_doc",
+    "question": "How many days of paid sick leave can an employee take per year, and what is the minimum notice required for business travel?",
+    "expected_facts": [
+      "10 days",
+      "7 days"
+    ],
+    "source_docs": [
+      "expenses_policy.md",
+      "leave_policy.md"
+    ],
+    "source_quotes": [
+      "All business travel must be booked through the corporate travel desk at least 7 days before departure.",
+      "Employees may take up to 10 days of paid sick leave per year."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunks=expenses_policy.md#0,leave_policy.md#0"
+  },
+  {
+    "id": "mul-02",
+    "type": "multi_doc",
+    "question": "How many days of paid annual leave do Shore staff have per calendar year, and what is the minimum notice period required for business travel through the corporate travel desk?",
+    "expected_facts": [
+      "25 days",
+      "7 days"
+    ],
+    "source_docs": [
+      "leave_policy.md",
+      "expenses_policy.md"
+    ],
+    "source_quotes": [
+      "Shore staff are entitled to 25 days of paid annual leave per calendar year.",
+      "All business travel must be booked through the corporate travel desk at least 7 days before departure."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunks=leave_policy.md#0,expenses_policy.md#0"
+  },
+  {
+    "id": "amb-01",
+    "type": "ambiguous",
+    "question": "What's the meal allowance?",
+    "expected_facts": [
+      "40 euros per day"
+    ],
+    "source_docs": [
+      "expenses_policy.md"
+    ],
+    "source_quotes": [
+      "Staff travelling domestically receive a meal allowance of 40 euros per day."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "rewrite of chunk=expenses_policy.md#0; vagueness: no longer says ['domestic', 'staff', 'travel']"
+  },
+  {
+    "id": "amb-02",
+    "type": "ambiguous",
+    "question": "What's the sick leave?",
+    "expected_facts": [
+      "10 days"
+    ],
+    "source_docs": [
+      "leave_policy.md"
+    ],
+    "source_quotes": [
+      "Employees may take up to 10 days of paid sick leave per year."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "rewrite of chunk=leave_policy.md#0; vagueness: no longer says ['day', 'employee', 'many', 'paid', 'per', 'take', 'year']"
+  },
+  {
+    "id": "oos-01",
+    "type": "out_of_scope",
+    "question": "Can Shore staff use their personal vehicles for official business, and if so, what are the guidelines?",
+    "expected_facts": [],
+    "source_docs": [],
+    "source_quotes": [],
+    "should_refuse": true,
+    "split": "dev",
+    "notes": "kind=near_domain"
+  },
+  {
+    "id": "oos-02",
+    "type": "out_of_scope",
+    "question": "What are the procedures for Shore staff to follow if they need to extend their leave beyond the standard policy?",
+    "expected_facts": [],
+    "source_docs": [],
+    "source_quotes": [],
+    "should_refuse": true,
+    "split": "dev",
+    "notes": "kind=near_domain"
+  }
+]

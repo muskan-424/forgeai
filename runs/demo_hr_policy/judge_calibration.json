@@ -1,0 +1,17 @@
+{
+  "probes": 16,
+  "accuracy": 1.0,
+  "false_pass": 0,
+  "false_fail": 0,
+  "llm_false_accepts": 0,
+  "by_kind": {
+    "gold": "2/2",
+    "padded_gold": "2/2",
+    "wrong_facts": "2/2",
+    "padded_wrong": "2/2",
+    "wrong_refusal": "2/2",
+    "oos_refused": "2/2",
+    "oos_answered": "2/2",
+    "oos_hedged": "2/2"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "attempted_accepted": {
+    "answerable:attempted": 7,
+    "answerable:accepted": 5,
+    "multi_doc:attempted": 2,
+    "multi_doc:accepted": 2,
+    "ambiguous:attempted": 2,
+    "ambiguous:accepted": 2,
+    "out_of_scope:attempted": 10,
+    "out_of_scope:accepted": 3
+  },
+  "rejections": {
+    "answerable:question strays from its source sentence": 2
+  },
+  "rejection_examples": {
+    "answerable:question strays from its source sentence": [
+      "Q='What is the minimum order amount that requires approval from the technical director?' facts=['EUR 10,001', 'EUR 50,000', 'technical director'] sentence='Orders from EUR 10,001 to EUR 50,000 need approval from the technical director.'",
+      "Q='What is the minimum warranty period if not specified in the catalogue?' facts=['12 months', 'unless the catalogue states otherwise'] sentence='Standard warranty is 12 months from delivery unless the catalogue states otherwise.'"
+    ]
+  }
+}

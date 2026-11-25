@@ -1,0 +1,10 @@
+ANSWERABILITY CHECK. You are verifying a test question for a document-based assistant.
+
+TEXT FROM THE DOCUMENTS:
+<<context>>
+
+QUESTION: <<question>>
+
+Does the TEXT above contain the information needed to answer the QUESTION, fully or partly? Answer true if the text states the answer or most of it (even in different words). Answer false only if the text clearly does not say it.
+
+Reply with JSON only: {"answerable": true|false}

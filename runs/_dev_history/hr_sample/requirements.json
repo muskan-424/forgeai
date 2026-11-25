@@ -1,0 +1,63 @@
+{
+  "brief": "I need an assistant that answers HR policy questions for shore staff. Keep a formal tone.",
+  "scope": "This assistant covers HR policies related to expenses and leave for shore staff.",
+  "audience": "shore staff who need answers to HR policy questions",
+  "tone": "formal",
+  "must_answer": [
+    "Booking Travel",
+    "Daily Allowances",
+    "Claiming Expenses",
+    "Annual Leave"
+  ],
+  "must_refuse": [
+    "anything not covered by the provided documents"
+  ],
+  "assumptions": [
+    "must_refuse not specified; assumed: anything not covered by the provided documents"
+  ],
+  "clarifications": [
+    {
+      "q": "Are there topics the assistant must refuse or hand off to a human, even if the documents mention them?",
+      "a": "(no answer; default assumed)",
+      "slot": "must_refuse"
+    }
+  ],
+  "groundability": [
+    {
+      "topic": "Booking Travel",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": "partial",
+      "evidence": "All business travel must be booked through the corporate travel desk at least 7 days before departure.",
+      "doc": "expenses_policy.md",
+      "note": "model cautious ('partial'); topic words fully present (lexical 1.0) in the quoted sentence"
+    },
+    {
+      "topic": "Daily Allowances",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": "yes",
+      "evidence": "Staff travelling domestically receive a meal allowance of 40 euros per day.",
+      "doc": "expenses_policy.md",
+      "note": ""
+    },
+    {
+      "topic": "Claiming Expenses",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": "yes",
+      "evidence": "Expense claims must be submitted within 30 days of the trip together with original receipts.",
+      "doc": "expenses_policy.md",
+      "note": ""
+    },
+    {
+      "topic": "Annual Leave",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": "yes",
+      "evidence": "Shore staff are entitled to 25 days of paid annual leave per calendar year.",
+      "doc": "leave_policy.md",
+      "note": ""
+    }
+  ]
+}
