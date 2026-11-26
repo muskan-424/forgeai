@@ -1,0 +1,85 @@
+{
+  "brief": "I need an assistant that answers HR policy questions for shore staff at a shipping company: leave and sick pay, travel and expenses, and working hours, notice periods and the disciplinary process. It should also tell staff how their pension contributions work. Keep a clear, friendly tone.",
+  "scope": "Answers HR policy questions for shore staff at a shipping company regarding leave and sick pay, travel and expenses, working hours, notice periods, and the disciplinary process.",
+  "audience": "shore staff at a shipping company",
+  "tone": "friendly",
+  "must_answer": [
+    "leave and sick pay",
+    "travel and expenses",
+    "working hours",
+    "notice periods",
+    "disciplinary process",
+    "pension contributions"
+  ],
+  "must_refuse": [
+    "anything not covered by the provided documents",
+    "pension contributions (not covered by the documents)"
+  ],
+  "assumptions": [
+    "Topic 'pension contributions' taken verbatim from the brief sentence \"It should also tell staff how their pension contributions work.\" (the model's topic list had missed it).",
+    "must_refuse not specified; assumed: anything not covered by the provided documents"
+  ],
+  "clarifications": [
+    {
+      "q": "Are there topics the assistant must refuse or hand off to a human, even if the documents mention them?",
+      "a": "(no answer; default assumed)",
+      "slot": "must_refuse"
+    }
+  ],
+  "groundability": [
+    {
+      "topic": "leave and sick pay",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "Employees receive full pay for the first 10 days of sick leave in a leave year.",
+      "doc": "leave_policy.pdf",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "travel and expenses",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": "yes",
+      "evidence": "Expense claims must be submitted within 30 days of the end of the trip, together with original receipts.",
+      "doc": "travel_expenses_policy.pdf",
+      "note": ""
+    },
+    {
+      "topic": "working hours",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "The standard working week is 37.5 hours.",
+      "doc": "conduct_and_employment_policy.pdf",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "notice periods",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "After probation the notice period is 1 month for employees with less than 5 years of service and 2 months for employees with 5 or more years of service.",
+      "doc": "conduct_and_employment_policy.pdf",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "disciplinary process",
+      "status": "partial",
+      "lexical": 0.39,
+      "model": "partial",
+      "evidence": "Employees may be accompanied by a colleague or union representative at any disciplinary hearing.",
+      "doc": "conduct_and_employment_policy.pdf",
+      "note": "model said 'partial', lexical coverage 0.39"
+    },
+    {
+      "topic": "pension contributions",
+      "status": "unsupported",
+      "lexical": 0.0,
+      "model": null,
+      "evidence": "",
+      "doc": "",
+      "note": "no passage shares any words with the topic"
+    }
+  ]
+}

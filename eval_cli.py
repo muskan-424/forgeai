@@ -24,7 +24,7 @@ def cmd_gen(a) -> int:
     llm = LLM(model=config.AGENT_MODEL)
     gen = EvalGenerator(chunks, llm, purpose=a.purpose, must_refuse=a.must_refuse)
     n_ans, n_mul, n_oos, n_amb = a.n
-    cases = gen.generate(n_ans, n_mul, n_oos, n_amb)
+    cases = gen.generate(n_ans, n_mul, n_oos, n_amb, min_total=a.min_cases)
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps([c.model_dump() for c in cases], indent=2), encoding="utf-8")
@@ -88,6 +88,7 @@ def main() -> int:
     g.add_argument("--out", required=True)
     g.add_argument("--purpose", default="")
     g.add_argument("--must-refuse", nargs="*", default=[])
+    g.add_argument("--min-cases", type=int, default=20)
     g.add_argument("--n", nargs=4, type=int, default=[14, 5, 6, 5], metavar=("ANS", "MULTI", "OOS", "AMB"))
     r = sub.add_parser("run")
     r.add_argument("--definition", required=True)

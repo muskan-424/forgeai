@@ -22,6 +22,7 @@
     }
   ],
   "persona_source": "model",
+  "refusal_gate": "ON from the start: the brief explicitly forbids legal advice about contracts",
   "retrieval_basis": {
     "documents": 3,
     "chunks": 18

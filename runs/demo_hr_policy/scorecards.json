@@ -4,41 +4,41 @@
     "decision": "baseline",
     "dev": {
       "overall": {
-        "passed": 8,
-        "n": 9,
-        "rate": 0.889,
+        "passed": 13,
+        "n": 14,
+        "rate": 0.929,
         "ci95": [
-          0.565,
-          0.98
+          0.685,
+          0.987
         ]
       },
       "by_split": {
         "dev": {
-          "passed": 8,
-          "n": 9,
-          "rate": 0.889,
+          "passed": 13,
+          "n": 14,
+          "rate": 0.929,
           "ci95": [
-            0.565,
-            0.98
+            0.685,
+            0.987
           ]
         }
       },
       "by_type": {
         "ambiguous": {
-          "passed": 0,
-          "n": 1,
-          "rate": 0.0,
+          "passed": 1,
+          "n": 2,
+          "rate": 0.5,
           "ci95": [
-            0.0,
-            0.793
+            0.095,
+            0.905
           ]
         },
         "answerable": {
-          "passed": 4,
-          "n": 4,
+          "passed": 7,
+          "n": 7,
           "rate": 1.0,
           "ci95": [
-            0.51,
+            0.646,
             1.0
           ]
         },
@@ -52,20 +52,20 @@
           ]
         },
         "out_of_scope": {
-          "passed": 2,
-          "n": 2,
+          "passed": 3,
+          "n": 3,
           "rate": 1.0,
           "ci95": [
-            0.342,
+            0.438,
             1.0
           ]
         }
       },
       "refusal_accuracy": 1.0,
       "wrong_refusal_rate": 0.0,
-      "grounded_rate": 0.889,
+      "grounded_rate": 0.929,
       "uncertain_judgements": 0,
-      "mean_latency_s": 0.0,
+      "mean_latency_s": 14.5,
       "failures": [
         {
           "id": "amb-02",
@@ -80,22 +80,22 @@
     },
     "holdout": {
       "overall": {
-        "passed": 3,
-        "n": 4,
-        "rate": 0.75,
+        "passed": 5,
+        "n": 6,
+        "rate": 0.833,
         "ci95": [
-          0.301,
-          0.954
+          0.436,
+          0.97
         ]
       },
       "by_split": {
         "holdout": {
-          "passed": 3,
-          "n": 4,
-          "rate": 0.75,
+          "passed": 5,
+          "n": 6,
+          "rate": 0.833,
           "ci95": [
-            0.301,
-            0.954
+            0.436,
+            0.97
           ]
         }
       },
@@ -110,11 +110,11 @@
           ]
         },
         "answerable": {
-          "passed": 2,
-          "n": 2,
+          "passed": 3,
+          "n": 3,
           "rate": 1.0,
           "ci95": [
-            0.342,
+            0.438,
             1.0
           ]
         },
@@ -126,13 +126,22 @@
             0.0,
             0.793
           ]
+        },
+        "out_of_scope": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "ci95": [
+            0.207,
+            1.0
+          ]
         }
       },
-      "refusal_accuracy": null,
+      "refusal_accuracy": 1.0,
       "wrong_refusal_rate": 0.0,
       "grounded_rate": 1.0,
       "uncertain_judgements": 0,
-      "mean_latency_s": 0.0,
+      "mean_latency_s": 7.9,
       "failures": [
         {
           "id": "mul-02",
@@ -151,41 +160,41 @@
     "decision": "kept",
     "dev": {
       "overall": {
-        "passed": 9,
-        "n": 9,
+        "passed": 14,
+        "n": 14,
         "rate": 1.0,
         "ci95": [
-          0.701,
+          0.785,
           1.0
         ]
       },
       "by_split": {
         "dev": {
-          "passed": 9,
-          "n": 9,
+          "passed": 14,
+          "n": 14,
           "rate": 1.0,
           "ci95": [
-            0.701,
+            0.785,
             1.0
           ]
         }
       },
       "by_type": {
         "ambiguous": {
-          "passed": 1,
-          "n": 1,
+          "passed": 2,
+          "n": 2,
           "rate": 1.0,
           "ci95": [
-            0.207,
+            0.342,
             1.0
           ]
         },
         "answerable": {
-          "passed": 4,
-          "n": 4,
+          "passed": 7,
+          "n": 7,
           "rate": 1.0,
           "ci95": [
-            0.51,
+            0.646,
             1.0
           ]
         },
@@ -199,11 +208,11 @@
           ]
         },
         "out_of_scope": {
-          "passed": 2,
-          "n": 2,
+          "passed": 3,
+          "n": 3,
           "rate": 1.0,
           "ci95": [
-            0.342,
+            0.438,
             1.0
           ]
         }
@@ -212,7 +221,7 @@
       "wrong_refusal_rate": 0.0,
       "grounded_rate": 1.0,
       "uncertain_judgements": 0,
-      "mean_latency_s": 53.7,
+      "mean_latency_s": 17.1,
       "failures": []
     },
     "holdout": null
@@ -222,41 +231,41 @@
     "decision": "final",
     "dev": {
       "overall": {
-        "passed": 9,
-        "n": 9,
+        "passed": 14,
+        "n": 14,
         "rate": 1.0,
         "ci95": [
-          0.701,
+          0.785,
           1.0
         ]
       },
       "by_split": {
         "dev": {
-          "passed": 9,
-          "n": 9,
+          "passed": 14,
+          "n": 14,
           "rate": 1.0,
           "ci95": [
-            0.701,
+            0.785,
             1.0
           ]
         }
       },
       "by_type": {
         "ambiguous": {
-          "passed": 1,
-          "n": 1,
+          "passed": 2,
+          "n": 2,
           "rate": 1.0,
           "ci95": [
-            0.207,
+            0.342,
             1.0
           ]
         },
         "answerable": {
-          "passed": 4,
-          "n": 4,
+          "passed": 7,
+          "n": 7,
           "rate": 1.0,
           "ci95": [
-            0.51,
+            0.646,
             1.0
           ]
         },
@@ -270,11 +279,11 @@
           ]
         },
         "out_of_scope": {
-          "passed": 2,
-          "n": 2,
+          "passed": 3,
+          "n": 3,
           "rate": 1.0,
           "ci95": [
-            0.342,
+            0.438,
             1.0
           ]
         }
@@ -283,27 +292,27 @@
       "wrong_refusal_rate": 0.0,
       "grounded_rate": 1.0,
       "uncertain_judgements": 0,
-      "mean_latency_s": 53.7,
+      "mean_latency_s": 17.1,
       "failures": []
     },
     "holdout": {
       "overall": {
-        "passed": 3,
-        "n": 4,
-        "rate": 0.75,
+        "passed": 5,
+        "n": 6,
+        "rate": 0.833,
         "ci95": [
-          0.301,
-          0.954
+          0.436,
+          0.97
         ]
       },
       "by_split": {
         "holdout": {
-          "passed": 3,
-          "n": 4,
-          "rate": 0.75,
+          "passed": 5,
+          "n": 6,
+          "rate": 0.833,
           "ci95": [
-            0.301,
-            0.954
+            0.436,
+            0.97
           ]
         }
       },
@@ -318,11 +327,11 @@
           ]
         },
         "answerable": {
-          "passed": 2,
-          "n": 2,
+          "passed": 3,
+          "n": 3,
           "rate": 1.0,
           "ci95": [
-            0.342,
+            0.438,
             1.0
           ]
         },
@@ -334,13 +343,22 @@
             0.0,
             0.793
           ]
+        },
+        "out_of_scope": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "ci95": [
+            0.207,
+            1.0
+          ]
         }
       },
-      "refusal_accuracy": null,
+      "refusal_accuracy": 1.0,
       "wrong_refusal_rate": 0.0,
       "grounded_rate": 1.0,
       "uncertain_judgements": 0,
-      "mean_latency_s": 64.5,
+      "mean_latency_s": 8.7,
       "failures": [
         {
           "id": "mul-02",

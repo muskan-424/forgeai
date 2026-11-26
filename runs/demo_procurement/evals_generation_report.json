@@ -1,21 +1,39 @@
 {
   "attempted_accepted": {
-    "answerable:attempted": 7,
-    "answerable:accepted": 5,
-    "multi_doc:attempted": 2,
-    "multi_doc:accepted": 2,
-    "ambiguous:attempted": 2,
-    "ambiguous:accepted": 2,
-    "out_of_scope:attempted": 11,
-    "out_of_scope:accepted": 3
+    "answerable:attempted": 12,
+    "answerable:accepted": 9,
+    "multi_doc:attempted": 12,
+    "multi_doc:accepted": 3,
+    "ambiguous:attempted": 3,
+    "ambiguous:accepted": 3,
+    "out_of_scope:attempted": 14,
+    "out_of_scope:accepted": 4,
+    "top_up:attempted": 2,
+    "top_up:accepted": 1
   },
   "rejections": {
-    "answerable:question strays from its source sentence": 2
+    "answerable:question strays from its source sentence": 4,
+    "multi_doc:fact not in sources": 6,
+    "multi_doc:question refers to the source text": 1,
+    "multi_doc:does not need both passages": 2
   },
   "rejection_examples": {
     "answerable:question strays from its source sentence": [
       "Q='What is the minimum order amount that requires approval from the technical director?' facts=['EUR 10,001', 'EUR 50,000', 'technical director'] sentence='Orders from EUR 10,001 to EUR 50,000 need approval from the technical director.'",
-      "Q='What is the minimum warranty period if not specified in the catalogue?' facts=['12 months', 'unless the catalogue states otherwise'] sentence='Standard warranty is 12 months from delivery unless the catalogue states otherwise.'"
+      "Q='What is the minimum warranty period if not specified in the catalogue?' facts=['12 months', 'unless the catalogue states otherwise'] sentence='Standard warranty is 12 months from delivery unless the catalogue states otherwise.'",
+      "Q='How many deliveries can a supplier fail before being removed?' facts=['two consecutive deliveries'] sentence='Suppliers that fail two consecutive deliveries may be removed from the approved list by th'"
+    ],
+    "multi_doc:fact not in sources": [
+      "Q='What is the unit price in EUR for the Motor starter, 22 kW, and what is the minimum order amount for written quotations?' facts=['460.00 euros', '2000 euros'] in_A=[False, False] in_B=[False, False]",
+      "Q=\"What is the unit price in Euros for the Fuel oil filter element, and what discount term applies to Hartmann Marine GmbH's orders?\" facts=['41.93 euros', 'Discounts apply'] in_A=[False, False] in_B=[False, True]",
+      "Q='What is the minimum order value required by Hartmann Marine GmbH, and what is the unit price for a made-to-order piston ring set?' facts=['657.00 euros', 'EUR 500'] in_A=[False, False] in_B=[False, True]"
+    ],
+    "multi_doc:question refers to the source text": [
+      "Q='How much is the handling fee for orders below the minimum, and what is the requirement for orders above EUR 10,000 in terms of quotations?' facts=['EUR 75', 'at least 3 written quotations'] in_A=[False, True] in_B=[True, False]"
+    ],
+    "multi_doc:does not need both passages": [
+      "Q='What is the unit price in Euros for the Emergency escape breathing device, and what is the warranty period in months for Orion Safety Ltd?' facts=['242.00', '24'] in_A=[False, False] in_B=[True, True]",
+      "Q='What is the warranty period for a valve with part number PV-6511, and what is the standard warranty period according to the supplier terms?' facts=['12 months', '12 months'] in_A=[True, True] in_B=[True, True]"
     ]
   }
 }

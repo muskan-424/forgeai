@@ -3,5 +3,6 @@
   "cache_hits": 4,
   "prompt_tokens": 0,
   "completion_tokens": 0,
-  "seconds": 0.0
+  "seconds": 0.0,
+  "cached_seconds": 0.0
 }

@@ -56,30 +56,30 @@
   {
     "id": "oos-01",
     "type": "out_of_scope",
-    "question": "How does the company handle pension contributions for its staff?",
+    "question": "How do I apply for a job at Meridian Maritime Services if I'm not a current employee?",
     "expected_facts": [],
     "source_docs": [],
     "source_quotes": [],
     "should_refuse": true,
     "split": "dev",
-    "notes": "kind=must_refuse"
+    "notes": "kind=near_domain"
   },
   {
     "id": "ans-02",
     "type": "answerable",
-    "question": "Who does this leave policy apply to?",
+    "question": "How are daily allowances distributed?",
     "expected_facts": [
-      "shore-based employees"
+      "paid with the monthly payroll"
     ],
     "source_docs": [
-      "leave_policy.pdf"
+      "travel_expenses_policy.pdf"
     ],
     "source_quotes": [
-      "Applies to shore-based employees."
+      "Allowances are paid with the monthly payroll."
     ],
     "should_refuse": false,
     "split": "dev",
-    "notes": "chunk=leave_policy.pdf#0"
+    "notes": "chunk=travel_expenses_policy.pdf#1"
   },
   {
     "id": "mul-02",
@@ -121,30 +121,30 @@
   {
     "id": "oos-02",
     "type": "out_of_scope",
-    "question": "What are the specific health and safety measures implemented by Meridian Maritime Services?",
+    "question": "What kind of benefits do I get if I'm a part-time employee at Meridian Maritime Services?",
     "expected_facts": [],
     "source_docs": [],
     "source_quotes": [],
     "should_refuse": true,
     "split": "dev",
-    "notes": "kind=unrelated (fallback: near-domain candidates were all answerable)"
+    "notes": "kind=near_domain"
   },
   {
     "id": "ans-03",
     "type": "answerable",
-    "question": "How are daily allowances distributed?",
+    "question": "How much leave do employees adopting a child receive?",
     "expected_facts": [
-      "paid with the monthly payroll"
+      "same leave as birth parents"
     ],
     "source_docs": [
-      "travel_expenses_policy.pdf"
+      "leave_policy.pdf"
     ],
     "source_quotes": [
-      "Allowances are paid with the monthly payroll."
+      "Employees adopting a child receive the same leave as birth parents."
     ],
     "should_refuse": false,
     "split": "holdout",
-    "notes": "chunk=travel_expenses_policy.pdf#1"
+    "notes": "chunk=leave_policy.pdf#2"
   },
   {
     "id": "mul-03",
@@ -167,24 +167,35 @@
     "notes": "chunks=conduct_and_employment_policy.pdf#0,travel_expenses_policy.pdf#0"
   },
   {
-    "id": "ans-04",
-    "type": "answerable",
-    "question": "How much leave do employees adopting a child receive?",
+    "id": "amb-03",
+    "type": "ambiguous",
+    "question": "What's the reimbursement per km for using a car for work?",
     "expected_facts": [
-      "same leave as birth parents"
+      "EUR 0.42 per kilometre"
     ],
     "source_docs": [
-      "leave_policy.pdf"
+      "travel_expenses_policy.pdf"
     ],
     "source_quotes": [
-      "Employees adopting a child receive the same leave as birth parents."
+      "Use of a private car for business travel is reimbursed at EUR 0.42 per kilometre."
     ],
     "should_refuse": false,
     "split": "dev",
-    "notes": "chunk=leave_policy.pdf#2"
+    "notes": "rewrite of chunk=travel_expenses_policy.pdf#2; vagueness: no longer says ['busine', 'kilometr', 'much', 'privat', 'reimbur', 'travel']"
   },
   {
-    "id": "ans-05",
+    "id": "oos-03",
+    "type": "out_of_scope",
+    "question": "Can you help me understand how much I need to contribute to the pension plan?",
+    "expected_facts": [],
+    "source_docs": [],
+    "source_quotes": [],
+    "should_refuse": true,
+    "split": "holdout",
+    "notes": "kind=must_refuse"
+  },
+  {
+    "id": "ans-04",
     "type": "answerable",
     "question": "How many days of paid annual leave do shore-based employees receive?",
     "expected_facts": [
@@ -197,11 +208,22 @@
       "Shore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December)."
     ],
     "should_refuse": false,
-    "split": "holdout",
+    "split": "dev",
     "notes": "chunk=leave_policy.pdf#0"
   },
   {
-    "id": "ans-06",
+    "id": "oos-04",
+    "type": "out_of_scope",
+    "question": "What are the specific health and safety measures implemented by Meridian Maritime Services?",
+    "expected_facts": [],
+    "source_docs": [],
+    "source_quotes": [],
+    "should_refuse": true,
+    "split": "dev",
+    "notes": "kind=unrelated"
+  },
+  {
+    "id": "ans-05",
     "type": "answerable",
     "question": "How much is reimbursed per kilometre for using a private car for business travel?",
     "expected_facts": [
@@ -214,7 +236,92 @@
       "Use of a private car for business travel is reimbursed at EUR 0.42 per kilometre."
     ],
     "should_refuse": false,
-    "split": "dev",
+    "split": "holdout",
     "notes": "chunk=travel_expenses_policy.pdf#2"
+  },
+  {
+    "id": "ans-06",
+    "type": "answerable",
+    "question": "What is the minimum working hours per week?",
+    "expected_facts": [
+      "37.5 hours"
+    ],
+    "source_docs": [
+      "conduct_and_employment_policy.pdf"
+    ],
+    "source_quotes": [
+      "The standard working week is 37.5 hours."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=conduct_and_employment_policy.pdf#0"
+  },
+  {
+    "id": "ans-07",
+    "type": "answerable",
+    "question": "How many days of paid compassionate leave do employees receive for the death of a sibling?",
+    "expected_facts": [
+      "2 days"
+    ],
+    "source_docs": [
+      "leave_policy.pdf"
+    ],
+    "source_quotes": [
+      "Employees receive 5 days of paid compassionate leave on the death of a spouse, partner, child or parent, and 2 days of paid compassionate leave on the death of a sibling, grandparent or parent-in-law."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=leave_policy.pdf#3"
+  },
+  {
+    "id": "ans-08",
+    "type": "answerable",
+    "question": "What is the working hours for Core hours?",
+    "expected_facts": [
+      "Core hours are 10:00 to 16:00"
+    ],
+    "source_docs": [
+      "conduct_and_employment_policy.pdf"
+    ],
+    "source_quotes": [
+      "Core hours are 10:00 to 16:00."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "chunk=conduct_and_employment_policy.pdf#0"
+  },
+  {
+    "id": "ans-09",
+    "type": "answerable",
+    "question": "What is the minimum approval required for unpaid leave?",
+    "expected_facts": [
+      "approval from the department director"
+    ],
+    "source_docs": [
+      "leave_policy.pdf"
+    ],
+    "source_quotes": [
+      "Unpaid leave requires approval from the department director."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=leave_policy.pdf#3"
+  },
+  {
+    "id": "ans-10",
+    "type": "answerable",
+    "question": "What is the overtime pay rate for the first 8 hours in a month?",
+    "expected_facts": [
+      "1.25 times the hourly rate"
+    ],
+    "source_docs": [
+      "conduct_and_employment_policy.pdf"
+    ],
+    "source_quotes": [
+      "Approved overtime is paid at 1.25 times the hourly rate for the first 8 hours in a month and 1.5 times after that."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=conduct_and_employment_policy.pdf#0"
   }
 ]

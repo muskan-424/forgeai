@@ -147,6 +147,12 @@ def refusal_topics(req: Requirements) -> list[str]:
     return out
 
 
+def explicit_refusals(req: Requirements) -> list[str]:
+    """Refusals the REQUESTER stated (not the generic default, not gaps the groundability guard found)."""
+    generic = SLOT_QUESTIONS["must_refuse"][1]
+    return [t for t in req.must_refuse if t != generic and "(not covered by the documents)" not in t]
+
+
 def _slug(text: str) -> str:
     words = re.findall(r"[a-z0-9]+", text.lower())
     stop = {"i", "need", "an", "a", "the", "that", "for", "to", "of", "and", "assistant", "answers", "answer"}
@@ -181,7 +187,13 @@ def generate_definition(req: Requirements, docs_dir: str, llm: LLM, out_dir: str
         name=_slug(req.brief), description=req.scope, system_prompt=persona,
         rules=build_rules(req, tools), docs_dir=rel_docs.replace("\\", "/"), retrieval=retrieval, tools=tools,
         refusal_message="I can't help with that; it is outside what my documents cover.",
-        refusal_topics=refusal_topics(req))
+        refusal_topics=refusal_topics(req),
+        # A refusal the requester stated is enforced from the start. Leaving it to the optimizer made enforcement depend
+        # on which cases landed in dev (real demo: the contract-breach question sat in the holdout, the gate never came
+        # on, and the agent gave legal advice). The optimizer can still switch it off if it costs dev cases.
+        refusal_gate=bool(explicit_refusals(req)))
     notes = {"tool_decisions": tool_decisions, "persona_source": persona_src,
+             "refusal_gate": ("ON from the start: the brief explicitly forbids " + "; ".join(explicit_refusals(req))
+                              if explicit_refusals(req) else "off: the brief forbids nothing explicitly"),
              "retrieval_basis": {"documents": len(inv), "chunks": len(build_chunks(docs_dir, retrieval.chunk_size, retrieval.chunk_overlap))}}
     return d, notes

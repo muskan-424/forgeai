@@ -184,3 +184,23 @@ def test_gate_never_calls_the_model_for_questions_that_share_no_word_with_a_forb
     assert calls["gate"] == 0 and calls["main"] == 3                                   # no gate cost, no false blocks
     tr = agent.ask("What should I do if a supplier breaches the contract?")            # 'contract' overlaps -> model asked
     assert tr.answer.refused and calls["gate"] == 1
+
+
+# ---------------------------------------------------------------- default: enforce refusals the requester stated
+def test_gate_starts_on_only_when_the_brief_explicitly_forbids_something(tmp_path):
+    """Real 20-case procurement run: the contract-breach case landed in the holdout, so the optimizer never saw it, the
+    gate stayed off and the agent gave legal advice. A stated refusal must not depend on the dev/holdout split."""
+    from forge.generator import explicit_refusals, generate_definition
+    from test_milestone3 import DOCS, L
+    stated = Requirements(brief="b", scope="s", audience="a", tone="t", must_answer=["annual leave"],
+                          must_refuse=["legal advice about contracts", "pension (not covered by the documents)"])
+    assert explicit_refusals(stated) == ["legal advice about contracts"]
+    d, notes = generate_definition(stated, DOCS, L(), out_dir=str(tmp_path))
+    assert d.refusal_gate is True and "explicitly forbids legal advice about contracts" in notes["refusal_gate"]
+    assert d.refusal_topics == ["legal advice about contracts", "pension"]
+    gaps_only = Requirements(brief="b", scope="s", audience="a", tone="t", must_answer=["annual leave"],
+                             must_refuse=["anything not covered by the provided documents",
+                                          "pension contributions (not covered by the documents)"])
+    d2, notes2 = generate_definition(gaps_only, DOCS, L(), out_dir=str(tmp_path))
+    assert d2.refusal_gate is False and d2.refusal_topics == ["pension contributions"]      # gaps alone: gate stays off
+    assert notes2["refusal_gate"].startswith("off")

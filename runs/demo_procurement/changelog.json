@@ -1,41 +1,43 @@
 [
   {
     "iteration": 1,
-    "category": "hallucination",
-    "source": "library",
-    "what_changed": "+ rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.",
-    "why": "add proven rule for hallucination/out_of_scope",
+    "category": "retrieval_miss",
+    "source": "ladder",
+    "what_changed": "retrieval.top_k = 6",
+    "why": "retrieve more passages (top_k 4 -> 6)",
     "failures_addressed": [
-      "oos-02",
-      "oos-03"
+      "amb-02",
+      "ans-09"
     ],
-    "fixed": [],
+    "fixed": [
+      "ans-09"
+    ],
     "broken": [],
-    "dev_passed_before": 5,
-    "dev_passed_after": 5,
-    "dev_total": 8,
-    "decision": "reverted",
+    "dev_passed_before": 11,
+    "dev_passed_after": 12,
+    "dev_total": 14,
+    "decision": "kept",
     "infrastructure_errors": [],
-    "decision_reason": "no net gain: fixed nothing; patch reverted",
+    "decision_reason": "net gain on dev cases",
     "seconds": 0.1
   },
   {
     "iteration": 2,
     "category": "hallucination",
-    "source": "ladder",
-    "what_changed": "refusal_gate = True",
-    "why": "enable the runtime refusal gate (rules alone did not make the agent refuse forbidden topics)",
+    "source": "library",
+    "what_changed": "+ rule: Each citation quote must be one or more whole sentences copied exactly, word for word, from the CONTEXT; never reword, shorten or merge sentences inside a quote.; + rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.",
+    "why": "add proven rule for hallucination/citation; add proven rule for hallucination/out_of_scope",
     "failures_addressed": [
-      "oos-02",
-      "oos-03"
+      "amb-02",
+      "oos-02"
     ],
     "fixed": [
-      "oos-03"
+      "oos-02"
     ],
     "broken": [],
-    "dev_passed_before": 5,
-    "dev_passed_after": 6,
-    "dev_total": 8,
+    "dev_passed_before": 12,
+    "dev_passed_after": 13,
+    "dev_total": 14,
     "decision": "kept",
     "infrastructure_errors": [],
     "decision_reason": "net gain on dev cases",
@@ -43,21 +45,23 @@
   },
   {
     "iteration": 3,
-    "category": "retrieval_miss",
-    "source": "ladder",
-    "what_changed": "retrieval.top_k = 6",
-    "why": "retrieve more passages (top_k 4 -> 6)",
+    "category": "hallucination",
+    "source": "model",
+    "what_changed": "+ rule: When answering, ensure all information is directly supported by the context and avoid making assertions not grounded in the provided text or tables.",
+    "why": "model-written rule from 1 failing example(s) for hallucination",
     "failures_addressed": [
       "amb-02"
     ],
     "fixed": [],
-    "broken": [],
-    "dev_passed_before": 6,
-    "dev_passed_after": 6,
-    "dev_total": 8,
+    "broken": [
+      "oos-02"
+    ],
+    "dev_passed_before": 13,
+    "dev_passed_after": 12,
+    "dev_total": 14,
     "decision": "reverted",
     "infrastructure_errors": [],
-    "decision_reason": "no net gain: fixed nothing; patch reverted",
-    "seconds": 792.1
+    "decision_reason": "no net gain: broke ['oos-02']; patch reverted",
+    "seconds": 0.1
   }
 ]

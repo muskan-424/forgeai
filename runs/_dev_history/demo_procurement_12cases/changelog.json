@@ -1,0 +1,63 @@
+[
+  {
+    "iteration": 1,
+    "category": "hallucination",
+    "source": "library",
+    "what_changed": "+ rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.",
+    "why": "add proven rule for hallucination/out_of_scope",
+    "failures_addressed": [
+      "oos-02",
+      "oos-03"
+    ],
+    "fixed": [],
+    "broken": [],
+    "dev_passed_before": 5,
+    "dev_passed_after": 5,
+    "dev_total": 8,
+    "decision": "reverted",
+    "infrastructure_errors": [],
+    "decision_reason": "no net gain: fixed nothing; patch reverted",
+    "seconds": 0.1
+  },
+  {
+    "iteration": 2,
+    "category": "hallucination",
+    "source": "ladder",
+    "what_changed": "refusal_gate = True",
+    "why": "enable the runtime refusal gate (rules alone did not make the agent refuse forbidden topics)",
+    "failures_addressed": [
+      "oos-02",
+      "oos-03"
+    ],
+    "fixed": [
+      "oos-03"
+    ],
+    "broken": [],
+    "dev_passed_before": 5,
+    "dev_passed_after": 6,
+    "dev_total": 8,
+    "decision": "kept",
+    "infrastructure_errors": [],
+    "decision_reason": "net gain on dev cases",
+    "seconds": 0.1
+  },
+  {
+    "iteration": 3,
+    "category": "retrieval_miss",
+    "source": "ladder",
+    "what_changed": "retrieval.top_k = 6",
+    "why": "retrieve more passages (top_k 4 -> 6)",
+    "failures_addressed": [
+      "amb-02"
+    ],
+    "fixed": [],
+    "broken": [],
+    "dev_passed_before": 6,
+    "dev_passed_after": 6,
+    "dev_total": 8,
+    "decision": "reverted",
+    "infrastructure_errors": [],
+    "decision_reason": "no net gain: fixed nothing; patch reverted",
+    "seconds": 792.1
+  }
+]

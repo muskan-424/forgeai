@@ -1,0 +1,220 @@
+[
+  {
+    "id": "ans-01",
+    "type": "answerable",
+    "question": "How much notice does either party need to give during probation?",
+    "expected_facts": [
+      "1 week of notice"
+    ],
+    "source_docs": [
+      "conduct_and_employment_policy.pdf"
+    ],
+    "source_quotes": [
+      "During probation either party may end the employment with 1 week of notice."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=conduct_and_employment_policy.pdf#1"
+  },
+  {
+    "id": "mul-01",
+    "type": "multi_doc",
+    "question": "How many months of unpaid leave can an employee request, and what is the maximum distance for a trip requiring prior approval from the line manager?",
+    "expected_facts": [
+      "3 months",
+      "800 kilometres"
+    ],
+    "source_docs": [
+      "leave_policy.pdf",
+      "travel_expenses_policy.pdf"
+    ],
+    "source_quotes": [
+      "Employees with at least 2 years of service may request unpaid leave of up to 3 months.",
+      "Trips longer than 800 kilometres in one journey need prior approval from the line manager."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunks=leave_policy.pdf#3,travel_expenses_policy.pdf#2"
+  },
+  {
+    "id": "amb-01",
+    "type": "ambiguous",
+    "question": "What's the leave for adopting a child?",
+    "expected_facts": [
+      "same leave as birth parents"
+    ],
+    "source_docs": [
+      "leave_policy.pdf"
+    ],
+    "source_quotes": [
+      "Employees adopting a child receive the same leave as birth parents."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "rewrite of chunk=leave_policy.pdf#2; vagueness: no longer says ['employe', 'much', 'receiv']"
+  },
+  {
+    "id": "oos-01",
+    "type": "out_of_scope",
+    "question": "How does the company handle pension contributions for its staff?",
+    "expected_facts": [],
+    "source_docs": [],
+    "source_quotes": [],
+    "should_refuse": true,
+    "split": "dev",
+    "notes": "kind=must_refuse"
+  },
+  {
+    "id": "ans-02",
+    "type": "answerable",
+    "question": "Who does this leave policy apply to?",
+    "expected_facts": [
+      "shore-based employees"
+    ],
+    "source_docs": [
+      "leave_policy.pdf"
+    ],
+    "source_quotes": [
+      "Applies to shore-based employees."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=leave_policy.pdf#0"
+  },
+  {
+    "id": "mul-02",
+    "type": "multi_doc",
+    "question": "How many months of annual leave do employees receive if they join in the middle of the year, and what is the maximum time frame for the HR director to make a final decision on a grievance?",
+    "expected_facts": [
+      "pro rata to the months remaining",
+      "20 working days"
+    ],
+    "source_docs": [
+      "leave_policy.pdf",
+      "conduct_and_employment_policy.pdf"
+    ],
+    "source_quotes": [
+      "Employees who join during the year receive annual leave pro rata to the months remaining.",
+      "If the employee is not satisfied, the grievance goes to the HR director, who makes a final decision within 20 working days."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "chunks=leave_policy.pdf#0,conduct_and_employment_policy.pdf#2"
+  },
+  {
+    "id": "amb-02",
+    "type": "ambiguous",
+    "question": "What's the paid leave?",
+    "expected_facts": [
+      "25 days"
+    ],
+    "source_docs": [
+      "leave_policy.pdf"
+    ],
+    "source_quotes": [
+      "Shore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December)."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "rewrite of chunk=leave_policy.pdf#0; vagueness: no longer says ['annual', 'day', 'employe', 'many', 'receiv', 'shore-based']"
+  },
+  {
+    "id": "oos-02",
+    "type": "out_of_scope",
+    "question": "What are the specific health and safety measures implemented by Meridian Maritime Services?",
+    "expected_facts": [],
+    "source_docs": [],
+    "source_quotes": [],
+    "should_refuse": true,
+    "split": "dev",
+    "notes": "kind=unrelated (fallback: near-domain candidates were all answerable)"
+  },
+  {
+    "id": "ans-03",
+    "type": "answerable",
+    "question": "How are daily allowances distributed?",
+    "expected_facts": [
+      "paid with the monthly payroll"
+    ],
+    "source_docs": [
+      "travel_expenses_policy.pdf"
+    ],
+    "source_quotes": [
+      "Allowances are paid with the monthly payroll."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "chunk=travel_expenses_policy.pdf#1"
+  },
+  {
+    "id": "mul-03",
+    "type": "multi_doc",
+    "question": "How many days before departure must business travel be booked, and what applies to all shore-based employees?",
+    "expected_facts": [
+      "7 days",
+      "all shore-based employees"
+    ],
+    "source_docs": [
+      "conduct_and_employment_policy.pdf",
+      "travel_expenses_policy.pdf"
+    ],
+    "source_quotes": [
+      "Applies to all shore-based employees.",
+      "All business travel must be booked through the corporate travel desk at least 7 days before departure."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunks=conduct_and_employment_policy.pdf#0,travel_expenses_policy.pdf#0"
+  },
+  {
+    "id": "ans-04",
+    "type": "answerable",
+    "question": "How much leave do employees adopting a child receive?",
+    "expected_facts": [
+      "same leave as birth parents"
+    ],
+    "source_docs": [
+      "leave_policy.pdf"
+    ],
+    "source_quotes": [
+      "Employees adopting a child receive the same leave as birth parents."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=leave_policy.pdf#2"
+  },
+  {
+    "id": "ans-05",
+    "type": "answerable",
+    "question": "How many days of paid annual leave do shore-based employees receive?",
+    "expected_facts": [
+      "25 days"
+    ],
+    "source_docs": [
+      "leave_policy.pdf"
+    ],
+    "source_quotes": [
+      "Shore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December)."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "chunk=leave_policy.pdf#0"
+  },
+  {
+    "id": "ans-06",
+    "type": "answerable",
+    "question": "How much is reimbursed per kilometre for using a private car for business travel?",
+    "expected_facts": [
+      "EUR 0.42 per kilometre"
+    ],
+    "source_docs": [
+      "travel_expenses_policy.pdf"
+    ],
+    "source_quotes": [
+      "Use of a private car for business travel is reimbursed at EUR 0.42 per kilometre."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=travel_expenses_policy.pdf#2"
+  }
+]

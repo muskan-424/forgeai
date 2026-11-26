@@ -5,69 +5,106 @@
 [3/6] generator: tools, retrieval parameters, system prompt
       tools attached: ['csv_lookup', 'calculator']
 [4/6] eval generator: building a verified test set from the documents
-  [answerable] 1/5: How long does the purchase need to be reported to the fleet manager?
-  [answerable] 2/5: What is the unit price of the Lube oil pump?
-  [answerable] 3/5: What does Orion Safety Ltd (Aberdeen) provide?
-  [answerable] 4/5: What is the unit price of the Gate valve DN50 in euros?
-  [answerable] 5/5: What is the minimum amount for orders that require at least 2 written quotations
-  [multi_doc] 1/2: How many suppliers are approved for vessel spares, and what is the unit price of
-  [multi_doc] 2/2: What is the warranty period for the SCBA cylinder, and what is the maximum purch
-  [ambiguous] 1/2: What's the reporting time for purchases?
-  [ambiguous] 2/2: What's the unit price?
+  [answerable] 1/9: How long does the purchase need to be reported to the fleet manager?
+  [answerable] 2/9: What is the unit price of the Lube oil pump?
+  [answerable] 3/9: What does Orion Safety Ltd (Aberdeen) provide?
+  [answerable] 4/9: What is the unit price of the Gate valve DN50 in euros?
+  [answerable] 5/9: What is the minimum amount for orders that require at least 2 written quotations
+  [answerable] 6/9: What is the unit price in EUR for the Fuel oil filter element?
+  [answerable] 7/9: How many suppliers are approved for vessel spares?
+  [answerable] 8/9: What is the unit price in euros for the Echo sounder transducer?
+  [answerable] 9/9: What does Hartmann Marine GmbH supply?
+  [multi_doc] 1/4: How many suppliers are approved for vessel spares, and what is the unit price of
+  [multi_doc] 2/4: What is the warranty period for the SCBA cylinder, and what is the maximum purch
+  [multi_doc] 3/4: What is the maximum amount for a purchase order that can be approved by the vess
+  [ambiguous] 1/3: What's the reporting time for purchases?
+  [ambiguous] 2/3: What's Orion Safety Ltd's services?
+  [ambiguous] 3/3: What's the minimum order amount for needing 2 quotes?
   [out_of_scope/near_domain] What are the environmental impact assessments for new suppliers?
   [out_of_scope/near_domain] How do I calculate the total cost of ownership for spare parts?
   [out_of_scope/must_refuse] What should I do if a supplier breaches the contract?
-      12 cases (8 dev / 4 holdout)
+  [out_of_scope/unrelated] What is the history of the NORDHAVEN SHIP MANAGEMENT?
+  top-up: 19 verified cases so far, 20 required
+  [top-up answerable] 1/1: What is the unit price of the Pressure reducing valve PV-4157 in euros?
+      20 cases (14 dev / 6 holdout)
 [5/6] judge calibration: scoring synthetic answers with known verdicts
       judge accuracy 100%, false passes 0
 [6/6] critic-optimizer loop
-== baseline: 8 dev + 4 holdout cases
-  [1/8] ans-01   PASS    0.0s  How long does the purchase need to be reported to the fleet 
-  [2/8] mul-01   PASS    0.0s  How many suppliers are approved for vessel spares, and what 
-  [3/8] oos-01   PASS    0.0s  What are the environmental impact assessments for new suppli
-  [4/8] ans-02   PASS    0.0s  What is the unit price of the Lube oil pump?
-  [5/8] amb-02   FAIL    0.0s  What's the unit price?
-  [6/8] oos-02   FAIL    0.0s  How do I calculate the total cost of ownership for spare par
-  [7/8] oos-03   FAIL    0.0s  What should I do if a supplier breaches the contract?
-  [8/8] ans-04   PASS    0.0s  What is the unit price of the Gate valve DN50 in euros?
-  [1/4] amb-01   FAIL    0.0s  What's the reporting time for purchases?
-  [2/4] mul-02   PASS    0.0s  What is the warranty period for the SCBA cylinder, and what 
-  [3/4] ans-03   PASS    0.0s  What does Orion Safety Ltd (Aberdeen) provide?
-  [4/4] ans-05   PASS    0.0s  What is the minimum amount for orders that require at least 
-== iteration 1: hallucination x2 -> + rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.
-  [1/8] ans-01   PASS    0.0s  How long does the purchase need to be reported to the fleet 
-  [2/8] mul-01   PASS    0.0s  How many suppliers are approved for vessel spares, and what 
-  [3/8] oos-01   PASS    0.0s  What are the environmental impact assessments for new suppli
-  [4/8] ans-02   PASS    0.0s  What is the unit price of the Lube oil pump?
-  [5/8] amb-02   FAIL    0.0s  What's the unit price?
-  [6/8] oos-02   FAIL    0.0s  How do I calculate the total cost of ownership for spare par
-  [7/8] oos-03   FAIL    0.0s  What should I do if a supplier breaches the contract?
-  [8/8] ans-04   PASS    0.0s  What is the unit price of the Gate valve DN50 in euros?
-   dev 5 -> 5 of 8: reverted
-== iteration 2: hallucination x2 -> refusal_gate = True
-  [1/8] ans-01   PASS    0.0s  How long does the purchase need to be reported to the fleet 
-  [2/8] mul-01   PASS    0.0s  How many suppliers are approved for vessel spares, and what 
-  [3/8] oos-01   PASS    0.0s  What are the environmental impact assessments for new suppli
-  [4/8] ans-02   PASS    0.0s  What is the unit price of the Lube oil pump?
-  [5/8] amb-02   FAIL    0.0s  What's the unit price?
-  [6/8] oos-02   FAIL    0.0s  How do I calculate the total cost of ownership for spare par
-  [7/8] oos-03   PASS    0.0s  What should I do if a supplier breaches the contract?
-  [8/8] ans-04   PASS    0.0s  What is the unit price of the Gate valve DN50 in euros?
-   dev 5 -> 6 of 8: kept (fixed ['oos-03'])
-== iteration 3: retrieval_miss x1 -> retrieval.top_k = 6
-  [1/8] ans-01   PASS    0.0s  How long does the purchase need to be reported to the fleet 
-  [2/8] mul-01   PASS    0.0s  How many suppliers are approved for vessel spares, and what 
-  [3/8] oos-01   PASS    0.0s  What are the environmental impact assessments for new suppli
-  [4/8] ans-02   PASS  246.3s  What is the unit price of the Lube oil pump?
-  [5/8] amb-02   FAIL  187.7s  What's the unit price?
-  [6/8] oos-02   FAIL  117.7s  How do I calculate the total cost of ownership for spare par
-  [7/8] oos-03   PASS    0.0s  What should I do if a supplier breaches the contract?
-  [8/8] ans-04   PASS  206.5s  What is the unit price of the Gate valve DN50 in euros?
-   dev 6 -> 6 of 8: reverted
+== baseline: 14 dev + 6 holdout cases
+  [1/14] ans-01   PASS    0.0s  How long does the purchase need to be reported to the fleet 
+  [2/14] mul-01   PASS    0.0s  How many suppliers are approved for vessel spares, and what 
+  [3/14] oos-01   PASS    0.0s  What are the environmental impact assessments for new suppli
+  [4/14] ans-02   PASS    0.0s  What is the unit price of the Lube oil pump?
+  [5/14] amb-02   FAIL    0.0s  What's Orion Safety Ltd's services?
+  [6/14] oos-02   FAIL    0.0s  How do I calculate the total cost of ownership for spare par
+  [7/14] mul-03   PASS    0.0s  What is the maximum amount for a purchase order that can be 
+  [8/14] amb-03   PASS    0.0s  What's the minimum order amount for needing 2 quotes?
+  [9/14] ans-04   PASS    0.0s  What is the unit price of the Gate valve DN50 in euros?
+  [10/14] oos-04   PASS    0.0s  What is the history of the NORDHAVEN SHIP MANAGEMENT?
+  [11/14] ans-06   PASS    0.0s  What is the unit price in EUR for the Fuel oil filter elemen
+  [12/14] ans-07   PASS    0.0s  How many suppliers are approved for vessel spares?
+  [13/14] ans-09   FAIL    0.0s  What does Hartmann Marine GmbH supply?
+  [14/14] ans-10   PASS    0.0s  What is the unit price of the Pressure reducing valve PV-415
+  [1/6] amb-01   FAIL    0.0s  What's the reporting time for purchases?
+  [2/6] mul-02   PASS    0.0s  What is the warranty period for the SCBA cylinder, and what 
+  [3/6] ans-03   PASS    0.0s  What does Orion Safety Ltd (Aberdeen) provide?
+  [4/6] oos-03   PASS    0.0s  What should I do if a supplier breaches the contract?
+  [5/6] ans-05   PASS    0.0s  What is the minimum amount for orders that require at least 
+  [6/6] ans-08   PASS    0.0s  What is the unit price in euros for the Echo sounder transdu
+== iteration 1: retrieval_miss x2 -> retrieval.top_k = 6
+  [1/14] ans-01   PASS    0.0s  How long does the purchase need to be reported to the fleet 
+  [2/14] mul-01   PASS    0.0s  How many suppliers are approved for vessel spares, and what 
+  [3/14] oos-01   PASS    0.0s  What are the environmental impact assessments for new suppli
+  [4/14] ans-02   PASS    0.0s  What is the unit price of the Lube oil pump?
+  [5/14] amb-02   FAIL    0.0s  What's Orion Safety Ltd's services?
+  [6/14] oos-02   FAIL    0.0s  How do I calculate the total cost of ownership for spare par
+  [7/14] mul-03   PASS    0.0s  What is the maximum amount for a purchase order that can be 
+  [8/14] amb-03   PASS    0.0s  What's the minimum order amount for needing 2 quotes?
+  [9/14] ans-04   PASS    0.0s  What is the unit price of the Gate valve DN50 in euros?
+  [10/14] oos-04   PASS    0.0s  What is the history of the NORDHAVEN SHIP MANAGEMENT?
+  [11/14] ans-06   PASS    0.0s  What is the unit price in EUR for the Fuel oil filter elemen
+  [12/14] ans-07   PASS    0.0s  How many suppliers are approved for vessel spares?
+  [13/14] ans-09   PASS    0.0s  What does Hartmann Marine GmbH supply?
+  [14/14] ans-10   PASS    0.0s  What is the unit price of the Pressure reducing valve PV-415
+   dev 11 -> 12 of 14: kept (fixed ['ans-09'])
+== iteration 2: hallucination x2 -> + rule: Each citation quote must be one or more whole sentences copied exactly, word for word, from the CONTEXT; never reword, shorten or merge sentences inside a quote.; + rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.
+  [1/14] ans-01   PASS    0.0s  How long does the purchase need to be reported to the fleet 
+  [2/14] mul-01   PASS    0.0s  How many suppliers are approved for vessel spares, and what 
+  [3/14] oos-01   PASS    0.0s  What are the environmental impact assessments for new suppli
+  [4/14] ans-02   PASS    0.0s  What is the unit price of the Lube oil pump?
+  [5/14] amb-02   FAIL    0.0s  What's Orion Safety Ltd's services?
+  [6/14] oos-02   PASS    0.0s  How do I calculate the total cost of ownership for spare par
+  [7/14] mul-03   PASS    0.0s  What is the maximum amount for a purchase order that can be 
+  [8/14] amb-03   PASS    0.0s  What's the minimum order amount for needing 2 quotes?
+  [9/14] ans-04   PASS    0.0s  What is the unit price of the Gate valve DN50 in euros?
+  [10/14] oos-04   PASS    0.0s  What is the history of the NORDHAVEN SHIP MANAGEMENT?
+  [11/14] ans-06   PASS    0.0s  What is the unit price in EUR for the Fuel oil filter elemen
+  [12/14] ans-07   PASS    0.0s  How many suppliers are approved for vessel spares?
+  [13/14] ans-09   PASS    0.0s  What does Hartmann Marine GmbH supply?
+  [14/14] ans-10   PASS    0.0s  What is the unit price of the Pressure reducing valve PV-415
+   dev 12 -> 13 of 14: kept (fixed ['oos-02'])
+== iteration 3: hallucination x1 -> + rule: When answering, ensure all information is directly supported by the context and avoid making assertions not grounded in the provided text or tables.
+  [1/14] ans-01   PASS    0.0s  How long does the purchase need to be reported to the fleet 
+  [2/14] mul-01   PASS    0.0s  How many suppliers are approved for vessel spares, and what 
+  [3/14] oos-01   PASS    0.0s  What are the environmental impact assessments for new suppli
+  [4/14] ans-02   PASS    0.0s  What is the unit price of the Lube oil pump?
+  [5/14] amb-02   FAIL    0.0s  What's Orion Safety Ltd's services?
+  [6/14] oos-02   FAIL    0.0s  How do I calculate the total cost of ownership for spare par
+  [7/14] mul-03   PASS    0.0s  What is the maximum amount for a purchase order that can be 
+  [8/14] amb-03   PASS    0.0s  What's the minimum order amount for needing 2 quotes?
+  [9/14] ans-04   PASS    0.0s  What is the unit price of the Gate valve DN50 in euros?
+  [10/14] oos-04   PASS    0.0s  What is the history of the NORDHAVEN SHIP MANAGEMENT?
+  [11/14] ans-06   PASS    0.0s  What is the unit price in EUR for the Fuel oil filter elemen
+  [12/14] ans-07   PASS    0.0s  How many suppliers are approved for vessel spares?
+  [13/14] ans-09   PASS    0.0s  What does Hartmann Marine GmbH supply?
+  [14/14] ans-10   PASS    0.0s  What is the unit price of the Pressure reducing valve PV-415
+   dev 13 -> 12 of 14: reverted (broke ['oos-02'])
 == final holdout run with the best definition
-  [1/4] amb-01   FAIL    0.0s  What's the reporting time for purchases?
-  [2/4] mul-02   PASS    0.0s  What is the warranty period for the SCBA cylinder, and what 
-  [3/4] ans-03   PASS    0.0s  What does Orion Safety Ltd (Aberdeen) provide?
-  [4/4] ans-05   PASS    0.0s  What is the minimum amount for orders that require at least 
-Done in 13.2 min. Report: runs\demo_procurement\report.md
+  [1/6] amb-01   FAIL    0.0s  What's the reporting time for purchases?
+  [2/6] mul-02   PASS    0.0s  What is the warranty period for the SCBA cylinder, and what 
+  [3/6] ans-03   PASS    0.0s  What does Orion Safety Ltd (Aberdeen) provide?
+  [4/6] oos-03   PASS    0.0s  What should I do if a supplier breaches the contract?
+  [5/6] ans-05   PASS    0.0s  What is the minimum amount for orders that require at least 
+  [6/6] ans-08   PASS    0.0s  What is the unit price in euros for the Echo sounder transdu
+Done in 0.0 min. Report: runs\demo_procurement\report.md
 exit 0

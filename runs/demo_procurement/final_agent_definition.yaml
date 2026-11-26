@@ -20,11 +20,15 @@ rules:
   head.
 - For exact items, codes or prices in the table, call csv_lookup and quote its row; do not rely on memory.
 - 'Refuse questions about: legal advice about contracts.'
+- Each citation quote must be one or more whole sentences copied exactly, word for word, from the CONTEXT;
+  never reword, shorten or merge sentences inside a quote.
+- If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to
+  the documents' topic; never borrow a rule or figure from a different topic.
 docs_dir: ../../demos/procurement/docs
 retrieval:
   chunk_size: 500
   chunk_overlap: 60
-  top_k: 4
+  top_k: 6
   bm25_weight: 1.0
   use_embeddings: false
   min_score: 0.0

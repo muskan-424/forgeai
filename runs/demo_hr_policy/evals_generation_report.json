@@ -1,26 +1,34 @@
 {
   "attempted_accepted": {
-    "answerable:attempted": 9,
-    "answerable:accepted": 6,
-    "multi_doc:attempted": 4,
+    "answerable:attempted": 19,
+    "answerable:accepted": 10,
+    "multi_doc:attempted": 12,
     "multi_doc:accepted": 3,
     "ambiguous:attempted": 5,
-    "ambiguous:accepted": 2,
-    "out_of_scope:attempted": 10,
-    "out_of_scope:accepted": 2
+    "ambiguous:accepted": 3,
+    "out_of_scope:attempted": 17,
+    "out_of_scope:accepted": 4
   },
   "rejections": {
-    "answerable:question strays from its source sentence": 2,
+    "answerable:question refers to 'this policy/document' without naming it": 3,
+    "answerable:question strays from its source sentence": 5,
     "answerable:question contradicts the direction of its source (maximum vs minimum)": 1,
     "multi_doc:does not need both passages": 1,
+    "multi_doc:question strays from its source sentence": 4,
+    "multi_doc:fact not in sources": 4,
     "ambiguous:rewrite lost the topic": 2,
-    "ambiguous:not actually vaguer than the original": 1,
-    "out_of_scope:too similar to the documents (might be answerable)": 7
+    "out_of_scope:too similar to the documents (might be answerable)": 1
   },
   "rejection_examples": {
+    "answerable:question refers to 'this policy/document' without naming it": [
+      "Q='Who does this leave policy apply to?' facts=['shore-based employees'] sentence='Applies to shore-based employees.'",
+      "Q='What type of employees does this policy apply to?' facts=['all shore-based employees'] sentence='Applies to all shore-based employees.'",
+      "Q='Who is this policy applicable to?' facts=['all employees'] sentence='Applies to all employees travelling on company business.'"
+    ],
     "answerable:question strays from its source sentence": [
       "Q='What is the minimum approval required for overtime?' facts=['Overtime must be approved in advance'] sentence='Overtime must be approved in advance by the line manager.'",
-      "Q='What is the minimum flight duration for booking a premium economy seat?' facts=['Flights longer than 6 hours', 'line manager approval'] sentence='Flights longer than 6 hours may be booked in premium economy with line manager approval; s'"
+      "Q='What is the minimum flight duration for booking a premium economy seat?' facts=['Flights longer than 6 hours', 'line manager approval'] sentence='Flights longer than 6 hours may be booked in premium economy with line manager approval; s'",
+      "Q=\"What is the minimum number of days' notice required for requesting annual leave?\" facts=['at least 14 days'] sentence='Annual leave must be requested through the HR portal at least 14 days before the first day'"
     ],
     "answerable:question contradicts the direction of its source (maximum vs minimum)": [
       "Q='What is the maximum value of gifts or hospitality an employee can accept from suppliers or customers?' facts=['EUR 50'] sentence='Employees must not accept gifts or hospitality worth more than EUR 50 from suppliers or cu'"
@@ -28,17 +36,22 @@
     "multi_doc:does not need both passages": [
       "Q='How many unused days can be carried over into the next leave year and what is the deadline for taking these days?' facts=['5 unused days', '31 March'] in_A=[False, False] in_B=[True, True]"
     ],
+    "multi_doc:question strays from its source sentence": [
+      "Q='How does the leave policy in leave_policy.pdf compare to the time off in lieu option in conduct_and_employment_policy.pdf in terms of duration?' facts=['3 consecutive days', '3 months'] in_A=[True, False] in_B=[False, True]",
+      "Q='How does the leave policy handle unpaid leave, and what is the requirement for travel approval based on distance?' facts=['leave does not accrue during unpaid leave', 'prior approval needed for trips longer than 800 km'] in_A=[True, False] in_B=[False, True]",
+      "Q='How many days after the end of the trip must expense claims be submitted, and what is the maximum overtime approval process duration?' facts=['30 days', 'advance by the line manager'] in_A=[True, False] in_B=[False, True]"
+    ],
+    "multi_doc:fact not in sources": [
+      "Q='How many days are employees required to serve in the probation period, and what is the maximum cost per night for a hotel in a city tier 3?' facts=['6 months', '3'] in_A=[True, False] in_B=[False, False]",
+      "Q='How does the travel expenses policy differ from the conduct and employment policy in terms of submission deadlines?' facts=['30 days', 'no specific deadline'] in_A=[False, False] in_B=[True, False]",
+      "Q='How many days of leave do employees with 5 years of service receive, and what is the maximum cost per night for a hotel in a city with a tier of 10?' facts=['28 days', '65 euros per day'] in_A=[True, False] in_B=[False, False]"
+    ],
     "ambiguous:rewrite lost the topic": [
       "Q=\"What's the notice period?\" original='How much notice does either party need to give during probation?' dropped=['dur', 'either', 'giv', 'much', 'need', 'party', 'probation']",
       "Q=\"What's the allowance fee?\" original='How are daily allowances distributed?' dropped=['dai', 'distribut']"
     ],
-    "ambiguous:not actually vaguer than the original": [
-      "Q=\"What's the policy apply to?\" original='Who does this leave policy apply to?' dropped=['leav']"
-    ],
     "out_of_scope:too similar to the documents (might be answerable)": [
-      "Q='What are the specific training requirements for new hires at Meridian Maritime Services?'",
-      "Q=\"How do I apply for a job at Meridian Maritime Services if I'm not a current employee?\"",
-      "Q=\"What kind of benefits do I get if I'm a part-time employee at Meridian Maritime Services?\""
+      "Q='What are the specific training requirements for new hires at Meridian Maritime Services?'"
     ]
   }
 }

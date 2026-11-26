@@ -17,41 +17,41 @@
   },
   "dev": {
     "overall": {
-      "passed": 9,
-      "n": 9,
+      "passed": 14,
+      "n": 14,
       "rate": 1.0,
       "ci95": [
-        0.701,
+        0.785,
         1.0
       ]
     },
     "by_split": {
       "dev": {
-        "passed": 9,
-        "n": 9,
+        "passed": 14,
+        "n": 14,
         "rate": 1.0,
         "ci95": [
-          0.701,
+          0.785,
           1.0
         ]
       }
     },
     "by_type": {
       "ambiguous": {
-        "passed": 1,
-        "n": 1,
+        "passed": 2,
+        "n": 2,
         "rate": 1.0,
         "ci95": [
-          0.207,
+          0.342,
           1.0
         ]
       },
       "answerable": {
-        "passed": 4,
-        "n": 4,
+        "passed": 7,
+        "n": 7,
         "rate": 1.0,
         "ci95": [
-          0.51,
+          0.646,
           1.0
         ]
       },
@@ -65,11 +65,11 @@
         ]
       },
       "out_of_scope": {
-        "passed": 2,
-        "n": 2,
+        "passed": 3,
+        "n": 3,
         "rate": 1.0,
         "ci95": [
-          0.342,
+          0.438,
           1.0
         ]
       }
@@ -78,7 +78,7 @@
     "wrong_refusal_rate": 0.0,
     "grounded_rate": 1.0,
     "uncertain_judgements": 0,
-    "mean_latency_s": 53.7,
+    "mean_latency_s": 17.1,
     "failures": []
   },
   "holdout": null,
@@ -146,8 +146,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 65.46060848236084,
-        "error": ""
+        "latency_s": 0.003531932830810547,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-01",
@@ -237,8 +238,9 @@
           true,
           true
         ],
-        "latency_s": 69.42367386817932,
-        "error": ""
+        "latency_s": 0.0028874874114990234,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "mul-01",
@@ -263,76 +265,16 @@
       "case": {
         "id": "oos-01",
         "type": "out_of_scope",
-        "question": "How does the company handle pension contributions for its staff?",
+        "question": "How do I apply for a job at Meridian Maritime Services if I'm not a current employee?",
         "expected_facts": [],
         "source_docs": [],
         "source_quotes": [],
         "should_refuse": true,
         "split": "dev",
-        "notes": "kind=must_refuse"
+        "notes": "kind=near_domain"
       },
       "trace": {
-        "question": "How does the company handle pension contributions for its staff?",
-        "retrieved": [
-          {
-            "id": "travel_expenses_policy.pdf#0",
-            "doc": "travel_expenses_policy.pdf",
-            "text": "MERIDIAN MARITIME SERVICES - TRAVEL AND EXPENSES POLICY\nEffective 1 January 2025. Applies to all employees travelling on company business.",
-            "heading": "MERIDIAN MARITIME SERVICES - TRAVEL AND EXPENSES POLICY"
-          },
-          {
-            "id": "leave_policy.pdf#6",
-            "doc": "leave_policy.pdf",
-            "text": "6. Unpaid leave\nEmployees with at least 2 years of service may request unpaid leave of up to 3 months. Unpaid leave requires approval from the department director. Annual leave does not accrue during unpaid leave, and company insurance cover continues only if the employee pays the premium.",
-            "heading": "6. Unpaid leave"
-          }
-        ],
-        "tool_calls": [],
-        "raw_output": "{'answer': \"I can't help with that; it is outside what my documents cover.\", 'citations': [], 'refused': True, 'refusal_reason': 'The provided documents do not cover pension contributions.'}",
-        "answer": {
-          "answer": "I can't help with that; it is outside what my documents cover.",
-          "citations": [],
-          "refused": true,
-          "refusal_reason": "The provided documents do not cover pension contributions."
-        },
-        "contract_ok": true,
-        "citations_verified": [],
-        "latency_s": 20.599387645721436,
-        "error": ""
-      },
-      "verdict": {
-        "case_id": "oos-01",
-        "grounded": true,
-        "correct": true,
-        "refusal_correct": true,
-        "passed": true,
-        "fact_hits": [],
-        "fact_methods": [],
-        "uncertain": false,
-        "llm_used": false,
-        "reasons": []
-      }
-    },
-    {
-      "case": {
-        "id": "ans-02",
-        "type": "answerable",
-        "question": "Who does this leave policy apply to?",
-        "expected_facts": [
-          "shore-based employees"
-        ],
-        "source_docs": [
-          "leave_policy.pdf"
-        ],
-        "source_quotes": [
-          "Applies to shore-based employees."
-        ],
-        "should_refuse": false,
-        "split": "dev",
-        "notes": "chunk=leave_policy.pdf#0"
-      },
-      "trace": {
-        "question": "Who does this leave policy apply to?",
+        "question": "How do I apply for a job at Meridian Maritime Services if I'm not a current employee?",
         "retrieved": [
           {
             "id": "leave_policy.pdf#0",
@@ -353,20 +295,75 @@
             "heading": "MERIDIAN MARITIME SERVICES - CONDUCT AND EMPLOYMENT POLICY"
           },
           {
-            "id": "leave_policy.pdf#5",
+            "id": "leave_policy.pdf#6",
             "doc": "leave_policy.pdf",
-            "text": "5. Compassionate leave\nEmployees receive 5 days of paid compassionate leave on the death of a spouse, partner, child or parent, and 2 days of paid compassionate leave on the death of a sibling, grandparent or parent-in-law. Compassionate leave is separate from annual leave and sick leave.",
-            "heading": "5. Compassionate leave"
+            "text": "6. Unpaid leave\nEmployees with at least 2 years of service may request unpaid leave of up to 3 months. Unpaid leave requires approval from the department director. Annual leave does not accrue during unpaid leave, and company insurance cover continues only if the employee pays the premium.",
+            "heading": "6. Unpaid leave"
           }
         ],
         "tool_calls": [],
-        "raw_output": "{'answer': 'This leave policy applies to shore-based employees.', 'citations': [{'doc': 'leave_policy.pdf', 'quote': 'MERIDIAN MARITIME SERVICES - LEAVE POLICY\\nEffective 1 January 2025. Applies to shore-based employees. Seafarers are covered by their own employment agreements.'}], 'refused': False, 'refusal_reason': ''}",
+        "raw_output": "{'answer': \"I can't help with that; it is outside what my documents cover.\", 'citations': [], 'refused': True, 'refusal_reason': 'The provided documents do not cover information about hiring processes or job applications.'}",
         "answer": {
-          "answer": "This leave policy applies to shore-based employees.",
+          "answer": "I can't help with that; it is outside what my documents cover.",
+          "citations": [],
+          "refused": true,
+          "refusal_reason": "The provided documents do not cover information about hiring processes or job applications."
+        },
+        "contract_ok": true,
+        "citations_verified": [],
+        "latency_s": 39.30483078956604,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "oos-01",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [],
+        "fact_methods": [],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-02",
+        "type": "answerable",
+        "question": "How are daily allowances distributed?",
+        "expected_facts": [
+          "paid with the monthly payroll"
+        ],
+        "source_docs": [
+          "travel_expenses_policy.pdf"
+        ],
+        "source_quotes": [
+          "Allowances are paid with the monthly payroll."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=travel_expenses_policy.pdf#1"
+      },
+      "trace": {
+        "question": "How are daily allowances distributed?",
+        "retrieved": [
+          {
+            "id": "travel_expenses_policy.pdf#2",
+            "doc": "travel_expenses_policy.pdf",
+            "text": "- Tier 2 cities (Rotterdam, Hamburg, Dubai, Mumbai): EUR 130 per night. - All other cities: EUR 100 per night.\n2. Daily allowances\nEmployees travelling within the Netherlands receive a meal allowance of EUR 40 per day. International travel carries a meal allowance of EUR 65 per day. Allowances are paid with the monthly payroll. If meals are provided by the host or included in a conference fee, the allowance is reduced by 25 percent.",
+            "heading": "1. Booking travel"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'Employees travelling within the Netherlands receive a meal allowance of EUR 40 per day. International travel carries a meal allowance of EUR 65 per day. Allowances are paid with the monthly payroll. If meals are provided by the host or included in a conference fee, the allowance is reduced by 25 percent.', 'citations': [{'doc': 'travel_expenses_policy.pdf', 'quote': 'Employees travelling within the Netherlands receive a meal allowance of EUR 40 per day. International travel carries a meal allowance of EUR 65 per day. Allowances are paid with the monthly payroll. If meals are provided by the host or included in a conference fee, the allowance is reduced by 25 percent.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "Employees travelling within the Netherlands receive a meal allowance of EUR 40 per day. International travel carries a meal allowance of EUR 65 per day. Allowances are paid with the monthly payroll. If meals are provided by the host or included in a conference fee, the allowance is reduced by 25 percent.",
           "citations": [
             {
-              "doc": "leave_policy.pdf",
-              "quote": "MERIDIAN MARITIME SERVICES - LEAVE POLICY\nEffective 1 January 2025. Applies to shore-based employees. Seafarers are covered by their own employment agreements."
+              "doc": "travel_expenses_policy.pdf",
+              "quote": "Employees travelling within the Netherlands receive a meal allowance of EUR 40 per day. International travel carries a meal allowance of EUR 65 per day. Allowances are paid with the monthly payroll. If meals are provided by the host or included in a conference fee, the allowance is reduced by 25 percent."
             }
           ],
           "refused": false,
@@ -376,8 +373,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 42.86741924285889,
-        "error": ""
+        "latency_s": 0.008680582046508789,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-02",
@@ -459,8 +457,9 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 83.67807722091675,
-        "error": ""
+        "latency_s": 0.0050754547119140625,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "amb-02",
@@ -483,16 +482,16 @@
       "case": {
         "id": "oos-02",
         "type": "out_of_scope",
-        "question": "What are the specific health and safety measures implemented by Meridian Maritime Services?",
+        "question": "What kind of benefits do I get if I'm a part-time employee at Meridian Maritime Services?",
         "expected_facts": [],
         "source_docs": [],
         "source_quotes": [],
         "should_refuse": true,
         "split": "dev",
-        "notes": "kind=unrelated (fallback: near-domain candidates were all answerable)"
+        "notes": "kind=near_domain"
       },
       "trace": {
-        "question": "What are the specific health and safety measures implemented by Meridian Maritime Services?",
+        "question": "What kind of benefits do I get if I'm a part-time employee at Meridian Maritime Services?",
         "retrieved": [
           {
             "id": "leave_policy.pdf#0",
@@ -513,24 +512,25 @@
             "heading": "MERIDIAN MARITIME SERVICES - CONDUCT AND EMPLOYMENT POLICY"
           },
           {
-            "id": "leave_policy.pdf#1",
+            "id": "leave_policy.pdf#6",
             "doc": "leave_policy.pdf",
-            "text": "1. Annual leave entitlement\nShore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December). Employees with 5 or more years of service receive 28 days, and employees with 10 or more years of service receive 30 days. The 11 public holidays observed in the Netherlands are in addition to annual leave. Employees who join during the year receive annual leave pro rata to the months remaining.",
-            "heading": "1. Annual leave entitlement"
+            "text": "6. Unpaid leave\nEmployees with at least 2 years of service may request unpaid leave of up to 3 months. Unpaid leave requires approval from the department director. Annual leave does not accrue during unpaid leave, and company insurance cover continues only if the employee pays the premium.",
+            "heading": "6. Unpaid leave"
           }
         ],
         "tool_calls": [],
-        "raw_output": "{'answer': \"I can't help with that; it is outside what my documents cover.\", 'citations': [], 'refused': True, 'refusal_reason': 'The provided documents do not contain information about health and safety measures implemented by Meridian Maritime Services.'}",
+        "raw_output": "{'answer': \"I can't help with that; it is outside what my documents cover.\", 'citations': [], 'refused': True, 'refusal_reason': 'The provided documents do not cover information about part-time employees or their benefits.'}",
         "answer": {
           "answer": "I can't help with that; it is outside what my documents cover.",
           "citations": [],
           "refused": true,
-          "refusal_reason": "The provided documents do not contain information about health and safety measures implemented by Meridian Maritime Services."
+          "refusal_reason": "The provided documents do not cover information about part-time employees or their benefits."
         },
         "contract_ok": true,
         "citations_verified": [],
-        "latency_s": 40.34634351730347,
-        "error": ""
+        "latency_s": 14.599181413650513,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "oos-02",
@@ -616,8 +616,9 @@
           true,
           true
         ],
-        "latency_s": 64.7714684009552,
-        "error": ""
+        "latency_s": 0.005827188491821289,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "mul-03",
@@ -640,92 +641,9 @@
     },
     {
       "case": {
-        "id": "ans-04",
-        "type": "answerable",
-        "question": "How much leave do employees adopting a child receive?",
-        "expected_facts": [
-          "same leave as birth parents"
-        ],
-        "source_docs": [
-          "leave_policy.pdf"
-        ],
-        "source_quotes": [
-          "Employees adopting a child receive the same leave as birth parents."
-        ],
-        "should_refuse": false,
-        "split": "dev",
-        "notes": "chunk=leave_policy.pdf#2"
-      },
-      "trace": {
-        "question": "How much leave do employees adopting a child receive?",
-        "retrieved": [
-          {
-            "id": "leave_policy.pdf#4",
-            "doc": "leave_policy.pdf",
-            "text": "4. Parental leave\nBirth mothers receive 18 weeks of maternity leave on full pay followed by 21 weeks at the statutory rate. The other parent receives 4 weeks of paternity leave on full pay, to be taken within 6 months of the birth. Employees adopting a child receive the same leave as birth parents. Maternity leave must be notified in writing at least 15 weeks before the expected due date.",
-            "heading": "4. Parental leave"
-          },
-          {
-            "id": "leave_policy.pdf#5",
-            "doc": "leave_policy.pdf",
-            "text": "5. Compassionate leave\nEmployees receive 5 days of paid compassionate leave on the death of a spouse, partner, child or parent, and 2 days of paid compassionate leave on the death of a sibling, grandparent or parent-in-law. Compassionate leave is separate from annual leave and sick leave.",
-            "heading": "5. Compassionate leave"
-          },
-          {
-            "id": "leave_policy.pdf#1",
-            "doc": "leave_policy.pdf",
-            "text": "1. Annual leave entitlement\nShore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December). Employees with 5 or more years of service receive 28 days, and employees with 10 or more years of service receive 30 days. The 11 public holidays observed in the Netherlands are in addition to annual leave. Employees who join during the year receive annual leave pro rata to the months remaining.",
-            "heading": "1. Annual leave entitlement"
-          },
-          {
-            "id": "leave_policy.pdf#3",
-            "doc": "leave_policy.pdf",
-            "text": "3. Sick leave\nEmployees receive full pay for the first 10 days of sick leave in a leave year. From day 11 up to day 60, sick pay is 50 percent of salary. Employees must notify their line manager before 9:00 on the first day of absence. A medical certificate is required for any absence longer than 3 consecutive days. Sick leave does not reduce annual leave entitlement.",
-            "heading": "3. Sick leave"
-          }
-        ],
-        "tool_calls": [],
-        "raw_output": "{'answer': 'Employees adopting a child receive the same leave as birth parents, which includes 18 weeks of maternity leave on full pay followed by 21 weeks at the statutory rate.', 'citations': [{'doc': 'leave_policy.pdf', 'quote': 'Employees adopting a child receive the same leave as birth parents. Maternity leave must be notified in writing at least 15 weeks before the expected due date.'}], 'refused': False, 'refusal_reason': ''}",
-        "answer": {
-          "answer": "Employees adopting a child receive the same leave as birth parents, which includes 18 weeks of maternity leave on full pay followed by 21 weeks at the statutory rate.",
-          "citations": [
-            {
-              "doc": "leave_policy.pdf",
-              "quote": "Employees adopting a child receive the same leave as birth parents. Maternity leave must be notified in writing at least 15 weeks before the expected due date."
-            }
-          ],
-          "refused": false,
-          "refusal_reason": ""
-        },
-        "contract_ok": true,
-        "citations_verified": [
-          true
-        ],
-        "latency_s": 54.43822932243347,
-        "error": ""
-      },
-      "verdict": {
-        "case_id": "ans-04",
-        "grounded": true,
-        "correct": true,
-        "refusal_correct": true,
-        "passed": true,
-        "fact_hits": [
-          true
-        ],
-        "fact_methods": [
-          "exact"
-        ],
-        "uncertain": false,
-        "llm_used": false,
-        "reasons": []
-      }
-    },
-    {
-      "case": {
-        "id": "ans-06",
-        "type": "answerable",
-        "question": "How much is reimbursed per kilometre for using a private car for business travel?",
+        "id": "amb-03",
+        "type": "ambiguous",
+        "question": "What's the reimbursement per km for using a car for work?",
         "expected_facts": [
           "EUR 0.42 per kilometre"
         ],
@@ -737,10 +655,10 @@
         ],
         "should_refuse": false,
         "split": "dev",
-        "notes": "chunk=travel_expenses_policy.pdf#2"
+        "notes": "rewrite of chunk=travel_expenses_policy.pdf#2; vagueness: no longer says ['busine', 'kilometr', 'much', 'privat', 'reimbur', 'travel']"
       },
       "trace": {
-        "question": "How much is reimbursed per kilometre for using a private car for business travel?",
+        "question": "What's the reimbursement per km for using a car for work?",
         "retrieved": [
           {
             "id": "travel_expenses_policy.pdf#4",
@@ -749,16 +667,16 @@
             "heading": "4. Private car use"
           },
           {
-            "id": "travel_expenses_policy.pdf#1",
-            "doc": "travel_expenses_policy.pdf",
-            "text": "1. Booking travel\nAll business travel must be booked through the corporate travel desk at least 7 days before departure. Flights longer than 6 hours may be booked in premium economy with line manager approval; shorter flights are booked in economy. Rail is preferred for journeys under 4 hours. Hotels must be booked through the travel desk and are capped per night by city tier:\n- Tier 1 cities (London, New York, Singapore, Tokyo): EUR 180 per night.",
-            "heading": "1. Booking travel"
+            "id": "conduct_and_employment_policy.pdf#1",
+            "doc": "conduct_and_employment_policy.pdf",
+            "text": "2. Remote work\nEmployees may work remotely for up to 2 days per week with the approval of their line manager. Remote work is not available during the first 3 months of the probation period.\n3. Probation and notice\nNew employees serve a probation period of 6 months. During probation either party may end the employment with 1 week of notice. After probation the notice period is 1 month for employees with less than 5 years of service and 2 months for employees with 5 or more years of service.",
+            "heading": "2. Remote work"
           },
           {
-            "id": "travel_expenses_policy.pdf#0",
+            "id": "travel_expenses_policy.pdf#3",
             "doc": "travel_expenses_policy.pdf",
-            "text": "MERIDIAN MARITIME SERVICES - TRAVEL AND EXPENSES POLICY\nEffective 1 January 2025. Applies to all employees travelling on company business.",
-            "heading": "MERIDIAN MARITIME SERVICES - TRAVEL AND EXPENSES POLICY"
+            "text": "3. Claiming expenses\nExpense claims must be submitted within 30 days of the end of the trip, together with original receipts. Claims above EUR 500 require approval from the department head before reimbursement. Approved claims are reimbursed within 14 days. Claims submitted after 30 days are rejected unless the finance director grants an exception in writing.",
+            "heading": "3. Claiming expenses"
           },
           {
             "id": "travel_expenses_policy.pdf#2",
@@ -784,11 +702,499 @@
         "citations_verified": [
           true
         ],
-        "latency_s": 42.15668725967407,
-        "error": ""
+        "latency_s": 36.9282968044281,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "amb-03",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-04",
+        "type": "answerable",
+        "question": "How many days of paid annual leave do shore-based employees receive?",
+        "expected_facts": [
+          "25 days"
+        ],
+        "source_docs": [
+          "leave_policy.pdf"
+        ],
+        "source_quotes": [
+          "Shore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December)."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=leave_policy.pdf#0"
+      },
+      "trace": {
+        "question": "How many days of paid annual leave do shore-based employees receive?",
+        "retrieved": [
+          {
+            "id": "leave_policy.pdf#1",
+            "doc": "leave_policy.pdf",
+            "text": "1. Annual leave entitlement\nShore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December). Employees with 5 or more years of service receive 28 days, and employees with 10 or more years of service receive 30 days. The 11 public holidays observed in the Netherlands are in addition to annual leave. Employees who join during the year receive annual leave pro rata to the months remaining.",
+            "heading": "1. Annual leave entitlement"
+          },
+          {
+            "id": "leave_policy.pdf#5",
+            "doc": "leave_policy.pdf",
+            "text": "5. Compassionate leave\nEmployees receive 5 days of paid compassionate leave on the death of a spouse, partner, child or parent, and 2 days of paid compassionate leave on the death of a sibling, grandparent or parent-in-law. Compassionate leave is separate from annual leave and sick leave.",
+            "heading": "5. Compassionate leave"
+          },
+          {
+            "id": "leave_policy.pdf#2",
+            "doc": "leave_policy.pdf",
+            "text": "2. Requesting and carrying over annual leave\nAnnual leave must be requested through the HR portal at least 14 days before the first day of leave. The line manager must approve or decline within 5 working days. Up to 5 unused days may be carried over into the next leave year and must be taken by 31 March; carried-over days not taken by then are forfeited. Annual leave is not paid out in lieu, except for days accrued but untaken when employment ends.",
+            "heading": "2. Requesting and carrying over annual leave"
+          },
+          {
+            "id": "leave_policy.pdf#3",
+            "doc": "leave_policy.pdf",
+            "text": "3. Sick leave\nEmployees receive full pay for the first 10 days of sick leave in a leave year. From day 11 up to day 60, sick pay is 50 percent of salary. Employees must notify their line manager before 9:00 on the first day of absence. A medical certificate is required for any absence longer than 3 consecutive days. Sick leave does not reduce annual leave entitlement.",
+            "heading": "3. Sick leave"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'Shore-based employees receive 25 days of paid annual leave per leave year.', 'citations': [{'doc': 'leave_policy.pdf', 'quote': 'Shore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December). Employees with 5 or more years of service receive 28 days, and employees with 10 or more years of service receive 30 days.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "Shore-based employees receive 25 days of paid annual leave per leave year.",
+          "citations": [
+            {
+              "doc": "leave_policy.pdf",
+              "quote": "Shore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December). Employees with 5 or more years of service receive 28 days, and employees with 10 or more years of service receive 30 days."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.006162166595458984,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "ans-04",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "oos-04",
+        "type": "out_of_scope",
+        "question": "What are the specific health and safety measures implemented by Meridian Maritime Services?",
+        "expected_facts": [],
+        "source_docs": [],
+        "source_quotes": [],
+        "should_refuse": true,
+        "split": "dev",
+        "notes": "kind=unrelated"
+      },
+      "trace": {
+        "question": "What are the specific health and safety measures implemented by Meridian Maritime Services?",
+        "retrieved": [
+          {
+            "id": "leave_policy.pdf#0",
+            "doc": "leave_policy.pdf",
+            "text": "MERIDIAN MARITIME SERVICES - LEAVE POLICY\nEffective 1 January 2025. Applies to shore-based employees. Seafarers are covered by their own employment agreements.",
+            "heading": "MERIDIAN MARITIME SERVICES - LEAVE POLICY"
+          },
+          {
+            "id": "travel_expenses_policy.pdf#0",
+            "doc": "travel_expenses_policy.pdf",
+            "text": "MERIDIAN MARITIME SERVICES - TRAVEL AND EXPENSES POLICY\nEffective 1 January 2025. Applies to all employees travelling on company business.",
+            "heading": "MERIDIAN MARITIME SERVICES - TRAVEL AND EXPENSES POLICY"
+          },
+          {
+            "id": "conduct_and_employment_policy.pdf#0",
+            "doc": "conduct_and_employment_policy.pdf",
+            "text": "MERIDIAN MARITIME SERVICES - CONDUCT AND EMPLOYMENT POLICY\nEffective 1 January 2025. Applies to all shore-based employees.\n1. Working hours and overtime\nThe standard working week is 37.5 hours. Core hours are 10:00 to 16:00. Overtime must be approved in advance by the line manager. Approved overtime is paid at 1.25 times the hourly rate for the first 8 hours in a month and 1.5 times after that. Employees may instead take time off in lieu, to be used within 3 months.",
+            "heading": "MERIDIAN MARITIME SERVICES - CONDUCT AND EMPLOYMENT POLICY"
+          },
+          {
+            "id": "leave_policy.pdf#1",
+            "doc": "leave_policy.pdf",
+            "text": "1. Annual leave entitlement\nShore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December). Employees with 5 or more years of service receive 28 days, and employees with 10 or more years of service receive 30 days. The 11 public holidays observed in the Netherlands are in addition to annual leave. Employees who join during the year receive annual leave pro rata to the months remaining.",
+            "heading": "1. Annual leave entitlement"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': \"I can't help with that; it is outside what my documents cover.\", 'citations': [], 'refused': True, 'refusal_reason': 'The provided documents do not contain information about health and safety measures implemented by Meridian Maritime Services.'}",
+        "answer": {
+          "answer": "I can't help with that; it is outside what my documents cover.",
+          "citations": [],
+          "refused": true,
+          "refusal_reason": "The provided documents do not contain information about health and safety measures implemented by Meridian Maritime Services."
+        },
+        "contract_ok": true,
+        "citations_verified": [],
+        "latency_s": 0.0033223628997802734,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "oos-04",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [],
+        "fact_methods": [],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-06",
+        "type": "answerable",
+        "question": "What is the minimum working hours per week?",
+        "expected_facts": [
+          "37.5 hours"
+        ],
+        "source_docs": [
+          "conduct_and_employment_policy.pdf"
+        ],
+        "source_quotes": [
+          "The standard working week is 37.5 hours."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=conduct_and_employment_policy.pdf#0"
+      },
+      "trace": {
+        "question": "What is the minimum working hours per week?",
+        "retrieved": [
+          {
+            "id": "conduct_and_employment_policy.pdf#0",
+            "doc": "conduct_and_employment_policy.pdf",
+            "text": "MERIDIAN MARITIME SERVICES - CONDUCT AND EMPLOYMENT POLICY\nEffective 1 January 2025. Applies to all shore-based employees.\n1. Working hours and overtime\nThe standard working week is 37.5 hours. Core hours are 10:00 to 16:00. Overtime must be approved in advance by the line manager. Approved overtime is paid at 1.25 times the hourly rate for the first 8 hours in a month and 1.5 times after that. Employees may instead take time off in lieu, to be used within 3 months.",
+            "heading": "MERIDIAN MARITIME SERVICES - CONDUCT AND EMPLOYMENT POLICY"
+          },
+          {
+            "id": "conduct_and_employment_policy.pdf#1",
+            "doc": "conduct_and_employment_policy.pdf",
+            "text": "2. Remote work\nEmployees may work remotely for up to 2 days per week with the approval of their line manager. Remote work is not available during the first 3 months of the probation period.\n3. Probation and notice\nNew employees serve a probation period of 6 months. During probation either party may end the employment with 1 week of notice. After probation the notice period is 1 month for employees with less than 5 years of service and 2 months for employees with 5 or more years of service.",
+            "heading": "2. Remote work"
+          },
+          {
+            "id": "travel_expenses_policy.pdf#1",
+            "doc": "travel_expenses_policy.pdf",
+            "text": "1. Booking travel\nAll business travel must be booked through the corporate travel desk at least 7 days before departure. Flights longer than 6 hours may be booked in premium economy with line manager approval; shorter flights are booked in economy. Rail is preferred for journeys under 4 hours. Hotels must be booked through the travel desk and are capped per night by city tier:\n- Tier 1 cities (London, New York, Singapore, Tokyo): EUR 180 per night.",
+            "heading": "1. Booking travel"
+          },
+          {
+            "id": "leave_policy.pdf#4",
+            "doc": "leave_policy.pdf",
+            "text": "4. Parental leave\nBirth mothers receive 18 weeks of maternity leave on full pay followed by 21 weeks at the statutory rate. The other parent receives 4 weeks of paternity leave on full pay, to be taken within 6 months of the birth. Employees adopting a child receive the same leave as birth parents. Maternity leave must be notified in writing at least 15 weeks before the expected due date.",
+            "heading": "4. Parental leave"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'The standard working week is 37.5 hours.', 'citations': [{'doc': 'conduct_and_employment_policy.pdf', 'quote': 'The standard working week is 37.5 hours.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "The standard working week is 37.5 hours.",
+          "citations": [
+            {
+              "doc": "conduct_and_employment_policy.pdf",
+              "quote": "The standard working week is 37.5 hours."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 35.24034881591797,
+        "error": "",
+        "gate_blocked": ""
       },
       "verdict": {
         "case_id": "ans-06",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-07",
+        "type": "answerable",
+        "question": "How many days of paid compassionate leave do employees receive for the death of a sibling?",
+        "expected_facts": [
+          "2 days"
+        ],
+        "source_docs": [
+          "leave_policy.pdf"
+        ],
+        "source_quotes": [
+          "Employees receive 5 days of paid compassionate leave on the death of a spouse, partner, child or parent, and 2 days of paid compassionate leave on the death of a sibling, grandparent or parent-in-law."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=leave_policy.pdf#3"
+      },
+      "trace": {
+        "question": "How many days of paid compassionate leave do employees receive for the death of a sibling?",
+        "retrieved": [
+          {
+            "id": "leave_policy.pdf#5",
+            "doc": "leave_policy.pdf",
+            "text": "5. Compassionate leave\nEmployees receive 5 days of paid compassionate leave on the death of a spouse, partner, child or parent, and 2 days of paid compassionate leave on the death of a sibling, grandparent or parent-in-law. Compassionate leave is separate from annual leave and sick leave.",
+            "heading": "5. Compassionate leave"
+          },
+          {
+            "id": "leave_policy.pdf#1",
+            "doc": "leave_policy.pdf",
+            "text": "1. Annual leave entitlement\nShore-based employees receive 25 days of paid annual leave per leave year (1 January to 31 December). Employees with 5 or more years of service receive 28 days, and employees with 10 or more years of service receive 30 days. The 11 public holidays observed in the Netherlands are in addition to annual leave. Employees who join during the year receive annual leave pro rata to the months remaining.",
+            "heading": "1. Annual leave entitlement"
+          },
+          {
+            "id": "leave_policy.pdf#3",
+            "doc": "leave_policy.pdf",
+            "text": "3. Sick leave\nEmployees receive full pay for the first 10 days of sick leave in a leave year. From day 11 up to day 60, sick pay is 50 percent of salary. Employees must notify their line manager before 9:00 on the first day of absence. A medical certificate is required for any absence longer than 3 consecutive days. Sick leave does not reduce annual leave entitlement.",
+            "heading": "3. Sick leave"
+          },
+          {
+            "id": "leave_policy.pdf#4",
+            "doc": "leave_policy.pdf",
+            "text": "4. Parental leave\nBirth mothers receive 18 weeks of maternity leave on full pay followed by 21 weeks at the statutory rate. The other parent receives 4 weeks of paternity leave on full pay, to be taken within 6 months of the birth. Employees adopting a child receive the same leave as birth parents. Maternity leave must be notified in writing at least 15 weeks before the expected due date.",
+            "heading": "4. Parental leave"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'Employees receive 2 days of paid compassionate leave on the death of a sibling.', 'citations': [{'doc': 'leave_policy.pdf', 'quote': 'Employees receive 5 days of paid compassionate leave on the death of a spouse, partner, child or parent, and 2 days of paid compassionate leave on the death of a sibling, grandparent or parent-in-law.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "Employees receive 2 days of paid compassionate leave on the death of a sibling.",
+          "citations": [
+            {
+              "doc": "leave_policy.pdf",
+              "quote": "Employees receive 5 days of paid compassionate leave on the death of a spouse, partner, child or parent, and 2 days of paid compassionate leave on the death of a sibling, grandparent or parent-in-law."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 39.92988705635071,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "ans-07",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-09",
+        "type": "answerable",
+        "question": "What is the minimum approval required for unpaid leave?",
+        "expected_facts": [
+          "approval from the department director"
+        ],
+        "source_docs": [
+          "leave_policy.pdf"
+        ],
+        "source_quotes": [
+          "Unpaid leave requires approval from the department director."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=leave_policy.pdf#3"
+      },
+      "trace": {
+        "question": "What is the minimum approval required for unpaid leave?",
+        "retrieved": [
+          {
+            "id": "leave_policy.pdf#6",
+            "doc": "leave_policy.pdf",
+            "text": "6. Unpaid leave\nEmployees with at least 2 years of service may request unpaid leave of up to 3 months. Unpaid leave requires approval from the department director. Annual leave does not accrue during unpaid leave, and company insurance cover continues only if the employee pays the premium.",
+            "heading": "6. Unpaid leave"
+          },
+          {
+            "id": "leave_policy.pdf#3",
+            "doc": "leave_policy.pdf",
+            "text": "3. Sick leave\nEmployees receive full pay for the first 10 days of sick leave in a leave year. From day 11 up to day 60, sick pay is 50 percent of salary. Employees must notify their line manager before 9:00 on the first day of absence. A medical certificate is required for any absence longer than 3 consecutive days. Sick leave does not reduce annual leave entitlement.",
+            "heading": "3. Sick leave"
+          },
+          {
+            "id": "travel_expenses_policy.pdf#3",
+            "doc": "travel_expenses_policy.pdf",
+            "text": "3. Claiming expenses\nExpense claims must be submitted within 30 days of the end of the trip, together with original receipts. Claims above EUR 500 require approval from the department head before reimbursement. Approved claims are reimbursed within 14 days. Claims submitted after 30 days are rejected unless the finance director grants an exception in writing.",
+            "heading": "3. Claiming expenses"
+          },
+          {
+            "id": "leave_policy.pdf#5",
+            "doc": "leave_policy.pdf",
+            "text": "5. Compassionate leave\nEmployees receive 5 days of paid compassionate leave on the death of a spouse, partner, child or parent, and 2 days of paid compassionate leave on the death of a sibling, grandparent or parent-in-law. Compassionate leave is separate from annual leave and sick leave.",
+            "heading": "5. Compassionate leave"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'Employees with at least 2 years of service may request unpaid leave of up to 3 months. Unpaid leave requires approval from the department director.', 'citations': [{'doc': 'leave_policy.pdf', 'quote': '6. Unpaid leave Employees with at least 2 years of service may request unpaid leave of up to 3 months. Unpaid leave requires approval from the department director.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "Employees with at least 2 years of service may request unpaid leave of up to 3 months. Unpaid leave requires approval from the department director.",
+          "citations": [
+            {
+              "doc": "leave_policy.pdf",
+              "quote": "6. Unpaid leave Employees with at least 2 years of service may request unpaid leave of up to 3 months. Unpaid leave requires approval from the department director."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 33.21566343307495,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "ans-09",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-10",
+        "type": "answerable",
+        "question": "What is the overtime pay rate for the first 8 hours in a month?",
+        "expected_facts": [
+          "1.25 times the hourly rate"
+        ],
+        "source_docs": [
+          "conduct_and_employment_policy.pdf"
+        ],
+        "source_quotes": [
+          "Approved overtime is paid at 1.25 times the hourly rate for the first 8 hours in a month and 1.5 times after that."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=conduct_and_employment_policy.pdf#0"
+      },
+      "trace": {
+        "question": "What is the overtime pay rate for the first 8 hours in a month?",
+        "retrieved": [
+          {
+            "id": "conduct_and_employment_policy.pdf#0",
+            "doc": "conduct_and_employment_policy.pdf",
+            "text": "MERIDIAN MARITIME SERVICES - CONDUCT AND EMPLOYMENT POLICY\nEffective 1 January 2025. Applies to all shore-based employees.\n1. Working hours and overtime\nThe standard working week is 37.5 hours. Core hours are 10:00 to 16:00. Overtime must be approved in advance by the line manager. Approved overtime is paid at 1.25 times the hourly rate for the first 8 hours in a month and 1.5 times after that. Employees may instead take time off in lieu, to be used within 3 months.",
+            "heading": "MERIDIAN MARITIME SERVICES - CONDUCT AND EMPLOYMENT POLICY"
+          },
+          {
+            "id": "leave_policy.pdf#4",
+            "doc": "leave_policy.pdf",
+            "text": "4. Parental leave\nBirth mothers receive 18 weeks of maternity leave on full pay followed by 21 weeks at the statutory rate. The other parent receives 4 weeks of paternity leave on full pay, to be taken within 6 months of the birth. Employees adopting a child receive the same leave as birth parents. Maternity leave must be notified in writing at least 15 weeks before the expected due date.",
+            "heading": "4. Parental leave"
+          },
+          {
+            "id": "leave_policy.pdf#3",
+            "doc": "leave_policy.pdf",
+            "text": "3. Sick leave\nEmployees receive full pay for the first 10 days of sick leave in a leave year. From day 11 up to day 60, sick pay is 50 percent of salary. Employees must notify their line manager before 9:00 on the first day of absence. A medical certificate is required for any absence longer than 3 consecutive days. Sick leave does not reduce annual leave entitlement.",
+            "heading": "3. Sick leave"
+          },
+          {
+            "id": "leave_policy.pdf#6",
+            "doc": "leave_policy.pdf",
+            "text": "6. Unpaid leave\nEmployees with at least 2 years of service may request unpaid leave of up to 3 months. Unpaid leave requires approval from the department director. Annual leave does not accrue during unpaid leave, and company insurance cover continues only if the employee pays the premium.",
+            "heading": "6. Unpaid leave"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'The overtime pay rate for the first 8 hours in a month is 1.25 times the hourly rate.', 'citations': [{'doc': 'conduct_and_employment_policy.pdf', 'quote': 'Overtime must be approved in advance by the line manager. Approved overtime is paid at 1.25 times the hourly rate for the first 8 hours in a month and 1.5 times after that.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "The overtime pay rate for the first 8 hours in a month is 1.25 times the hourly rate.",
+          "citations": [
+            {
+              "doc": "conduct_and_employment_policy.pdf",
+              "quote": "Overtime must be approved in advance by the line manager. Approved overtime is paid at 1.25 times the hourly rate for the first 8 hours in a month and 1.5 times after that."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 39.73490786552429,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "ans-10",
         "grounded": true,
         "correct": true,
         "refusal_correct": true,

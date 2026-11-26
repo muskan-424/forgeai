@@ -20,13 +20,11 @@ rules:
   head.
 - For exact items, codes or prices in the table, call csv_lookup and quote its row; do not rely on memory.
 - 'Refuse questions about: legal advice about contracts.'
-- If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to
-  the documents' topic; never borrow a rule or figure from a different topic.
 docs_dir: ../../../../demos/procurement/docs
 retrieval:
   chunk_size: 500
   chunk_overlap: 60
-  top_k: 4
+  top_k: 6
   bm25_weight: 1.0
   use_embeddings: false
   min_score: 0.0
@@ -42,6 +40,6 @@ output_contract:
   require_citations: true
   max_answer_words: 150
 refusal_message: I can't help with that; it is outside what my documents cover.
-refusal_gate: false
+refusal_gate: true
 refusal_topics:
 - legal advice about contracts

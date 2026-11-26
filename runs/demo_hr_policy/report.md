@@ -4,12 +4,12 @@
 
 ## Verdict
 
-- **Dev set** (used by the optimizer): 8/9 (89%; 95% CI 56%-98%) at baseline -> 9/9 (100%; 95% CI 70%-100%) after 1 kept patch(es) (1 tried).
-- **Holdout set** (never used to patch): 3/4 (75%; 95% CI 30%-95%) at baseline -> 3/4 (75%; 95% CI 30%-95%) final.
+- **Dev set** (used by the optimizer): 13/14 (93%; 95% CI 68%-99%) at baseline -> 14/14 (100%; 95% CI 78%-100%) after 1 kept patch(es) (1 tried).
+- **Holdout set** (never used to patch): 5/6 (83%; 95% CI 44%-97%) at baseline -> 5/6 (83%; 95% CI 44%-97%) final.
 - The loop stopped because: all dev cases pass.
-- **Check iteration 1's kept patch:** a gain of 1 case(s) on 9 dev cases is within normal run-to-run noise, so it does not prove the patch helped.
+- **Check iteration 1's kept patch:** a gain of 1 case(s) on 14 dev cases is within normal run-to-run noise, so it does not prove the patch helped.
 - 1 case(s) still fail; see 'What still fails and why'.
-- **How much to trust these numbers:** the eval set has only 13 cases, so every rate carries a wide confidence interval (shown above). A perfect score on so few cases is weak evidence, not proof. Differences of one or two cases are within noise.
+- **How much to trust these numbers:** the eval set has only 20 cases, so every rate carries a wide confidence interval (shown above). A perfect score on so few cases is weak evidence, not proof. Differences of one or two cases are within noise.
 
 ## What was built
 
@@ -25,6 +25,7 @@
   - `open_meteo`: not attached: no evidence in the brief that this tool is needed
   - `current_date`: not attached: no evidence in the brief that this tool is needed
 - **Rules in the final prompt:** 8
+- **Refusal gate:** off (forbidden topics checked before answering: pension contributions)
 
 ## Can the documents support the brief?
 
@@ -39,13 +40,13 @@
 
 ## Evaluation set
 
-- 13 generated cases: 6 answerable, 3 multi_doc, 2 ambiguous, 2 out_of_scope; split 9 dev / 4 holdout.
-- Generation yield: 13 of 28 attempts passed verification; 14 were discarded.
-  - 7x out_of_scope:too similar to the documents (might be answerable)
-  - 2x answerable:question strays from its source sentence
+- 20 generated cases: 10 answerable, 3 multi_doc, 3 ambiguous, 4 out_of_scope; split 14 dev / 6 holdout.
+- Generation yield: 20 of 53 attempts passed verification; 21 were discarded.
+  - 5x answerable:question strays from its source sentence
+  - 4x multi_doc:question strays from its source sentence
+  - 4x multi_doc:fact not in sources
+  - 3x answerable:question refers to 'this policy/document' without naming it
   - 2x ambiguous:rewrite lost the topic
-  - 1x answerable:question contradicts the direction of its source (maximum vs minimum)
-  - 1x multi_doc:does not need both passages
 - The cases were written by the same model family as the agent (and verified mechanically against the documents), so blind spots shared by that family may be invisible to this evaluation.
 
 ## How reliable is the judge?
@@ -59,9 +60,9 @@
 
 | iteration | decision | dev | holdout |
 |---|---|---|---|
-| 0 | baseline | 8/9 (89%; 95% CI 56%-98%) | 3/4 (75%; 95% CI 30%-95%) |
-| 1 | kept | 9/9 (100%; 95% CI 70%-100%) | - |
-| final | final | 9/9 (100%; 95% CI 70%-100%) | 3/4 (75%; 95% CI 30%-95%) |
+| 0 | baseline | 13/14 (93%; 95% CI 68%-99%) | 5/6 (83%; 95% CI 44%-97%) |
+| 1 | kept | 14/14 (100%; 95% CI 78%-100%) | - |
+| final | final | 14/14 (100%; 95% CI 78%-100%) | 5/6 (83%; 95% CI 44%-97%) |
 
 ## Changelog
 
@@ -69,7 +70,7 @@
 - **Changed:** + rule: Each citation quote must be one or more whole sentences copied exactly, word for word, from the CONTEXT; never reword, shorten or merge sentences inside a quote.
 - **Why:** add proven rule for hallucination/citation (source: library)
 - **Failures addressed:** amb-02
-- **Score before -> after (dev):** 8 -> 9 of 9
+- **Score before -> after (dev):** 13 -> 14 of 14
 - **Fixed:** amb-02; **broke:** none
 - **Decision:** net gain on dev cases
 
@@ -84,10 +85,11 @@ Failure categories remaining: prompt_defect x1.
 
 ## Cost
 
-- factory (intake, guard, generator, evalgen): 0 model calls (26 cache hits), 0s of model time
-- agent: 13 model calls (13 cache hits), 740s of model time
-- judge: 1 model calls (11 cache hits), 40s of model time
-- Total wall-clock: 13.1 min
+- factory (intake, guard, generator, evalgen): 23 fresh model calls, 23 answered from the cache; 416s of fresh model time
+- agent: 18 fresh model calls, 22 answered from the cache; 541s of fresh model time
+- judge: 0 fresh model calls, 12 answered from the cache; 0s of fresh model time
+- NOTE: this run mostly replayed identical requests from the cache, so the time above understates what a first, uncached run costs (on this CPU roughly 30-150 s per agent call).
+- Total wall-clock: 16.0 min
 
 ## Known limits of this run
 

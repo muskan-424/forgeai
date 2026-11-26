@@ -65,7 +65,7 @@ def _refusal_topics(req) -> list[str]:
 
 
 def run_factory(brief: str, docs_dir: str, out_dir: str, auto: bool = True, ask: Callable[[str], str] | None = None,
-                force: bool = False, n_eval: tuple[int, int, int, int] = (8, 3, 4, 3), max_iters: int = 3,
+                force: bool = False, n_eval: tuple[int, int, int, int] = (8, 3, 4, 3), min_cases: int = 20, max_iters: int = 3,
                 budget_minutes: float | None = None, calibrate: bool = True, reuse_evals: bool = False,
                 llm: LLM | None = None, judge: Judge | None = None, agent_factory: Callable | None = None,
                 progress=print) -> dict:
@@ -88,7 +88,7 @@ def run_factory(brief: str, docs_dir: str, out_dir: str, auto: bool = True, ask:
         progress("[4/6] eval generator: building a verified test set from the documents")
         gen = EvalGenerator(build_chunks(definition.docs_dir), llm, purpose=req.scope, must_refuse=_refusal_topics(req),
                             progress=progress)
-        cases = gen.generate(*n_eval)
+        cases = gen.generate(*n_eval, min_total=min_cases)
         eval_report = gen.report()
         _dump(evals_path, [c.model_dump() for c in cases])
         _dump(out / "evals_generation_report.json", eval_report)

@@ -1,0 +1,194 @@
+[
+  {
+    "id": "ans-01",
+    "type": "answerable",
+    "question": "How long does the purchase need to be reported to the fleet manager?",
+    "expected_facts": [
+      "within 24 hours"
+    ],
+    "source_docs": [
+      "procurement_procedure.pdf"
+    ],
+    "source_quotes": [
+      "The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours."
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=procurement_procedure.pdf#1"
+  },
+  {
+    "id": "mul-01",
+    "type": "multi_doc",
+    "question": "How many suppliers are approved for vessel spares, and what is the unit price of the Turbocharger cartridge assembly from Hartmann Marine GmbH?",
+    "expected_facts": [
+      "Four suppliers",
+      "6914.00"
+    ],
+    "source_docs": [
+      "supplier_terms.pdf",
+      "spares_catalogue.csv"
+    ],
+    "source_quotes": [
+      "Four suppliers are approved for vessel spares:",
+      "part_no: HM-2094; description: Turbocharger cartridge assembly; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 6914.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12"
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunks=supplier_terms.pdf#0,spares_catalogue.csv#0"
+  },
+  {
+    "id": "amb-01",
+    "type": "ambiguous",
+    "question": "What's the reporting time for purchases?",
+    "expected_facts": [
+      "within 24 hours"
+    ],
+    "source_docs": [
+      "procurement_procedure.pdf"
+    ],
+    "source_quotes": [
+      "The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "rewrite of chunk=procurement_procedure.pdf#1; vagueness: no longer says ['fleet', 'long', 'manager', 'need']"
+  },
+  {
+    "id": "oos-01",
+    "type": "out_of_scope",
+    "question": "What are the environmental impact assessments for new suppliers?",
+    "expected_facts": [],
+    "source_docs": [],
+    "source_quotes": [],
+    "should_refuse": true,
+    "split": "dev",
+    "notes": "kind=near_domain"
+  },
+  {
+    "id": "ans-02",
+    "type": "answerable",
+    "question": "What is the unit price of the Lube oil pump?",
+    "expected_facts": [
+      "2537.00"
+    ],
+    "source_docs": [
+      "spares_catalogue.csv"
+    ],
+    "source_quotes": [
+      "part_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12"
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=spares_catalogue.csv#0"
+  },
+  {
+    "id": "mul-02",
+    "type": "multi_doc",
+    "question": "What is the warranty period for the SCBA cylinder, and what is the maximum purchase order amount that can be approved by the vessel superintendent?",
+    "expected_facts": [
+      "24 months",
+      "EUR 1,000"
+    ],
+    "source_docs": [
+      "spares_catalogue.csv",
+      "procurement_procedure.pdf"
+    ],
+    "source_quotes": [
+      "part_no: OS-4521; description: SCBA cylinder, 6.8 L; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 409.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24",
+      "Purchase orders up to EUR 1,000 may be approved by the vessel superintendent."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "chunks=spares_catalogue.csv#6,procurement_procedure.pdf#0"
+  },
+  {
+    "id": "amb-02",
+    "type": "ambiguous",
+    "question": "What's the unit price?",
+    "expected_facts": [
+      "2537.00"
+    ],
+    "source_docs": [
+      "spares_catalogue.csv"
+    ],
+    "source_quotes": [
+      "part_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12"
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "rewrite of chunk=spares_catalogue.csv#0; vagueness: no longer says ['lub', 'oil', 'pump']"
+  },
+  {
+    "id": "oos-02",
+    "type": "out_of_scope",
+    "question": "How do I calculate the total cost of ownership for spare parts?",
+    "expected_facts": [],
+    "source_docs": [],
+    "source_quotes": [],
+    "should_refuse": true,
+    "split": "dev",
+    "notes": "kind=near_domain"
+  },
+  {
+    "id": "ans-03",
+    "type": "answerable",
+    "question": "What does Orion Safety Ltd (Aberdeen) provide?",
+    "expected_facts": [
+      "lifesaving and fire-fighting equipment"
+    ],
+    "source_docs": [
+      "supplier_terms.pdf"
+    ],
+    "source_quotes": [
+      "- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "chunk=supplier_terms.pdf#0"
+  },
+  {
+    "id": "oos-03",
+    "type": "out_of_scope",
+    "question": "What should I do if a supplier breaches the contract?",
+    "expected_facts": [],
+    "source_docs": [],
+    "source_quotes": [],
+    "should_refuse": true,
+    "split": "dev",
+    "notes": "kind=must_refuse"
+  },
+  {
+    "id": "ans-04",
+    "type": "answerable",
+    "question": "What is the unit price of the Gate valve DN50 in euros?",
+    "expected_facts": [
+      "unit_price_eur: 132.01"
+    ],
+    "source_docs": [
+      "spares_catalogue.csv"
+    ],
+    "source_quotes": [
+      "part_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24"
+    ],
+    "should_refuse": false,
+    "split": "dev",
+    "notes": "chunk=spares_catalogue.csv#1"
+  },
+  {
+    "id": "ans-05",
+    "type": "answerable",
+    "question": "What is the minimum amount for orders that require at least 2 written quotations?",
+    "expected_facts": [
+      "EUR 2,000"
+    ],
+    "source_docs": [
+      "procurement_procedure.pdf"
+    ],
+    "source_quotes": [
+      "Orders above EUR 2,000 require at least 2 written quotations."
+    ],
+    "should_refuse": false,
+    "split": "holdout",
+    "notes": "chunk=procurement_procedure.pdf#0"
+  }
+]

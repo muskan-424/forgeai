@@ -4,12 +4,13 @@
 
 ## Verdict
 
-- **Dev set** (used by the optimizer): 5/8 (62%; 95% CI 31%-86%) at baseline -> 6/8 (75%; 95% CI 41%-93%) after 1 kept patch(es) (3 tried).
-- **Holdout set** (never used to patch): 3/4 (75%; 95% CI 30%-95%) at baseline -> 3/4 (75%; 95% CI 30%-95%) final.
+- **Dev set** (used by the optimizer): 11/14 (79%; 95% CI 52%-92%) at baseline -> 13/14 (93%; 95% CI 68%-99%) after 2 kept patch(es) (3 tried).
+- **Holdout set** (never used to patch): 5/6 (83%; 95% CI 44%-97%) at baseline -> 5/6 (83%; 95% CI 44%-97%) final.
 - The loop stopped because: reached the maximum of 3 iterations.
-- **Check iteration 2's kept patch:** a gain of 1 case(s) on 8 dev cases is within normal run-to-run noise, so it does not prove the patch helped.
-- 3 case(s) still fail; see 'What still fails and why'.
-- **How much to trust these numbers:** the eval set has only 12 cases, so every rate carries a wide confidence interval (shown above). Differences of one or two cases are within noise.
+- **Check iteration 1's kept patch:** a gain of 1 case(s) on 14 dev cases is within normal run-to-run noise, so it does not prove the patch helped.
+- **Check iteration 2's kept patch:** a gain of 1 case(s) on 14 dev cases is within normal run-to-run noise, so it does not prove the patch helped.
+- 2 case(s) still fail; see 'What still fails and why'.
+- **How much to trust these numbers:** the eval set has only 20 cases, so every rate carries a wide confidence interval (shown above). Differences of one or two cases are within noise.
 
 ## What was built
 
@@ -18,13 +19,13 @@
 - **Tone:** professional, concise and neutral
 - **Must answer:** Quotations, Volume discounts, spare parts in the catalogue, lead times, stock status, order totals, approved-supplier terms
 - **Must refuse:** legal advice about contracts
-- **Retrieval:** chunk 500 chars (overlap 60), top-4, BM25 only
+- **Retrieval:** chunk 500 chars (overlap 60), top-6, BM25 only
 - **Tools attached:** csv_lookup, calculator
   - `csv_lookup`: ATTACHED: the brief explicitly mentions 'catalogue'; model: explicitly requested in the brief
   - `calculator`: ATTACHED: the brief explicitly mentions 'calculate'; model: explicitly requested in the brief
   - `open_meteo`: not attached: no evidence in the brief that this tool is needed
   - `current_date`: not attached: no evidence in the brief that this tool is needed
-- **Rules in the final prompt:** 9
+- **Rules in the final prompt:** 11
 - **Refusal gate:** ON (forbidden topics checked before answering: legal advice about contracts)
 
 ## Can the documents support the brief?
@@ -40,9 +41,12 @@
 
 ## Evaluation set
 
-- 12 generated cases: 5 answerable, 2 multi_doc, 2 ambiguous, 3 out_of_scope; split 8 dev / 4 holdout.
-- Generation yield: 12 of 22 attempts passed verification; 2 were discarded.
-  - 2x answerable:question strays from its source sentence
+- 20 generated cases: 10 answerable, 3 multi_doc, 3 ambiguous, 4 out_of_scope; split 14 dev / 6 holdout.
+- Generation yield: 20 of 43 attempts passed verification; 13 were discarded.
+  - 6x multi_doc:fact not in sources
+  - 4x answerable:question strays from its source sentence
+  - 2x multi_doc:does not need both passages
+  - 1x multi_doc:question refers to the source text
 - The cases were written by the same model family as the agent (and verified mechanically against the documents), so blind spots shared by that family may be invisible to this evaluation.
 
 ## How reliable is the judge?
@@ -56,62 +60,58 @@
 
 | iteration | decision | dev | holdout |
 |---|---|---|---|
-| 0 | baseline | 5/8 (62%; 95% CI 31%-86%) | 3/4 (75%; 95% CI 30%-95%) |
-| 1 | reverted | 5/8 (62%; 95% CI 31%-86%) | - |
-| 2 | kept | 6/8 (75%; 95% CI 41%-93%) | - |
-| 3 | reverted | 6/8 (75%; 95% CI 41%-93%) | - |
-| final | final | 6/8 (75%; 95% CI 41%-93%) | 3/4 (75%; 95% CI 30%-95%) |
+| 0 | baseline | 11/14 (79%; 95% CI 52%-92%) | 5/6 (83%; 95% CI 44%-97%) |
+| 1 | kept | 12/14 (86%; 95% CI 60%-96%) | - |
+| 2 | kept | 13/14 (93%; 95% CI 68%-99%) | - |
+| 3 | reverted | 12/14 (86%; 95% CI 60%-96%) | - |
+| final | final | 13/14 (93%; 95% CI 68%-99%) | 5/6 (83%; 95% CI 44%-97%) |
 
 ## Changelog
 
-### Iteration 1: REVERTED (hallucination)
-- **Changed:** + rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.
-- **Why:** add proven rule for hallucination/out_of_scope (source: library)
-- **Failures addressed:** oos-02, oos-03
-- **Score before -> after (dev):** 5 -> 5 of 8
-- **Fixed:** none; **broke:** none
-- **Decision:** no net gain: fixed nothing; patch reverted
-
-### Iteration 2: KEPT (hallucination)
-- **Changed:** refusal_gate = True
-- **Why:** enable the runtime refusal gate (rules alone did not make the agent refuse forbidden topics) (source: ladder)
-- **Failures addressed:** oos-02, oos-03
-- **Score before -> after (dev):** 5 -> 6 of 8
-- **Fixed:** oos-03; **broke:** none
-- **Decision:** net gain on dev cases
-
-### Iteration 3: REVERTED (retrieval_miss)
+### Iteration 1: KEPT (retrieval_miss)
 - **Changed:** retrieval.top_k = 6
 - **Why:** retrieve more passages (top_k 4 -> 6) (source: ladder)
+- **Failures addressed:** amb-02, ans-09
+- **Score before -> after (dev):** 11 -> 12 of 14
+- **Fixed:** ans-09; **broke:** none
+- **Decision:** net gain on dev cases
+
+### Iteration 2: KEPT (hallucination)
+- **Changed:** + rule: Each citation quote must be one or more whole sentences copied exactly, word for word, from the CONTEXT; never reword, shorten or merge sentences inside a quote.; + rule: If the question asks about something the CONTEXT does not state, refuse, even if it sounds related to the documents' topic; never borrow a rule or figure from a different topic.
+- **Why:** add proven rule for hallucination/citation; add proven rule for hallucination/out_of_scope (source: library)
+- **Failures addressed:** amb-02, oos-02
+- **Score before -> after (dev):** 12 -> 13 of 14
+- **Fixed:** oos-02; **broke:** none
+- **Decision:** net gain on dev cases
+
+### Iteration 3: REVERTED (hallucination)
+- **Changed:** + rule: When answering, ensure all information is directly supported by the context and avoid making assertions not grounded in the provided text or tables.
+- **Why:** model-written rule from 1 failing example(s) for hallucination (source: model)
 - **Failures addressed:** amb-02
-- **Score before -> after (dev):** 6 -> 6 of 8
-- **Fixed:** none; **broke:** none
-- **Decision:** no net gain: fixed nothing; patch reverted
+- **Score before -> after (dev):** 13 -> 12 of 14
+- **Fixed:** none; **broke:** oos-02
+- **Decision:** no net gain: broke ['oos-02']; patch reverted
 
 ## What still fails and why
 
-- **amb-02** (dev, ambiguous): "What's the unit price?"
-  - Root cause: **retrieval_miss**, meaning the passage that answers the question was not among the retrieved context.
-  - Judge: facts matched 0/1
-  - Agent said: "The unit prices are provided in the 'unit_price_eur' column of the spares_catalogue.csv file. For example, the Fire extinguisher 9 kg, foam (part_no: OS-3736) has a unit price of 103.04 EUR."
-- **oos-02** (dev, out_of_scope): "How do I calculate the total cost of ownership for spare parts?"
+- **amb-02** (dev, ambiguous): "What's Orion Safety Ltd's services?"
   - Root cause: **hallucination**, meaning the answer asserted content that the context does not support (or answered an out-of-scope question).
-  - Judge: hallucination: answered an out-of-scope question
-  - Agent said: "To calculate the total cost of ownership for spare parts, you would need to consider the initial purchase cost, any volume discounts, freight costs, and the cost of maintenance or replacement over the warranty period. However, the provided "
+  - Judge: ungrounded: citation quote not found in retrieved context (fabricated)
+  - Agent said: "Orion Safety Ltd provides services for lifesaving and fire-fighting equipment."
 - **amb-01** (holdout, ambiguous): "What's the reporting time for purchases?"
-  - Root cause: **hallucination**, meaning the answer asserted content that the context does not support (or answered an out-of-scope question).
-  - Judge: ungrounded: cited [] but expected ['procurement_procedure.pdf']
-  - Agent said: "The reporting time for purchases is within 2 working days for differences between the delivery and the purchase order, and within 24 hours for safety-critical items or vessel risks going off-hire."
+  - Root cause: **prompt_defect**, meaning the context contained the answer and the agent did not refuse, but the answer was wrong or incomplete.
+  - Judge: facts matched 0/1
+  - Agent said: "The reporting time for purchases is 24 hours for safety-critical items or when the vessel risks going off-hire, and 48 hours for purchases that are approved retrospectively."
 
-Failure categories remaining: retrieval_miss x1, hallucination x2.
+Failure categories remaining: hallucination x1, prompt_defect x1.
 
 ## Cost
 
-- factory (intake, guard, generator, evalgen): 0 fresh model calls, 20 answered from the cache; 0s of fresh model time + 43s replayed from the cache
-- agent: 4 fresh model calls, 36 answered from the cache; 758s of fresh model time + 1616s replayed from the cache
-- judge: 1 fresh model calls, 23 answered from the cache; 34s of fresh model time + 98s replayed from the cache
+- factory (intake, guard, generator, evalgen): 0 fresh model calls, 40 answered from the cache; 0s of fresh model time + 469s replayed from the cache
+- agent: 0 fresh model calls, 69 answered from the cache; 0s of fresh model time + 7344s replayed from the cache
+- judge: 0 fresh model calls, 38 answered from the cache; 0s of fresh model time + 774s replayed from the cache
 - NOTE: this run mostly replayed identical requests from the cache, so the time above understates what a first, uncached run costs (on this CPU roughly 30-150 s per agent call).
-- Total wall-clock: 13.2 min
+- Total wall-clock: 0.0 min
 
 ## Known limits of this run
 

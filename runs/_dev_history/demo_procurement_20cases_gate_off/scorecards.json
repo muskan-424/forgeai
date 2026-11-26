@@ -1,0 +1,611 @@
+[
+  {
+    "iteration": 0,
+    "decision": "baseline",
+    "dev": {
+      "overall": {
+        "passed": 11,
+        "n": 14,
+        "rate": 0.786,
+        "ci95": [
+          0.524,
+          0.924
+        ]
+      },
+      "by_split": {
+        "dev": {
+          "passed": 11,
+          "n": 14,
+          "rate": 0.786,
+          "ci95": [
+            0.524,
+            0.924
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 1,
+          "n": 2,
+          "rate": 0.5,
+          "ci95": [
+            0.095,
+            0.905
+          ]
+        },
+        "answerable": {
+          "passed": 6,
+          "n": 7,
+          "rate": 0.857,
+          "ci95": [
+            0.487,
+            0.974
+          ]
+        },
+        "multi_doc": {
+          "passed": 2,
+          "n": 2,
+          "rate": 1.0,
+          "ci95": [
+            0.342,
+            1.0
+          ]
+        },
+        "out_of_scope": {
+          "passed": 2,
+          "n": 3,
+          "rate": 0.667,
+          "ci95": [
+            0.208,
+            0.939
+          ]
+        }
+      },
+      "refusal_accuracy": 0.667,
+      "wrong_refusal_rate": 0.091,
+      "grounded_rate": 0.857,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 0.0,
+      "failures": [
+        {
+          "id": "amb-02",
+          "type": "ambiguous",
+          "split": "dev",
+          "question": "What's Orion Safety Ltd's services?",
+          "reasons": [
+            "wrong refusal: refused an answerable question"
+          ]
+        },
+        {
+          "id": "oos-02",
+          "type": "out_of_scope",
+          "split": "dev",
+          "question": "How do I calculate the total cost of ownership for spare parts?",
+          "reasons": [
+            "hallucination: answered an out-of-scope question"
+          ]
+        },
+        {
+          "id": "ans-09",
+          "type": "answerable",
+          "split": "dev",
+          "question": "What does Hartmann Marine GmbH supply?",
+          "reasons": [
+            "ungrounded: citation quote not found in retrieved context (fabricated)"
+          ]
+        }
+      ]
+    },
+    "holdout": {
+      "overall": {
+        "passed": 4,
+        "n": 6,
+        "rate": 0.667,
+        "ci95": [
+          0.3,
+          0.903
+        ]
+      },
+      "by_split": {
+        "holdout": {
+          "passed": 4,
+          "n": 6,
+          "rate": 0.667,
+          "ci95": [
+            0.3,
+            0.903
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        },
+        "answerable": {
+          "passed": 3,
+          "n": 3,
+          "rate": 1.0,
+          "ci95": [
+            0.438,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "ci95": [
+            0.207,
+            1.0
+          ]
+        },
+        "out_of_scope": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        }
+      },
+      "refusal_accuracy": 0.0,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 0.667,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 0.0,
+      "failures": [
+        {
+          "id": "amb-01",
+          "type": "ambiguous",
+          "split": "holdout",
+          "question": "What's the reporting time for purchases?",
+          "reasons": [
+            "ungrounded: cited [] but expected ['procurement_procedure.pdf']"
+          ]
+        },
+        {
+          "id": "oos-03",
+          "type": "out_of_scope",
+          "split": "holdout",
+          "question": "What should I do if a supplier breaches the contract?",
+          "reasons": [
+            "hallucination: answered an out-of-scope question"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "iteration": 1,
+    "decision": "kept",
+    "dev": {
+      "overall": {
+        "passed": 12,
+        "n": 14,
+        "rate": 0.857,
+        "ci95": [
+          0.601,
+          0.96
+        ]
+      },
+      "by_split": {
+        "dev": {
+          "passed": 12,
+          "n": 14,
+          "rate": 0.857,
+          "ci95": [
+            0.601,
+            0.96
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 1,
+          "n": 2,
+          "rate": 0.5,
+          "ci95": [
+            0.095,
+            0.905
+          ]
+        },
+        "answerable": {
+          "passed": 7,
+          "n": 7,
+          "rate": 1.0,
+          "ci95": [
+            0.646,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 2,
+          "n": 2,
+          "rate": 1.0,
+          "ci95": [
+            0.342,
+            1.0
+          ]
+        },
+        "out_of_scope": {
+          "passed": 2,
+          "n": 3,
+          "rate": 0.667,
+          "ci95": [
+            0.208,
+            0.939
+          ]
+        }
+      },
+      "refusal_accuracy": 0.667,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 0.857,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 0.0,
+      "failures": [
+        {
+          "id": "amb-02",
+          "type": "ambiguous",
+          "split": "dev",
+          "question": "What's Orion Safety Ltd's services?",
+          "reasons": [
+            "ungrounded: cited ['spares_catalogue.csv'] but expected ['supplier_terms.pdf']"
+          ]
+        },
+        {
+          "id": "oos-02",
+          "type": "out_of_scope",
+          "split": "dev",
+          "question": "How do I calculate the total cost of ownership for spare parts?",
+          "reasons": [
+            "hallucination: answered an out-of-scope question"
+          ]
+        }
+      ]
+    },
+    "holdout": null
+  },
+  {
+    "iteration": 2,
+    "decision": "kept",
+    "dev": {
+      "overall": {
+        "passed": 13,
+        "n": 14,
+        "rate": 0.929,
+        "ci95": [
+          0.685,
+          0.987
+        ]
+      },
+      "by_split": {
+        "dev": {
+          "passed": 13,
+          "n": 14,
+          "rate": 0.929,
+          "ci95": [
+            0.685,
+            0.987
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 1,
+          "n": 2,
+          "rate": 0.5,
+          "ci95": [
+            0.095,
+            0.905
+          ]
+        },
+        "answerable": {
+          "passed": 7,
+          "n": 7,
+          "rate": 1.0,
+          "ci95": [
+            0.646,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 2,
+          "n": 2,
+          "rate": 1.0,
+          "ci95": [
+            0.342,
+            1.0
+          ]
+        },
+        "out_of_scope": {
+          "passed": 3,
+          "n": 3,
+          "rate": 1.0,
+          "ci95": [
+            0.438,
+            1.0
+          ]
+        }
+      },
+      "refusal_accuracy": 1.0,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 0.929,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 49.2,
+      "failures": [
+        {
+          "id": "amb-02",
+          "type": "ambiguous",
+          "split": "dev",
+          "question": "What's Orion Safety Ltd's services?",
+          "reasons": [
+            "ungrounded: citation quote not found in retrieved context (fabricated)"
+          ]
+        }
+      ]
+    },
+    "holdout": null
+  },
+  {
+    "iteration": 3,
+    "decision": "reverted",
+    "dev": {
+      "overall": {
+        "passed": 12,
+        "n": 14,
+        "rate": 0.857,
+        "ci95": [
+          0.601,
+          0.96
+        ]
+      },
+      "by_split": {
+        "dev": {
+          "passed": 12,
+          "n": 14,
+          "rate": 0.857,
+          "ci95": [
+            0.601,
+            0.96
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 1,
+          "n": 2,
+          "rate": 0.5,
+          "ci95": [
+            0.095,
+            0.905
+          ]
+        },
+        "answerable": {
+          "passed": 7,
+          "n": 7,
+          "rate": 1.0,
+          "ci95": [
+            0.646,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 2,
+          "n": 2,
+          "rate": 1.0,
+          "ci95": [
+            0.342,
+            1.0
+          ]
+        },
+        "out_of_scope": {
+          "passed": 2,
+          "n": 3,
+          "rate": 0.667,
+          "ci95": [
+            0.208,
+            0.939
+          ]
+        }
+      },
+      "refusal_accuracy": 0.667,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 0.857,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 115.9,
+      "failures": [
+        {
+          "id": "amb-02",
+          "type": "ambiguous",
+          "split": "dev",
+          "question": "What's Orion Safety Ltd's services?",
+          "reasons": [
+            "ungrounded: citation quote not found in retrieved context (fabricated)"
+          ]
+        },
+        {
+          "id": "oos-02",
+          "type": "out_of_scope",
+          "split": "dev",
+          "question": "How do I calculate the total cost of ownership for spare parts?",
+          "reasons": [
+            "hallucination: refusal flag set but the answer still asserts content"
+          ]
+        }
+      ]
+    },
+    "holdout": null
+  },
+  {
+    "iteration": "final",
+    "decision": "final",
+    "dev": {
+      "overall": {
+        "passed": 13,
+        "n": 14,
+        "rate": 0.929,
+        "ci95": [
+          0.685,
+          0.987
+        ]
+      },
+      "by_split": {
+        "dev": {
+          "passed": 13,
+          "n": 14,
+          "rate": 0.929,
+          "ci95": [
+            0.685,
+            0.987
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 1,
+          "n": 2,
+          "rate": 0.5,
+          "ci95": [
+            0.095,
+            0.905
+          ]
+        },
+        "answerable": {
+          "passed": 7,
+          "n": 7,
+          "rate": 1.0,
+          "ci95": [
+            0.646,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 2,
+          "n": 2,
+          "rate": 1.0,
+          "ci95": [
+            0.342,
+            1.0
+          ]
+        },
+        "out_of_scope": {
+          "passed": 3,
+          "n": 3,
+          "rate": 1.0,
+          "ci95": [
+            0.438,
+            1.0
+          ]
+        }
+      },
+      "refusal_accuracy": 1.0,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 0.929,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 49.2,
+      "failures": [
+        {
+          "id": "amb-02",
+          "type": "ambiguous",
+          "split": "dev",
+          "question": "What's Orion Safety Ltd's services?",
+          "reasons": [
+            "ungrounded: citation quote not found in retrieved context (fabricated)"
+          ]
+        }
+      ]
+    },
+    "holdout": {
+      "overall": {
+        "passed": 4,
+        "n": 6,
+        "rate": 0.667,
+        "ci95": [
+          0.3,
+          0.903
+        ]
+      },
+      "by_split": {
+        "holdout": {
+          "passed": 4,
+          "n": 6,
+          "rate": 0.667,
+          "ci95": [
+            0.3,
+            0.903
+          ]
+        }
+      },
+      "by_type": {
+        "ambiguous": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        },
+        "answerable": {
+          "passed": 3,
+          "n": 3,
+          "rate": 1.0,
+          "ci95": [
+            0.438,
+            1.0
+          ]
+        },
+        "multi_doc": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "ci95": [
+            0.207,
+            1.0
+          ]
+        },
+        "out_of_scope": {
+          "passed": 0,
+          "n": 1,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.793
+          ]
+        }
+      },
+      "refusal_accuracy": 0.0,
+      "wrong_refusal_rate": 0.0,
+      "grounded_rate": 0.833,
+      "uncertain_judgements": 0,
+      "mean_latency_s": 126.4,
+      "failures": [
+        {
+          "id": "amb-01",
+          "type": "ambiguous",
+          "split": "holdout",
+          "question": "What's the reporting time for purchases?",
+          "reasons": [
+            "facts matched 0/1"
+          ]
+        },
+        {
+          "id": "oos-03",
+          "type": "out_of_scope",
+          "split": "holdout",
+          "question": "What should I do if a supplier breaches the contract?",
+          "reasons": [
+            "hallucination: answered an out-of-scope question"
+          ]
+        }
+      ]
+    }
+  }
+]

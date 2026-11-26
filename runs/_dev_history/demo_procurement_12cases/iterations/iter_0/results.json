@@ -1,0 +1,1169 @@
+{
+  "iteration": 0,
+  "decision": "baseline",
+  "patch": null,
+  "dev": {
+    "overall": {
+      "passed": 5,
+      "n": 8,
+      "rate": 0.625,
+      "ci95": [
+        0.306,
+        0.863
+      ]
+    },
+    "by_split": {
+      "dev": {
+        "passed": 5,
+        "n": 8,
+        "rate": 0.625,
+        "ci95": [
+          0.306,
+          0.863
+        ]
+      }
+    },
+    "by_type": {
+      "ambiguous": {
+        "passed": 0,
+        "n": 1,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.793
+        ]
+      },
+      "answerable": {
+        "passed": 3,
+        "n": 3,
+        "rate": 1.0,
+        "ci95": [
+          0.438,
+          1.0
+        ]
+      },
+      "multi_doc": {
+        "passed": 1,
+        "n": 1,
+        "rate": 1.0,
+        "ci95": [
+          0.207,
+          1.0
+        ]
+      },
+      "out_of_scope": {
+        "passed": 1,
+        "n": 3,
+        "rate": 0.333,
+        "ci95": [
+          0.061,
+          0.792
+        ]
+      }
+    },
+    "refusal_accuracy": 0.333,
+    "wrong_refusal_rate": 0.0,
+    "grounded_rate": 0.75,
+    "uncertain_judgements": 0,
+    "mean_latency_s": 0.0,
+    "failures": [
+      {
+        "id": "amb-02",
+        "type": "ambiguous",
+        "split": "dev",
+        "question": "What's the unit price?",
+        "reasons": [
+          "facts matched 0/1"
+        ]
+      },
+      {
+        "id": "oos-02",
+        "type": "out_of_scope",
+        "split": "dev",
+        "question": "How do I calculate the total cost of ownership for spare parts?",
+        "reasons": [
+          "hallucination: answered an out-of-scope question"
+        ]
+      },
+      {
+        "id": "oos-03",
+        "type": "out_of_scope",
+        "split": "dev",
+        "question": "What should I do if a supplier breaches the contract?",
+        "reasons": [
+          "hallucination: answered an out-of-scope question"
+        ]
+      }
+    ]
+  },
+  "holdout": {
+    "overall": {
+      "passed": 3,
+      "n": 4,
+      "rate": 0.75,
+      "ci95": [
+        0.301,
+        0.954
+      ]
+    },
+    "by_split": {
+      "holdout": {
+        "passed": 3,
+        "n": 4,
+        "rate": 0.75,
+        "ci95": [
+          0.301,
+          0.954
+        ]
+      }
+    },
+    "by_type": {
+      "ambiguous": {
+        "passed": 0,
+        "n": 1,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.793
+        ]
+      },
+      "answerable": {
+        "passed": 2,
+        "n": 2,
+        "rate": 1.0,
+        "ci95": [
+          0.342,
+          1.0
+        ]
+      },
+      "multi_doc": {
+        "passed": 1,
+        "n": 1,
+        "rate": 1.0,
+        "ci95": [
+          0.207,
+          1.0
+        ]
+      }
+    },
+    "refusal_accuracy": null,
+    "wrong_refusal_rate": 0.0,
+    "grounded_rate": 0.75,
+    "uncertain_judgements": 0,
+    "mean_latency_s": 0.0,
+    "failures": [
+      {
+        "id": "amb-01",
+        "type": "ambiguous",
+        "split": "holdout",
+        "question": "What's the reporting time for purchases?",
+        "reasons": [
+          "ungrounded: cited [] but expected ['procurement_procedure.pdf']"
+        ]
+      }
+    ]
+  },
+  "dev_results": [
+    {
+      "case": {
+        "id": "ans-01",
+        "type": "answerable",
+        "question": "How long does the purchase need to be reported to the fleet manager?",
+        "expected_facts": [
+          "within 24 hours"
+        ],
+        "source_docs": [
+          "procurement_procedure.pdf"
+        ],
+        "source_quotes": [
+          "The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours."
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=procurement_procedure.pdf#1"
+      },
+      "trace": {
+        "question": "How long does the purchase need to be reported to the fleet manager?",
+        "retrieved": [
+          {
+            "id": "procurement_procedure.pdf#1",
+            "doc": "procurement_procedure.pdf",
+            "text": "2. Quotations\nOrders above EUR 2,000 require at least 2 written quotations. Orders above EUR 10,000 require at least 3 written quotations. Quotations must be valid for at least 30 days.\n3. Emergency purchases\nWhen a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours.",
+            "heading": "2. Quotations"
+          },
+          {
+            "id": "procurement_procedure.pdf#0",
+            "doc": "procurement_procedure.pdf",
+            "text": "NORDHAVEN SHIP MANAGEMENT - PROCUREMENT PROCEDURE\nEffective 1 March 2025. Applies to all purchases for vessels managed by Nordhaven.\n1. Approval limits\nPurchase orders up to EUR 1,000 may be approved by the vessel superintendent. Orders from EUR 1,001 to EUR 10,000 need approval from the fleet manager. Orders from EUR 10,001 to EUR 50,000 need approval from the technical director. Orders above EUR 50,000 need approval from the board.",
+            "heading": "NORDHAVEN SHIP MANAGEMENT - PROCUREMENT PROCEDURE"
+          },
+          {
+            "id": "procurement_procedure.pdf#2",
+            "doc": "procurement_procedure.pdf",
+            "text": "4. Classification society items\nParts that affect class or statutory certificates must be supplied with the manufacturer's certificate of conformity. Items without a certificate must be rejected at receipt.\n5. Goods receipt\nThe master or chief engineer must inspect deliveries within 3 working days and sign the goods receipt note. Differences between the delivery and the purchase order must be reported to procurement within 2 working days.",
+            "heading": "4. Classification society items"
+          },
+          {
+            "id": "supplier_terms.pdf#1",
+            "doc": "supplier_terms.pdf",
+            "text": "1. Approved suppliers\nFour suppliers are approved for vessel spares:\n- Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days.\n- Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days.\n- Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days.\n- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days. Purchases from any other supplier need prior approval from the technical director.",
+            "heading": "1. Approved suppliers"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'The purchase must be reported to the fleet manager within 24 hours.', 'citations': [{'doc': 'procurement_procedure.pdf', 'quote': 'When a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "The purchase must be reported to the fleet manager within 24 hours.",
+          "citations": [
+            {
+              "doc": "procurement_procedure.pdf",
+              "quote": "When a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.0023620128631591797,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "ans-01",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "mul-01",
+        "type": "multi_doc",
+        "question": "How many suppliers are approved for vessel spares, and what is the unit price of the Turbocharger cartridge assembly from Hartmann Marine GmbH?",
+        "expected_facts": [
+          "Four suppliers",
+          "6914.00"
+        ],
+        "source_docs": [
+          "supplier_terms.pdf",
+          "spares_catalogue.csv"
+        ],
+        "source_quotes": [
+          "Four suppliers are approved for vessel spares:",
+          "part_no: HM-2094; description: Turbocharger cartridge assembly; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 6914.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12"
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunks=supplier_terms.pdf#0,spares_catalogue.csv#0"
+      },
+      "trace": {
+        "question": "How many suppliers are approved for vessel spares, and what is the unit price of the Turbocharger cartridge assembly from Hartmann Marine GmbH?",
+        "retrieved": [
+          {
+            "id": "spares_catalogue.csv#0",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: HM-2354; description: Fuel injector, 6-cylinder main engine; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 470.00; lead_time_days: 21; stock_status: Made to order; warranty_months: 24\npart_no: HM-4801; description: Piston ring set, 400 mm bore; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 657.00; lead_time_days: 21; stock_status: Made to order; warranty_months: 12\npart_no: HM-7152; description: Cylinder liner, 400 mm bore; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2179.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-2094; description: Turbocharger cartridge assembly; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 6914.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9947; description: Fuel oil filter element; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 41.93; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: HM-7028; description: Cooling water pump seal kit; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 128.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-3884; description: Camshaft bearing shell set; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 425.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 1-8"
+          },
+          {
+            "id": "supplier_terms.pdf#1",
+            "doc": "supplier_terms.pdf",
+            "text": "1. Approved suppliers\nFour suppliers are approved for vessel spares:\n- Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days.\n- Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days.\n- Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days.\n- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days. Purchases from any other supplier need prior approval from the technical director.",
+            "heading": "1. Approved suppliers"
+          },
+          {
+            "id": "spares_catalogue.csv#1",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: HM-7539; description: Exhaust valve spindle; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 995.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-5008; description: Starting air valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 623.00; lead_time_days: 42; stock_status: Backordered; warranty_months: 12\npart_no: HM-6426; description: Crankcase relief valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 463.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9939; description: Governor actuator; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 3657.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24\npart_no: HM-9976; description: Fresh water generator ejector; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 1315.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 24\npart_no: HM-6625; description: Oil mist detector sensor; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 322.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-7680; description: Bilge pump impeller; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 226.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 9-16"
+          },
+          {
+            "id": "supplier_terms.pdf#0",
+            "doc": "supplier_terms.pdf",
+            "text": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS\nEffective 1 March 2025. Applies to all purchases of vessel spares from approved suppliers.",
+            "heading": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'Four suppliers are approved for vessel spares. The unit price of the Turbocharger cartridge assembly from Hartmann Marine GmbH is 6914.00 EUR.', 'citations': [{'doc': 'supplier_terms.pdf', 'quote': 'Four suppliers are approved for vessel spares:\\n- Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days.\\n- Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days.\\n- Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days.\\n- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days.'}, {'doc': 'spares_catalogue.csv', 'quote': 'part_no: HM-2094; description: Turbocharger cartridge assembly; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 6914.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "Four suppliers are approved for vessel spares. The unit price of the Turbocharger cartridge assembly from Hartmann Marine GmbH is 6914.00 EUR.",
+          "citations": [
+            {
+              "doc": "supplier_terms.pdf",
+              "quote": "Four suppliers are approved for vessel spares:\n- Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days.\n- Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days.\n- Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days.\n- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days."
+            },
+            {
+              "doc": "spares_catalogue.csv",
+              "quote": "part_no: HM-2094; description: Turbocharger cartridge assembly; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 6914.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12"
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true,
+          true
+        ],
+        "latency_s": 0.0041005611419677734,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "mul-01",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true,
+          true
+        ],
+        "fact_methods": [
+          "exact",
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "oos-01",
+        "type": "out_of_scope",
+        "question": "What are the environmental impact assessments for new suppliers?",
+        "expected_facts": [],
+        "source_docs": [],
+        "source_quotes": [],
+        "should_refuse": true,
+        "split": "dev",
+        "notes": "kind=near_domain"
+      },
+      "trace": {
+        "question": "What are the environmental impact assessments for new suppliers?",
+        "retrieved": [
+          {
+            "id": "procurement_procedure.pdf#3",
+            "doc": "procurement_procedure.pdf",
+            "text": "6. New suppliers\nA new supplier must pass sanctions screening and a financial check before approval. Suppliers that fail two consecutive deliveries may be removed from the approved list by the technical director.",
+            "heading": "6. New suppliers"
+          },
+          {
+            "id": "supplier_terms.pdf#0",
+            "doc": "supplier_terms.pdf",
+            "text": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS\nEffective 1 March 2025. Applies to all purchases of vessel spares from approved suppliers.",
+            "heading": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS"
+          },
+          {
+            "id": "supplier_terms.pdf#1",
+            "doc": "supplier_terms.pdf",
+            "text": "1. Approved suppliers\nFour suppliers are approved for vessel spares:\n- Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days.\n- Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days.\n- Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days.\n- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days. Purchases from any other supplier need prior approval from the technical director.",
+            "heading": "1. Approved suppliers"
+          },
+          {
+            "id": "spares_catalogue.csv#1",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: HM-7539; description: Exhaust valve spindle; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 995.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-5008; description: Starting air valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 623.00; lead_time_days: 42; stock_status: Backordered; warranty_months: 12\npart_no: HM-6426; description: Crankcase relief valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 463.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9939; description: Governor actuator; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 3657.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24\npart_no: HM-9976; description: Fresh water generator ejector; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 1315.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 24\npart_no: HM-6625; description: Oil mist detector sensor; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 322.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-7680; description: Bilge pump impeller; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 226.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 9-16"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': \"I can't help with that; it is outside what my documents cover.\", 'citations': [], 'refused': True, 'refusal_reason': 'The provided context does not contain any information about environmental impact assessments for new suppliers.'}",
+        "answer": {
+          "answer": "I can't help with that; it is outside what my documents cover.",
+          "citations": [],
+          "refused": true,
+          "refusal_reason": "The provided context does not contain any information about environmental impact assessments for new suppliers."
+        },
+        "contract_ok": true,
+        "citations_verified": [],
+        "latency_s": 0.0017976760864257812,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "oos-01",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [],
+        "fact_methods": [],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-02",
+        "type": "answerable",
+        "question": "What is the unit price of the Lube oil pump?",
+        "expected_facts": [
+          "2537.00"
+        ],
+        "source_docs": [
+          "spares_catalogue.csv"
+        ],
+        "source_quotes": [
+          "part_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12"
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=spares_catalogue.csv#0"
+      },
+      "trace": {
+        "question": "What is the unit price of the Lube oil pump?",
+        "retrieved": [
+          {
+            "id": "spares_catalogue.csv#0",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: HM-2354; description: Fuel injector, 6-cylinder main engine; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 470.00; lead_time_days: 21; stock_status: Made to order; warranty_months: 24\npart_no: HM-4801; description: Piston ring set, 400 mm bore; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 657.00; lead_time_days: 21; stock_status: Made to order; warranty_months: 12\npart_no: HM-7152; description: Cylinder liner, 400 mm bore; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2179.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-2094; description: Turbocharger cartridge assembly; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 6914.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9947; description: Fuel oil filter element; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 41.93; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: HM-7028; description: Cooling water pump seal kit; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 128.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-3884; description: Camshaft bearing shell set; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 425.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 1-8"
+          },
+          {
+            "id": "spares_catalogue.csv#1",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: HM-7539; description: Exhaust valve spindle; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 995.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-5008; description: Starting air valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 623.00; lead_time_days: 42; stock_status: Backordered; warranty_months: 12\npart_no: HM-6426; description: Crankcase relief valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 463.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9939; description: Governor actuator; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 3657.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24\npart_no: HM-9976; description: Fresh water generator ejector; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 1315.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 24\npart_no: HM-6625; description: Oil mist detector sensor; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 322.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-7680; description: Bilge pump impeller; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 226.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 9-16"
+          },
+          {
+            "id": "spares_catalogue.csv#6",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: OS-3736; description: Fire extinguisher 9 kg, foam; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 103.04; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: OS-4521; description: SCBA cylinder, 6.8 L; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 409.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-1546; description: Fireman outfit, complete; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 983.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: OS-5954; description: Immersion suit, adult; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 280.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-7783; description: Hydrostatic release unit; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 73.66; lead_time_days: 56; stock_status: Backordered; warranty_months: 12\npart_no: OS-8384; description: Lifebuoy with light and smoke signal; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 76.41; lead_time_days: 5; stock_status: In stock; warranty_months: 6\npart_no: OS-6547; description: Fire hose, 20 m with couplings; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 96.22; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: OS-6098; description: CO2 cylinder, 45 kg refill; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 369.00; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 49-56"
+          },
+          {
+            "id": "spares_catalogue.csv#3",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: PV-3995; description: Flange gasket kit DN100; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 33.37; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-1982; description: Pipe coupling DN80, flexible; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 121.95; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: PV-6511; description: Non-return valve DN65; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 170.60; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: PV-4157; description: Pressure reducing valve DN25; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 455.00; lead_time_days: 45; stock_status: Made to order; warranty_months: 12\npart_no: PV-5356; description: Expansion joint DN100; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 317.00; lead_time_days: 5; stock_status: In stock; warranty_months: 6\npart_no: PV-1893; description: Hose coupling set, 50 mm; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 37.65; lead_time_days: 70; stock_status: Backordered; warranty_months: 12\npart_no: BE-2625; description: Alternator AVR unit, 440 V; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 1228.00; lead_time_days: 35; stock_status: Made to order; warranty_months: 12\npart_no: BE-2454; description: Gyro compass sensor; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 6641.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 25-32"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': '2537.00', 'citations': [{'doc': 'spares_catalogue.csv', 'quote': 'part_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "2537.00",
+          "citations": [
+            {
+              "doc": "spares_catalogue.csv",
+              "quote": "part_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12"
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.0032930374145507812,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "ans-02",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "amb-02",
+        "type": "ambiguous",
+        "question": "What's the unit price?",
+        "expected_facts": [
+          "2537.00"
+        ],
+        "source_docs": [
+          "spares_catalogue.csv"
+        ],
+        "source_quotes": [
+          "part_no: HM-7514; description: Lube oil pump, 45 m3/h; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 2537.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12"
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "rewrite of chunk=spares_catalogue.csv#0; vagueness: no longer says ['lub', 'oil', 'pump']"
+      },
+      "trace": {
+        "question": "What's the unit price?",
+        "retrieved": [
+          {
+            "id": "procurement_procedure.pdf#2",
+            "doc": "procurement_procedure.pdf",
+            "text": "4. Classification society items\nParts that affect class or statutory certificates must be supplied with the manufacturer's certificate of conformity. Items without a certificate must be rejected at receipt.\n5. Goods receipt\nThe master or chief engineer must inspect deliveries within 3 working days and sign the goods receipt note. Differences between the delivery and the purchase order must be reported to procurement within 2 working days.",
+            "heading": "4. Classification society items"
+          },
+          {
+            "id": "spares_catalogue.csv#6",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: OS-3736; description: Fire extinguisher 9 kg, foam; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 103.04; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: OS-4521; description: SCBA cylinder, 6.8 L; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 409.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-1546; description: Fireman outfit, complete; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 983.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: OS-5954; description: Immersion suit, adult; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 280.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-7783; description: Hydrostatic release unit; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 73.66; lead_time_days: 56; stock_status: Backordered; warranty_months: 12\npart_no: OS-8384; description: Lifebuoy with light and smoke signal; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 76.41; lead_time_days: 5; stock_status: In stock; warranty_months: 6\npart_no: OS-6547; description: Fire hose, 20 m with couplings; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 96.22; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: OS-6098; description: CO2 cylinder, 45 kg refill; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 369.00; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 49-56"
+          },
+          {
+            "id": "spares_catalogue.csv#3",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: PV-3995; description: Flange gasket kit DN100; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 33.37; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-1982; description: Pipe coupling DN80, flexible; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 121.95; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: PV-6511; description: Non-return valve DN65; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 170.60; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: PV-4157; description: Pressure reducing valve DN25; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 455.00; lead_time_days: 45; stock_status: Made to order; warranty_months: 12\npart_no: PV-5356; description: Expansion joint DN100; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 317.00; lead_time_days: 5; stock_status: In stock; warranty_months: 6\npart_no: PV-1893; description: Hose coupling set, 50 mm; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 37.65; lead_time_days: 70; stock_status: Backordered; warranty_months: 12\npart_no: BE-2625; description: Alternator AVR unit, 440 V; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 1228.00; lead_time_days: 35; stock_status: Made to order; warranty_months: 12\npart_no: BE-2454; description: Gyro compass sensor; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 6641.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 25-32"
+          },
+          {
+            "id": "spares_catalogue.csv#1",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: HM-7539; description: Exhaust valve spindle; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 995.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-5008; description: Starting air valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 623.00; lead_time_days: 42; stock_status: Backordered; warranty_months: 12\npart_no: HM-6426; description: Crankcase relief valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 463.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9939; description: Governor actuator; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 3657.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24\npart_no: HM-9976; description: Fresh water generator ejector; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 1315.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 24\npart_no: HM-6625; description: Oil mist detector sensor; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 322.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-7680; description: Bilge pump impeller; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 226.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 9-16"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': \"The unit prices are provided in the 'unit_price_eur' column of the spares_catalogue.csv file. For example, the Fire extinguisher 9 kg, foam (part_no: OS-3736) has a unit price of 103.04 EUR.\", 'citations': [{'doc': 'spares_catalogue.csv', 'quote': 'unit_price_eur: 103.04'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "The unit prices are provided in the 'unit_price_eur' column of the spares_catalogue.csv file. For example, the Fire extinguisher 9 kg, foam (part_no: OS-3736) has a unit price of 103.04 EUR.",
+          "citations": [
+            {
+              "doc": "spares_catalogue.csv",
+              "quote": "unit_price_eur: 103.04"
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.0024547576904296875,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "amb-02",
+        "grounded": true,
+        "correct": false,
+        "refusal_correct": true,
+        "passed": false,
+        "fact_hits": [
+          false
+        ],
+        "fact_methods": [
+          "miss"
+        ],
+        "uncertain": false,
+        "llm_used": true,
+        "reasons": [
+          "facts matched 0/1"
+        ]
+      }
+    },
+    {
+      "case": {
+        "id": "oos-02",
+        "type": "out_of_scope",
+        "question": "How do I calculate the total cost of ownership for spare parts?",
+        "expected_facts": [],
+        "source_docs": [],
+        "source_quotes": [],
+        "should_refuse": true,
+        "split": "dev",
+        "notes": "kind=near_domain"
+      },
+      "trace": {
+        "question": "How do I calculate the total cost of ownership for spare parts?",
+        "retrieved": [
+          {
+            "id": "supplier_terms.pdf#2",
+            "doc": "supplier_terms.pdf",
+            "text": "2. Volume discounts\nHartmann Marine GmbH gives a discount of 3 percent on orders above EUR 5,000, 5 percent above EUR 20,000 and 8 percent above EUR 50,000. Pacific Valve Co. gives 4 percent on orders above EUR 10,000. Baltic Electric AB and Orion Safety Ltd do not give volume discounts. Discounts apply to the order total before freight and are not combined across suppliers.",
+            "heading": "2. Volume discounts"
+          },
+          {
+            "id": "supplier_terms.pdf#0",
+            "doc": "supplier_terms.pdf",
+            "text": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS\nEffective 1 March 2025. Applies to all purchases of vessel spares from approved suppliers.",
+            "heading": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS"
+          },
+          {
+            "id": "supplier_terms.pdf#1",
+            "doc": "supplier_terms.pdf",
+            "text": "1. Approved suppliers\nFour suppliers are approved for vessel spares:\n- Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days.\n- Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days.\n- Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days.\n- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days. Purchases from any other supplier need prior approval from the technical director.",
+            "heading": "1. Approved suppliers"
+          },
+          {
+            "id": "spares_catalogue.csv#1",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: HM-7539; description: Exhaust valve spindle; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 995.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-5008; description: Starting air valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 623.00; lead_time_days: 42; stock_status: Backordered; warranty_months: 12\npart_no: HM-6426; description: Crankcase relief valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 463.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9939; description: Governor actuator; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 3657.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24\npart_no: HM-9976; description: Fresh water generator ejector; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 1315.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 24\npart_no: HM-6625; description: Oil mist detector sensor; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 322.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-7680; description: Bilge pump impeller; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 226.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 9-16"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': \"To calculate the total cost of ownership for spare parts, you would need to consider the initial purchase cost, any volume discounts, freight costs, and the cost of maintenance or replacement over the warranty period. However, the provided information does not include freight costs or the warranty cost, which are necessary for a comprehensive calculation. The initial cost can be calculated by summing up the unit prices of the parts ordered, applying any applicable volume discounts, and then adding the warranty cost based on the parts' warranty periods.\", 'citations': [{'doc': 'supplier_terms.pdf', 'quote': 'Hartmann Marine GmbH gives a discount of 3 percent on orders above EUR 5,000, 5 percent above EUR 20,000 and 8 percent above EUR 50,000. Pacific Valve Co. gives 4 percent on orders above EUR 10,000. Discounts apply to the order total before freight and are not combined across suppliers.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "To calculate the total cost of ownership for spare parts, you would need to consider the initial purchase cost, any volume discounts, freight costs, and the cost of maintenance or replacement over the warranty period. However, the provided information does not include freight costs or the warranty cost, which are necessary for a comprehensive calculation. The initial cost can be calculated by summing up the unit prices of the parts ordered, applying any applicable volume discounts, and then adding the warranty cost based on the parts' warranty periods.",
+          "citations": [
+            {
+              "doc": "supplier_terms.pdf",
+              "quote": "Hartmann Marine GmbH gives a discount of 3 percent on orders above EUR 5,000, 5 percent above EUR 20,000 and 8 percent above EUR 50,000. Pacific Valve Co. gives 4 percent on orders above EUR 10,000. Discounts apply to the order total before freight and are not combined across suppliers."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.0024023056030273438,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "oos-02",
+        "grounded": false,
+        "correct": false,
+        "refusal_correct": false,
+        "passed": false,
+        "fact_hits": [],
+        "fact_methods": [],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": [
+          "hallucination: answered an out-of-scope question"
+        ]
+      }
+    },
+    {
+      "case": {
+        "id": "oos-03",
+        "type": "out_of_scope",
+        "question": "What should I do if a supplier breaches the contract?",
+        "expected_facts": [],
+        "source_docs": [],
+        "source_quotes": [],
+        "should_refuse": true,
+        "split": "dev",
+        "notes": "kind=must_refuse"
+      },
+      "trace": {
+        "question": "What should I do if a supplier breaches the contract?",
+        "retrieved": [
+          {
+            "id": "procurement_procedure.pdf#3",
+            "doc": "procurement_procedure.pdf",
+            "text": "6. New suppliers\nA new supplier must pass sanctions screening and a financial check before approval. Suppliers that fail two consecutive deliveries may be removed from the approved list by the technical director.",
+            "heading": "6. New suppliers"
+          },
+          {
+            "id": "supplier_terms.pdf#0",
+            "doc": "supplier_terms.pdf",
+            "text": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS\nEffective 1 March 2025. Applies to all purchases of vessel spares from approved suppliers.",
+            "heading": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS"
+          },
+          {
+            "id": "supplier_terms.pdf#1",
+            "doc": "supplier_terms.pdf",
+            "text": "1. Approved suppliers\nFour suppliers are approved for vessel spares:\n- Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days.\n- Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days.\n- Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days.\n- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days. Purchases from any other supplier need prior approval from the technical director.",
+            "heading": "1. Approved suppliers"
+          },
+          {
+            "id": "spares_catalogue.csv#1",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: HM-7539; description: Exhaust valve spindle; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 995.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-5008; description: Starting air valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 623.00; lead_time_days: 42; stock_status: Backordered; warranty_months: 12\npart_no: HM-6426; description: Crankcase relief valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 463.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9939; description: Governor actuator; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 3657.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24\npart_no: HM-9976; description: Fresh water generator ejector; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 1315.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 24\npart_no: HM-6625; description: Oil mist detector sensor; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 322.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-7680; description: Bilge pump impeller; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 226.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 9-16"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'If a supplier breaches the contract, you should contact the technical director to remove the supplier from the approved list. The procurement team should then seek approval for any future purchases from that supplier.', 'citations': [{'doc': 'procurement_procedure.pdf', 'quote': 'A new supplier must pass sanctions screening and a financial check before approval. Suppliers that fail two consecutive deliveries may be removed from the approved list by the technical director.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "If a supplier breaches the contract, you should contact the technical director to remove the supplier from the approved list. The procurement team should then seek approval for any future purchases from that supplier.",
+          "citations": [
+            {
+              "doc": "procurement_procedure.pdf",
+              "quote": "A new supplier must pass sanctions screening and a financial check before approval. Suppliers that fail two consecutive deliveries may be removed from the approved list by the technical director."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.0026836395263671875,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "oos-03",
+        "grounded": false,
+        "correct": false,
+        "refusal_correct": false,
+        "passed": false,
+        "fact_hits": [],
+        "fact_methods": [],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": [
+          "hallucination: answered an out-of-scope question"
+        ]
+      }
+    },
+    {
+      "case": {
+        "id": "ans-04",
+        "type": "answerable",
+        "question": "What is the unit price of the Gate valve DN50 in euros?",
+        "expected_facts": [
+          "unit_price_eur: 132.01"
+        ],
+        "source_docs": [
+          "spares_catalogue.csv"
+        ],
+        "source_quotes": [
+          "part_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24"
+        ],
+        "should_refuse": false,
+        "split": "dev",
+        "notes": "chunk=spares_catalogue.csv#1"
+      },
+      "trace": {
+        "question": "What is the unit price of the Gate valve DN50 in euros?",
+        "retrieved": [
+          {
+            "id": "spares_catalogue.csv#2",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: PV-8108; description: Gate valve DN100, cast steel; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 289.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-5249; description: Globe valve DN40, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.50; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: PV-3466; description: Butterfly valve DN150, wafer type; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 241.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: PV-9355; description: Check valve DN80, swing type; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 134.00; lead_time_days: 28; stock_status: Made to order; warranty_months: 12\npart_no: PV-9461; description: Ball valve DN25, stainless steel; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 61.08; lead_time_days: 56; stock_status: Backordered; warranty_months: 12\npart_no: PV-3446; description: Sea chest strainer DN200; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 435.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 24\npart_no: PV-7837; description: Quick-closing valve DN50; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 493.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: PV-5217; description: Safety relief valve DN32; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 448.00; lead_time_days: 3; stock_status: In stock; warranty_months: 6",
+            "heading": "rows 17-24"
+          },
+          {
+            "id": "spares_catalogue.csv#1",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: HM-7539; description: Exhaust valve spindle; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 995.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: HM-5008; description: Starting air valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 623.00; lead_time_days: 42; stock_status: Backordered; warranty_months: 12\npart_no: HM-6426; description: Crankcase relief valve; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 463.00; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: HM-9939; description: Governor actuator; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 3657.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24\npart_no: HM-9976; description: Fresh water generator ejector; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 1315.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 24\npart_no: HM-6625; description: Oil mist detector sensor; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 322.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: HM-7680; description: Bilge pump impeller; category: Engine and pumps; supplier: Hartmann Marine GmbH; unit_price_eur: 226.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 9-16"
+          },
+          {
+            "id": "spares_catalogue.csv#3",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: PV-3995; description: Flange gasket kit DN100; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 33.37; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: PV-1982; description: Pipe coupling DN80, flexible; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 121.95; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: PV-6511; description: Non-return valve DN65; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 170.60; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: PV-4157; description: Pressure reducing valve DN25; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 455.00; lead_time_days: 45; stock_status: Made to order; warranty_months: 12\npart_no: PV-5356; description: Expansion joint DN100; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 317.00; lead_time_days: 5; stock_status: In stock; warranty_months: 6\npart_no: PV-1893; description: Hose coupling set, 50 mm; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 37.65; lead_time_days: 70; stock_status: Backordered; warranty_months: 12\npart_no: BE-2625; description: Alternator AVR unit, 440 V; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 1228.00; lead_time_days: 35; stock_status: Made to order; warranty_months: 12\npart_no: BE-2454; description: Gyro compass sensor; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 6641.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 25-32"
+          },
+          {
+            "id": "spares_catalogue.csv#6",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: OS-3736; description: Fire extinguisher 9 kg, foam; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 103.04; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: OS-4521; description: SCBA cylinder, 6.8 L; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 409.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-1546; description: Fireman outfit, complete; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 983.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: OS-5954; description: Immersion suit, adult; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 280.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-7783; description: Hydrostatic release unit; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 73.66; lead_time_days: 56; stock_status: Backordered; warranty_months: 12\npart_no: OS-8384; description: Lifebuoy with light and smoke signal; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 76.41; lead_time_days: 5; stock_status: In stock; warranty_months: 6\npart_no: OS-6547; description: Fire hose, 20 m with couplings; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 96.22; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: OS-6098; description: CO2 cylinder, 45 kg refill; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 369.00; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 49-56"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': '132.01', 'citations': [{'doc': 'spares_catalogue.csv', 'quote': 'part_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "132.01",
+          "citations": [
+            {
+              "doc": "spares_catalogue.csv",
+              "quote": "part_no: PV-8265; description: Gate valve DN50, bronze; category: Valves and fittings; supplier: Pacific Valve Co.; unit_price_eur: 132.01; lead_time_days: 5; stock_status: In stock; warranty_months: 24"
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.0033278465270996094,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "ans-04",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "llm"
+        ],
+        "uncertain": false,
+        "llm_used": true,
+        "reasons": []
+      }
+    }
+  ],
+  "holdout_results": [
+    {
+      "case": {
+        "id": "amb-01",
+        "type": "ambiguous",
+        "question": "What's the reporting time for purchases?",
+        "expected_facts": [
+          "within 24 hours"
+        ],
+        "source_docs": [
+          "procurement_procedure.pdf"
+        ],
+        "source_quotes": [
+          "The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours."
+        ],
+        "should_refuse": false,
+        "split": "holdout",
+        "notes": "rewrite of chunk=procurement_procedure.pdf#1; vagueness: no longer says ['fleet', 'long', 'manager', 'need']"
+      },
+      "trace": {
+        "question": "What's the reporting time for purchases?",
+        "retrieved": [
+          {
+            "id": "procurement_procedure.pdf#2",
+            "doc": "procurement_procedure.pdf",
+            "text": "4. Classification society items\nParts that affect class or statutory certificates must be supplied with the manufacturer's certificate of conformity. Items without a certificate must be rejected at receipt.\n5. Goods receipt\nThe master or chief engineer must inspect deliveries within 3 working days and sign the goods receipt note. Differences between the delivery and the purchase order must be reported to procurement within 2 working days.",
+            "heading": "4. Classification society items"
+          },
+          {
+            "id": "procurement_procedure.pdf#1",
+            "doc": "procurement_procedure.pdf",
+            "text": "2. Quotations\nOrders above EUR 2,000 require at least 2 written quotations. Orders above EUR 10,000 require at least 3 written quotations. Quotations must be valid for at least 30 days.\n3. Emergency purchases\nWhen a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours.",
+            "heading": "2. Quotations"
+          },
+          {
+            "id": "supplier_terms.pdf#3",
+            "doc": "supplier_terms.pdf",
+            "text": "3. Delivery terms\nAll deliveries are DAP the port named in the purchase order. Orders marked urgent that the supplier delivers faster than the catalogue lead time carry a surcharge of 15 percent of the order value. Delivery dates are counted in calendar days from the date the purchase order is accepted.",
+            "heading": "3. Delivery terms"
+          },
+          {
+            "id": "supplier_terms.pdf#4",
+            "doc": "supplier_terms.pdf",
+            "text": "4. Warranty\nStandard warranty is 12 months from delivery unless the catalogue states otherwise. Warranty claims must be reported to the supplier within 14 days of the defect being found, with photographs and the part number. Suppliers must replace or repair defective parts within 30 days of an accepted claim.",
+            "heading": "4. Warranty"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'The reporting time for purchases is within 2 working days for differences between the delivery and the purchase order, and within 24 hours for safety-critical items or vessel risks going off-hire.', 'citations': [{'doc': 'procurement_procedure.pdf', 'quote': '5. Goods receipt The master or chief engineer must inspect deliveries within 3 working days and sign the goods receipt note. Differences between the delivery and the purchase order must be reported to procurement within 2 working days. 4. Emergency purchases When a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "The reporting time for purchases is within 2 working days for differences between the delivery and the purchase order, and within 24 hours for safety-critical items or vessel risks going off-hire.",
+          "citations": [
+            {
+              "doc": "procurement_procedure.pdf",
+              "quote": "5. Goods receipt The master or chief engineer must inspect deliveries within 3 working days and sign the goods receipt note. Differences between the delivery and the purchase order must be reported to procurement within 2 working days. 4. Emergency purchases When a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.0029370784759521484,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "amb-01",
+        "grounded": false,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": false,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": [
+          "ungrounded: cited [] but expected ['procurement_procedure.pdf']"
+        ]
+      }
+    },
+    {
+      "case": {
+        "id": "mul-02",
+        "type": "multi_doc",
+        "question": "What is the warranty period for the SCBA cylinder, and what is the maximum purchase order amount that can be approved by the vessel superintendent?",
+        "expected_facts": [
+          "24 months",
+          "EUR 1,000"
+        ],
+        "source_docs": [
+          "spares_catalogue.csv",
+          "procurement_procedure.pdf"
+        ],
+        "source_quotes": [
+          "part_no: OS-4521; description: SCBA cylinder, 6.8 L; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 409.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24",
+          "Purchase orders up to EUR 1,000 may be approved by the vessel superintendent."
+        ],
+        "should_refuse": false,
+        "split": "holdout",
+        "notes": "chunks=spares_catalogue.csv#6,procurement_procedure.pdf#0"
+      },
+      "trace": {
+        "question": "What is the warranty period for the SCBA cylinder, and what is the maximum purchase order amount that can be approved by the vessel superintendent?",
+        "retrieved": [
+          {
+            "id": "procurement_procedure.pdf#0",
+            "doc": "procurement_procedure.pdf",
+            "text": "NORDHAVEN SHIP MANAGEMENT - PROCUREMENT PROCEDURE\nEffective 1 March 2025. Applies to all purchases for vessels managed by Nordhaven.\n1. Approval limits\nPurchase orders up to EUR 1,000 may be approved by the vessel superintendent. Orders from EUR 1,001 to EUR 10,000 need approval from the fleet manager. Orders from EUR 10,001 to EUR 50,000 need approval from the technical director. Orders above EUR 50,000 need approval from the board.",
+            "heading": "NORDHAVEN SHIP MANAGEMENT - PROCUREMENT PROCEDURE"
+          },
+          {
+            "id": "procurement_procedure.pdf#1",
+            "doc": "procurement_procedure.pdf",
+            "text": "2. Quotations\nOrders above EUR 2,000 require at least 2 written quotations. Orders above EUR 10,000 require at least 3 written quotations. Quotations must be valid for at least 30 days.\n3. Emergency purchases\nWhen a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours.",
+            "heading": "2. Quotations"
+          },
+          {
+            "id": "supplier_terms.pdf#0",
+            "doc": "supplier_terms.pdf",
+            "text": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS\nEffective 1 March 2025. Applies to all purchases of vessel spares from approved suppliers.",
+            "heading": "NORDHAVEN SHIP MANAGEMENT - APPROVED SUPPLIER TERMS"
+          },
+          {
+            "id": "spares_catalogue.csv#6",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: OS-3736; description: Fire extinguisher 9 kg, foam; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 103.04; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: OS-4521; description: SCBA cylinder, 6.8 L; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 409.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-1546; description: Fireman outfit, complete; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 983.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: OS-5954; description: Immersion suit, adult; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 280.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-7783; description: Hydrostatic release unit; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 73.66; lead_time_days: 56; stock_status: Backordered; warranty_months: 12\npart_no: OS-8384; description: Lifebuoy with light and smoke signal; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 76.41; lead_time_days: 5; stock_status: In stock; warranty_months: 6\npart_no: OS-6547; description: Fire hose, 20 m with couplings; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 96.22; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: OS-6098; description: CO2 cylinder, 45 kg refill; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 369.00; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 49-56"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'The warranty period for the SCBA cylinder is 24 months. The maximum purchase order amount that can be approved by the vessel superintendent is EUR 1,000.', 'citations': [{'doc': 'procurement_procedure.pdf', 'quote': 'Purchase orders up to EUR 1,000 may be approved by the vessel superintendent. Orders from EUR 1,001 to EUR 10,000 need approval from the fleet manager. Orders from EUR 10,001 to EUR 50,000 need approval from the technical director. Orders above EUR 50,000 need approval from the board.'}, {'doc': 'procurement_procedure.pdf', 'quote': 'Orders above EUR 2,000 require at least 2 written quotations. Orders above EUR 10,000 require at least 3 written quotations. Quotations must be valid for at least 30 days.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "The warranty period for the SCBA cylinder is 24 months. The maximum purchase order amount that can be approved by the vessel superintendent is EUR 1,000.",
+          "citations": [
+            {
+              "doc": "procurement_procedure.pdf",
+              "quote": "Purchase orders up to EUR 1,000 may be approved by the vessel superintendent. Orders from EUR 1,001 to EUR 10,000 need approval from the fleet manager. Orders from EUR 10,001 to EUR 50,000 need approval from the technical director. Orders above EUR 50,000 need approval from the board."
+            },
+            {
+              "doc": "procurement_procedure.pdf",
+              "quote": "Orders above EUR 2,000 require at least 2 written quotations. Orders above EUR 10,000 require at least 3 written quotations. Quotations must be valid for at least 30 days."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true,
+          true
+        ],
+        "latency_s": 0.003678560256958008,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "mul-02",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true,
+          true
+        ],
+        "fact_methods": [
+          "exact",
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-03",
+        "type": "answerable",
+        "question": "What does Orion Safety Ltd (Aberdeen) provide?",
+        "expected_facts": [
+          "lifesaving and fire-fighting equipment"
+        ],
+        "source_docs": [
+          "supplier_terms.pdf"
+        ],
+        "source_quotes": [
+          "- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment."
+        ],
+        "should_refuse": false,
+        "split": "holdout",
+        "notes": "chunk=supplier_terms.pdf#0"
+      },
+      "trace": {
+        "question": "What does Orion Safety Ltd (Aberdeen) provide?",
+        "retrieved": [
+          {
+            "id": "supplier_terms.pdf#1",
+            "doc": "supplier_terms.pdf",
+            "text": "1. Approved suppliers\nFour suppliers are approved for vessel spares:\n- Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days.\n- Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days.\n- Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days.\n- Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days. Purchases from any other supplier need prior approval from the technical director.",
+            "heading": "1. Approved suppliers"
+          },
+          {
+            "id": "spares_catalogue.csv#6",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: OS-3736; description: Fire extinguisher 9 kg, foam; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 103.04; lead_time_days: 56; stock_status: Backordered; warranty_months: 24\npart_no: OS-4521; description: SCBA cylinder, 6.8 L; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 409.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-1546; description: Fireman outfit, complete; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 983.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: OS-5954; description: Immersion suit, adult; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 280.00; lead_time_days: 7; stock_status: In stock; warranty_months: 24\npart_no: OS-7783; description: Hydrostatic release unit; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 73.66; lead_time_days: 56; stock_status: Backordered; warranty_months: 12\npart_no: OS-8384; description: Lifebuoy with light and smoke signal; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 76.41; lead_time_days: 5; stock_status: In stock; warranty_months: 6\npart_no: OS-6547; description: Fire hose, 20 m with couplings; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 96.22; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: OS-6098; description: CO2 cylinder, 45 kg refill; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 369.00; lead_time_days: 5; stock_status: In stock; warranty_months: 24",
+            "heading": "rows 49-56"
+          },
+          {
+            "id": "spares_catalogue.csv#7",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: OS-9458; description: Rocket parachute flares, box of 4; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 183.56; lead_time_days: 7; stock_status: In stock; warranty_months: 12\npart_no: OS-6544; description: Breathing apparatus compressor filter; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 209.00; lead_time_days: 70; stock_status: Backordered; warranty_months: 6\npart_no: OS-6464; description: Emergency escape breathing device; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 242.00; lead_time_days: 3; stock_status: In stock; warranty_months: 24\npart_no: OS-4046; description: Fixed foam concentrate, 25 L; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 151.11; lead_time_days: 7; stock_status: In stock; warranty_months: 12",
+            "heading": "rows 57-60"
+          },
+          {
+            "id": "spares_catalogue.csv#5",
+            "doc": "spares_catalogue.csv",
+            "text": "part_no: BE-2784; description: Cable gland set, brass; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 32.79; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: BE-5437; description: Motor starter, 22 kW; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 460.00; lead_time_days: 28; stock_status: Made to order; warranty_months: 6\npart_no: BE-4569; description: Voyage data recorder capsule battery; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 343.00; lead_time_days: 56; stock_status: Backordered; warranty_months: 12\npart_no: BE-7407; description: Shaft generator controller; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 3108.00; lead_time_days: 3; stock_status: In stock; warranty_months: 12\npart_no: BE-3427; description: Anemometer sensor; category: Electrical and navigation; supplier: Baltic Electric AB; unit_price_eur: 307.00; lead_time_days: 3; stock_status: In stock; warranty_months: 6\npart_no: OS-1158; description: Lifejacket, SOLAS approved; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 41.76; lead_time_days: 5; stock_status: In stock; warranty_months: 24\npart_no: OS-1845; description: Liferaft service kit, 25 person; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 697.00; lead_time_days: 42; stock_status: Backordered; warranty_months: 12\npart_no: OS-4343; description: EPIRB battery, 6 year; category: Lifesaving and fire-fighting; supplier: Orion Safety Ltd; unit_price_eur: 286.00; lead_time_days: 5; stock_status: In stock; warranty_months: 12",
+            "heading": "rows 41-48"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'Orion Safety Ltd provides lifesaving and fire-fighting equipment, as indicated in the approved suppliers section of the supplier_terms.pdf document.', 'citations': [{'doc': 'supplier_terms.pdf', 'quote': 'Approved suppliers Four suppliers are approved for vessel spares: - Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days. - Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days. - Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days. - Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "Orion Safety Ltd provides lifesaving and fire-fighting equipment, as indicated in the approved suppliers section of the supplier_terms.pdf document.",
+          "citations": [
+            {
+              "doc": "supplier_terms.pdf",
+              "quote": "Approved suppliers Four suppliers are approved for vessel spares: - Hartmann Marine GmbH (Hamburg): engine parts and pumps. Payment terms: net 45 days. - Pacific Valve Co. (Busan): valves and fittings. Payment terms: net 30 days. - Baltic Electric AB (Gothenburg): electrical and navigation equipment. Payment terms: net 60 days. - Orion Safety Ltd (Aberdeen): lifesaving and fire-fighting equipment. Payment terms: net 30 days."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.003026247024536133,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "ans-03",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    },
+    {
+      "case": {
+        "id": "ans-05",
+        "type": "answerable",
+        "question": "What is the minimum amount for orders that require at least 2 written quotations?",
+        "expected_facts": [
+          "EUR 2,000"
+        ],
+        "source_docs": [
+          "procurement_procedure.pdf"
+        ],
+        "source_quotes": [
+          "Orders above EUR 2,000 require at least 2 written quotations."
+        ],
+        "should_refuse": false,
+        "split": "holdout",
+        "notes": "chunk=procurement_procedure.pdf#0"
+      },
+      "trace": {
+        "question": "What is the minimum amount for orders that require at least 2 written quotations?",
+        "retrieved": [
+          {
+            "id": "procurement_procedure.pdf#1",
+            "doc": "procurement_procedure.pdf",
+            "text": "2. Quotations\nOrders above EUR 2,000 require at least 2 written quotations. Orders above EUR 10,000 require at least 3 written quotations. Quotations must be valid for at least 30 days.\n3. Emergency purchases\nWhen a safety-critical item is needed or the vessel risks going off-hire, the superintendent may order without quotations. The purchase must be reported to the fleet manager within 24 hours and approved retrospectively within 48 hours.",
+            "heading": "2. Quotations"
+          },
+          {
+            "id": "supplier_terms.pdf#5",
+            "doc": "supplier_terms.pdf",
+            "text": "5. Minimum order values\nHartmann Marine GmbH requires a minimum order value of EUR 500. Orders below the minimum carry a handling fee of EUR 75. The other suppliers have no minimum order value.",
+            "heading": "5. Minimum order values"
+          },
+          {
+            "id": "supplier_terms.pdf#2",
+            "doc": "supplier_terms.pdf",
+            "text": "2. Volume discounts\nHartmann Marine GmbH gives a discount of 3 percent on orders above EUR 5,000, 5 percent above EUR 20,000 and 8 percent above EUR 50,000. Pacific Valve Co. gives 4 percent on orders above EUR 10,000. Baltic Electric AB and Orion Safety Ltd do not give volume discounts. Discounts apply to the order total before freight and are not combined across suppliers.",
+            "heading": "2. Volume discounts"
+          },
+          {
+            "id": "procurement_procedure.pdf#2",
+            "doc": "procurement_procedure.pdf",
+            "text": "4. Classification society items\nParts that affect class or statutory certificates must be supplied with the manufacturer's certificate of conformity. Items without a certificate must be rejected at receipt.\n5. Goods receipt\nThe master or chief engineer must inspect deliveries within 3 working days and sign the goods receipt note. Differences between the delivery and the purchase order must be reported to procurement within 2 working days.",
+            "heading": "4. Classification society items"
+          }
+        ],
+        "tool_calls": [],
+        "raw_output": "{'answer': 'EUR 2,000', 'citations': [{'doc': 'procurement_procedure.pdf', 'quote': 'Orders above EUR 2,000 require at least 2 written quotations.'}], 'refused': False, 'refusal_reason': ''}",
+        "answer": {
+          "answer": "EUR 2,000",
+          "citations": [
+            {
+              "doc": "procurement_procedure.pdf",
+              "quote": "Orders above EUR 2,000 require at least 2 written quotations."
+            }
+          ],
+          "refused": false,
+          "refusal_reason": ""
+        },
+        "contract_ok": true,
+        "citations_verified": [
+          true
+        ],
+        "latency_s": 0.0017197132110595703,
+        "error": "",
+        "gate_blocked": ""
+      },
+      "verdict": {
+        "case_id": "ans-05",
+        "grounded": true,
+        "correct": true,
+        "refusal_correct": true,
+        "passed": true,
+        "fact_hits": [
+          true
+        ],
+        "fact_methods": [
+          "exact"
+        ],
+        "uncertain": false,
+        "llm_used": false,
+        "reasons": []
+      }
+    }
+  ]
+}

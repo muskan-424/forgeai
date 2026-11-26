@@ -30,6 +30,8 @@ OOS_SCHEMA = {"type": "object", "properties": {"questions": {"type": "array", "i
               "required": ["questions"]}
 
 ID_PREFIX = {"answerable": "ans", "multi_doc": "mul", "out_of_scope": "oos", "ambiguous": "amb"}
+_DEICTIC = re.compile(r"\b(this|that|these|those)\s+(\w+\s+)?(policy|policies|document|section|procedure|agreement|paragraph|guideline)\b", re.I)
+_TABLE_ROW = re.compile(r"^[\w .\-]+: .+; [\w .\-]+: ")      # 'part_no: V-1; description: ...; price: 5'
 _META_WORDS = re.compile(r"\b(passage|the document|the text|above|excerpt|sentence [ab]?)\b", re.I)
 MAX_FACT_WORDS = 12
 MIN_DROPPED_TERMS = 2   # a vague rewrite must drop at least this many content words
@@ -134,6 +136,8 @@ class EvalGenerator:
             return "question too short"
         if _META_WORDS.search(q):
             return "question refers to the source text"
+        if _DEICTIC.search(q):
+            return "question refers to 'this policy/document' without naming it"     # seen: 'Who does this leave policy apply to?'
         if any(question_similarity(q, e.question) > 0.7 for e in existing):
             return "duplicate question"
         return ""
@@ -254,15 +258,19 @@ class EvalGenerator:
 
     # ---------- main ----------
     def generate(self, n_answerable: int = 14, n_multi: int = 5, n_oos: int = 6, n_ambiguous: int = 5,
-                 holdout_frac: float = 1 / 3) -> list[EvalCase]:
+                 holdout_frac: float = 1 / 3, min_total: int = 0) -> list[EvalCase]:
+        """Build the eval set. `min_total` guarantees a minimum size: verification rejects many attempts, so if the
+        requested quotas fall short, extra answerable (then multi-document) cases are generated until it is met."""
         items = self._focus_items()
         cases: list[EvalCase] = []
 
         # answerable: one attempt per distinct sentence, at most 2x the target
         ans: list[EvalCase] = []
-        for chunk, sent in items:
+        pos = 0
+        for idx, (chunk, sent) in enumerate(items):
             if len(ans) >= n_answerable or self.stats["answerable:attempted"] >= n_answerable * 2:
                 break
+            pos = idx + 1
             self.stats["answerable:attempted"] += 1
             case = self._answerable(chunk, sent, ans)
             if case:
@@ -299,6 +307,8 @@ class EvalGenerator:
         for base in ans:
             if len(amb) >= n_ambiguous:
                 break
+            if base.source_quotes and _TABLE_ROW.match(base.source_quotes[0]):
+                continue          # a table row IS its identifier: a vague rewrite ('What's the unit price?') is unanswerable
             self.stats["ambiguous:attempted"] += 1
             case = self._ambiguous_from(base, cases + amb)
             if case:
@@ -308,7 +318,45 @@ class EvalGenerator:
         cases += amb
 
         cases += self._build_oos(n_oos, ans)
+        if len(cases) < min_total:
+            self.progress(f"  top-up: {len(cases)} verified cases so far, {min_total} required")
+            cases += self._top_up(min_total - len(cases), items, pos, docs, cases)
         return self._finalize(cases, holdout_frac)
+
+    def _top_up(self, need: int, items: list, pos: int, docs: set, existing: list[EvalCase]) -> list[EvalCase]:
+        extra: list[EvalCase] = []
+        attempts = 0
+        for chunk, sent in items[pos:]:                       # fresh sentences first (answerable)
+            if len(extra) >= need or attempts >= need * 4:
+                break
+            attempts += 1
+            self.stats["top_up:attempted"] += 1
+            case = self._answerable(chunk, sent, existing + extra)
+            if case:
+                case.notes += "; top-up"
+                extra.append(case)
+                self.stats["top_up:accepted"] += 1
+                self.progress(f"  [top-up answerable] {len(extra)}/{need}: {case.question[:80]}")
+        tried: set[tuple[int, int]] = set()
+        for _ in range(need * 4):                              # then multi-document pairs
+            if len(extra) >= need or len(items) < 2:
+                break
+            i = self.rng.randrange(len(items))
+            pool = [j for j, (c, _) in enumerate(items) if j != i and (len(docs) == 1 or c.doc != items[i][0].doc)]
+            if not pool:
+                break
+            j = self.rng.choice(pool)
+            if (i, j) in tried or (j, i) in tried:
+                continue
+            tried.add((i, j))
+            self.stats["top_up:attempted"] += 1
+            case = self._multi(items[i], items[j], existing + extra)
+            if case:
+                case.notes += "; top-up"
+                extra.append(case)
+                self.stats["top_up:accepted"] += 1
+                self.progress(f"  [top-up multi_doc] {len(extra)}/{need}: {case.question[:80]}")
+        return extra
 
     def _build_oos(self, n: int, answerable: list[EvalCase]) -> list[EvalCase]:
         if n <= 0:

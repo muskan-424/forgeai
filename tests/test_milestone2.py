@@ -360,3 +360,50 @@ def test_a_refusal_named_in_the_brief_always_gets_a_test_case():
     assert seen["must"] == 2 and len(must) == 1 and "legally enforceable" in must[0].question
     assert "second attempt" in must[0].notes
     assert gen.report()["rejections"].get("out_of_scope:not a question", 0) >= 1
+
+
+# ------------------------------------------------------------------ eval size: minimum guarantee and weak-test filters
+def test_min_cases_tops_up_when_verification_rejects_too_many():
+    """Real demos ended at 11-13 cases because the quotas were met only partly; a minimum must be guaranteed."""
+    chunks = build_chunks(DOCS, 300, 40)
+    gen = EvalGenerator(chunks, LLM(backend="mock", mock_fn=make_mock()), progress=lambda *_: None)
+    few = gen.generate(n_answerable=2, n_multi=0, n_oos=0, n_ambiguous=0)
+    assert len(few) == 2
+    gen2 = EvalGenerator(chunks, LLM(backend="mock", mock_fn=make_mock()), progress=lambda *_: None)
+    cases = gen2.generate(n_answerable=2, n_multi=0, n_oos=0, n_ambiguous=0, min_total=7)
+    assert len(cases) >= 7 and any("top-up" in c.notes for c in cases)
+    assert gen2.report()["attempted_accepted"]["top_up:accepted"] >= 5
+    assert len({c.question for c in cases}) == len(cases)                     # still no duplicates
+    ids = [c.id for c in cases]
+    assert len(ids) == len(set(ids))
+
+
+def test_deictic_questions_and_table_row_rewrites_are_rejected(tmp_path):
+    gen = EvalGenerator(build_chunks(DOCS, 300, 40), LLM(backend="mock", mock_fn=make_mock()), progress=lambda *_: None)
+    assert "without naming" in gen._check_question("Who does this leave policy apply to?", [])
+    assert "without naming" in gen._check_question("What does that document say about notice?", [])
+    assert gen._check_question("Who does the leave policy apply to?", []) == ""
+    d = tmp_path / "docs"
+    d.mkdir()
+    rows = [f"V-{100 + i},Gate valve number {i} bronze,{50 + i}" for i in range(12)]
+    (d / "parts.csv").write_text("\n".join(["part_no,description,unit_price"] + rows) + "\n", encoding="utf-8")
+    g2 = EvalGenerator(build_chunks(str(d)), LLM(backend="mock", mock_fn=make_mock()), progress=lambda *_: None)
+    cases = g2.generate(n_answerable=4, n_multi=0, n_oos=0, n_ambiguous=3)
+    assert [c for c in cases if c.type == "answerable"]                          # rows still make answerable cases
+    assert [c for c in cases if c.type == "ambiguous"] == []                     # but are never rewritten as vague
+    assert g2.report()["attempted_accepted"].get("ambiguous:attempted", 0) == 0
+
+
+def test_keep_awake_requests_and_releases_the_wakelock():
+    from forge.power import ES_CONTINUOUS, ES_SYSTEM_REQUIRED, keep_awake
+    calls = []
+    with keep_awake(calls.append) as on:
+        assert on and calls == [ES_CONTINUOUS | ES_SYSTEM_REQUIRED]
+    assert calls[-1] == ES_CONTINUOUS                                            # released afterwards
+    calls.clear()
+    try:
+        with keep_awake(calls.append):
+            raise RuntimeError("run failed")
+    except RuntimeError:
+        pass
+    assert calls[-1] == ES_CONTINUOUS                                            # even when the run crashes

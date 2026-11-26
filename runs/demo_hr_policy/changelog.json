@@ -12,11 +12,12 @@
       "amb-02"
     ],
     "broken": [],
-    "dev_passed_before": 8,
-    "dev_passed_after": 9,
-    "dev_total": 9,
+    "dev_passed_before": 13,
+    "dev_passed_after": 14,
+    "dev_total": 14,
     "decision": "kept",
+    "infrastructure_errors": [],
     "decision_reason": "net gain on dev cases",
-    "seconds": 484.1
+    "seconds": 239.1
   }
 ]

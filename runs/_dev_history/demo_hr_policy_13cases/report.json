@@ -1,0 +1,452 @@
+{
+  "name": "hr-policy-questions-shore-agent",
+  "scorecards": [
+    {
+      "iteration": 0,
+      "decision": "baseline",
+      "dev": {
+        "overall": {
+          "passed": 8,
+          "n": 9,
+          "rate": 0.889,
+          "ci95": [
+            0.565,
+            0.98
+          ]
+        },
+        "by_split": {
+          "dev": {
+            "passed": 8,
+            "n": 9,
+            "rate": 0.889,
+            "ci95": [
+              0.565,
+              0.98
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          },
+          "answerable": {
+            "passed": 4,
+            "n": 4,
+            "rate": 1.0,
+            "ci95": [
+              0.51,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          },
+          "out_of_scope": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          }
+        },
+        "refusal_accuracy": 1.0,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 0.889,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 0.0,
+        "failures": [
+          {
+            "id": "amb-02",
+            "type": "ambiguous",
+            "split": "dev",
+            "question": "What's the paid leave?",
+            "reasons": [
+              "ungrounded: citation quote not found in retrieved context (fabricated)"
+            ]
+          }
+        ]
+      },
+      "holdout": {
+        "overall": {
+          "passed": 3,
+          "n": 4,
+          "rate": 0.75,
+          "ci95": [
+            0.301,
+            0.954
+          ]
+        },
+        "by_split": {
+          "holdout": {
+            "passed": 3,
+            "n": 4,
+            "rate": 0.75,
+            "ci95": [
+              0.301,
+              0.954
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "answerable": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          }
+        },
+        "refusal_accuracy": null,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 1.0,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 0.0,
+        "failures": [
+          {
+            "id": "mul-02",
+            "type": "multi_doc",
+            "split": "holdout",
+            "question": "How many months of annual leave do employees receive if they join in the middle of the year, and what is the maximum time frame for the HR director to make a final decision on a grievance?",
+            "reasons": [
+              "facts matched 1/2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 1,
+      "decision": "kept",
+      "dev": {
+        "overall": {
+          "passed": 9,
+          "n": 9,
+          "rate": 1.0,
+          "ci95": [
+            0.701,
+            1.0
+          ]
+        },
+        "by_split": {
+          "dev": {
+            "passed": 9,
+            "n": 9,
+            "rate": 1.0,
+            "ci95": [
+              0.701,
+              1.0
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "answerable": {
+            "passed": 4,
+            "n": 4,
+            "rate": 1.0,
+            "ci95": [
+              0.51,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          },
+          "out_of_scope": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          }
+        },
+        "refusal_accuracy": 1.0,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 1.0,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 53.7,
+        "failures": []
+      },
+      "holdout": null
+    },
+    {
+      "iteration": "final",
+      "decision": "final",
+      "dev": {
+        "overall": {
+          "passed": 9,
+          "n": 9,
+          "rate": 1.0,
+          "ci95": [
+            0.701,
+            1.0
+          ]
+        },
+        "by_split": {
+          "dev": {
+            "passed": 9,
+            "n": 9,
+            "rate": 1.0,
+            "ci95": [
+              0.701,
+              1.0
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "answerable": {
+            "passed": 4,
+            "n": 4,
+            "rate": 1.0,
+            "ci95": [
+              0.51,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          },
+          "out_of_scope": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          }
+        },
+        "refusal_accuracy": 1.0,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 1.0,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 53.7,
+        "failures": []
+      },
+      "holdout": {
+        "overall": {
+          "passed": 3,
+          "n": 4,
+          "rate": 0.75,
+          "ci95": [
+            0.301,
+            0.954
+          ]
+        },
+        "by_split": {
+          "holdout": {
+            "passed": 3,
+            "n": 4,
+            "rate": 0.75,
+            "ci95": [
+              0.301,
+              0.954
+            ]
+          }
+        },
+        "by_type": {
+          "ambiguous": {
+            "passed": 1,
+            "n": 1,
+            "rate": 1.0,
+            "ci95": [
+              0.207,
+              1.0
+            ]
+          },
+          "answerable": {
+            "passed": 2,
+            "n": 2,
+            "rate": 1.0,
+            "ci95": [
+              0.342,
+              1.0
+            ]
+          },
+          "multi_doc": {
+            "passed": 0,
+            "n": 1,
+            "rate": 0.0,
+            "ci95": [
+              0.0,
+              0.793
+            ]
+          }
+        },
+        "refusal_accuracy": null,
+        "wrong_refusal_rate": 0.0,
+        "grounded_rate": 1.0,
+        "uncertain_judgements": 0,
+        "mean_latency_s": 64.5,
+        "failures": [
+          {
+            "id": "mul-02",
+            "type": "multi_doc",
+            "split": "holdout",
+            "question": "How many months of annual leave do employees receive if they join in the middle of the year, and what is the maximum time frame for the HR director to make a final decision on a grievance?",
+            "reasons": [
+              "facts matched 1/2"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "changelog": [
+    {
+      "iteration": 1,
+      "category": "hallucination",
+      "source": "library",
+      "what_changed": "+ rule: Each citation quote must be one or more whole sentences copied exactly, word for word, from the CONTEXT; never reword, shorten or merge sentences inside a quote.",
+      "why": "add proven rule for hallucination/citation",
+      "failures_addressed": [
+        "amb-02"
+      ],
+      "fixed": [
+        "amb-02"
+      ],
+      "broken": [],
+      "dev_passed_before": 8,
+      "dev_passed_after": 9,
+      "dev_total": 9,
+      "decision": "kept",
+      "decision_reason": "net gain on dev cases",
+      "seconds": 484.1
+    }
+  ],
+  "stop_reason": "all dev cases pass",
+  "residual_failures": [
+    {
+      "set": "holdout",
+      "id": "mul-02",
+      "type": "multi_doc",
+      "question": "How many months of annual leave do employees receive if they join in the middle of the year, and what is the maximum time frame for the HR director to make a final decision on a grievance?",
+      "category": "prompt_defect",
+      "why_category": "the context contained the answer and the agent did not refuse, but the answer was wrong or incomplete",
+      "detail": "facts matched 1/2",
+      "judge_reasons": [
+        "facts matched 1/2"
+      ],
+      "agent_answer": "If an employee joins in the middle of the year, they receive 25 days of paid annual leave per leave year. The maximum time frame for the HR director to make a final decision on a grievance is 20 working days.",
+      "refused": false
+    }
+  ],
+  "calibration": {
+    "probes": 16,
+    "accuracy": 1.0,
+    "false_pass": 0,
+    "false_fail": 0,
+    "llm_false_accepts": 0,
+    "by_kind": {
+      "gold": "2/2",
+      "padded_gold": "2/2",
+      "wrong_facts": "2/2",
+      "padded_wrong": "2/2",
+      "wrong_refusal": "2/2",
+      "oos_refused": "2/2",
+      "oos_answered": "2/2",
+      "oos_hedged": "2/2"
+    }
+  },
+  "eval_composition": {
+    "types": {
+      "answerable": 6,
+      "multi_doc": 3,
+      "ambiguous": 2,
+      "out_of_scope": 2
+    },
+    "splits": {
+      "dev": 9,
+      "holdout": 4
+    }
+  },
+  "usage": {
+    "factory (intake, guard, generator, evalgen)": {
+      "calls": 0,
+      "cache_hits": 26,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0
+    },
+    "agent": {
+      "calls": 13,
+      "cache_hits": 13,
+      "prompt_tokens": 9494,
+      "completion_tokens": 1689,
+      "seconds": 740.1134676933289
+    },
+    "judge": {
+      "calls": 1,
+      "cache_hits": 11,
+      "prompt_tokens": 264,
+      "completion_tokens": 29,
+      "seconds": 39.93899631500244
+    }
+  },
+  "total_seconds": 784.4567987918854
+}
