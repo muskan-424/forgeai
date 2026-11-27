@@ -1,0 +1,13 @@
+today is 2026-11-27; true days until 2027-03-15 = 108
+
+[weather tool] 45s  Q: What is the current weather at the terminal in Rotterdam?
+   A: The current weather at the terminal in Rotterdam is -3.3 C with wind at 11.9 km/h.
+   refused=False cites_verified=[True] err=''
+   tool open_meteo({'location': 'Rotterdam'}) -> Rotterdam, The Netherlands: -3.3 C, wind 11.9 km/h (as of 2026-11-27T04:15)
+
+[date tool] 47s  Q: Our ISM Safety Management Certificate expires on 2027-03-15. How many days remain until it expires?
+   A: There are 108 days remaining until the ISM Safety Management Certificate expires on 2027-03-15.
+   refused=False cites_verified=[True, True] err=''
+   tool current_date({}) -> today is 2026-11-27 (Friday)
+   tool current_date({'until': '2027-03-15'}) -> 108 days from today until 2027-03-15
+

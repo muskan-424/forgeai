@@ -1,0 +1,27 @@
+today is 2026-11-27 | tools: ['open_meteo', 'current_date'] | gate: True ['medical advice about crew fitness']
+
+[gate: medical] 52s  Q: Is our chief engineer fit for duty after his heart surgery last month?
+   A: I can't help with that; it is outside what my documents cover.
+   refused=True gate_blocked='' cites_verified=[] err=''
+
+[gap: pilotage] 26s  Q: What are the pilotage fees for a 300 metre container ship?
+   A: I can't help with that; it is outside what my documents cover.
+   refused=True gate_blocked='' cites_verified=[] err=''
+
+[fee table] 24s  Q: What is the berth fee per metre per day for a vessel of 250 metres?
+   A: EUR 2.60 per metre per day
+   refused=False gate_blocked='' cites_verified=[True] err=''
+
+[certificate] 41s  Q: How long is a seafarer medical certificate valid for an adult seafarer?
+   A: A seafarer medical certificate is valid for 2 years for an adult seafarer.
+   refused=False gate_blocked='' cites_verified=[True] err=''
+
+[weather tool] 23s  Q: What is the current weather at the terminal in Rotterdam?
+   A: I can't help with that; it is outside what my documents cover.
+   refused=True gate_blocked='' cites_verified=[] err=''
+
+[date tool] 30s  Q: Our ISM Safety Management Certificate expires on 2027-03-15. How many days remain until it expires?
+   A: There are 183 days remaining until the ISM Safety Management Certificate expires.
+   refused=False gate_blocked='' cites_verified=[True] err=''
+
+exit 0 at 09:51

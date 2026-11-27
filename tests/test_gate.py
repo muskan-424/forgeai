@@ -204,3 +204,31 @@ def test_gate_starts_on_only_when_the_brief_explicitly_forbids_something(tmp_pat
     d2, notes2 = generate_definition(gaps_only, DOCS, L(), out_dir=str(tmp_path))
     assert d2.refusal_gate is False and d2.refusal_topics == []                           # gaps alone: no gate topics
     assert notes2["refusal_gate"].startswith("off")
+
+
+# ---------------------------------------------------------------- deterministic tool pre-fetch (rehearsal finding)
+def test_date_and_weather_questions_get_tool_results_before_the_model_answers(monkeypatch):
+    """Rehearsal: the 3B model never called the attached tools; it refused the weather and invented a day count."""
+    from datetime import date, timedelta
+    from forge.schemas import ToolRef
+    from forge.tools.open_meteo import OpenMeteo
+    monkeypatch.setattr(OpenMeteo, "run", lambda self, args: f"{args['location']}, NL: 7.5 C, wind 22 km/h")
+    seen = []
+
+    def fn(messages, schema):
+        seen.append(messages[-1]["content"])
+        return json.dumps(ANSWER)
+    d = load_definition(SAMPLE).model_copy(update={"tools": [ToolRef(name="current_date"), ToolRef(name="open_meteo")]})
+    agent = Agent(d, LLM(backend="mock", mock_fn=fn))
+    target = (date.today() + timedelta(days=108)).isoformat()
+    tr = agent.ask(f"Our annual leave certificate expires on {target}. How many days remain until it expires?")
+    assert f"108 days from today until {target}" in seen[-1] and "TOOL RESULTS" in seen[-1]
+    assert [t["tool"] for t in tr.tool_calls] == ["current_date", "current_date"] and all(t["prefetched"] for t in tr.tool_calls)
+    tr = agent.ask("What is the current weather at the terminal in Rotterdam?")
+    assert tr.tool_calls[0] == {"tool": "open_meteo", "args": {"location": "Rotterdam"},
+                                "result": "Rotterdam, NL: 7.5 C, wind 22 km/h", "prefetched": True}
+    assert "Rotterdam, NL: 7.5 C" in seen[-1]
+    tr = agent.ask("How many days of annual leave do I get?")                       # no trigger: nothing fetched
+    assert tr.tool_calls == [] and "TOOL RESULTS" not in seen[-1]
+    plain = Agent(load_definition(SAMPLE), LLM(backend="mock", mock_fn=fn))         # no tools attached: never fetches
+    assert plain.ask("What is the weather in Rotterdam today?").tool_calls == []

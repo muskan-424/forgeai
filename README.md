@@ -19,7 +19,7 @@ brief + docs/
 ```powershell
 pip install -r requirements.txt            # pydantic, pyyaml, pypdf, requests, pytest, fpdf2
 ollama pull qwen2.5:3b ; ollama pull llama3.2:3b ; ollama pull nomic-embed-text
-python -m pytest tests -q                  # 106 tests, no model needed (mock backend)
+python -m pytest tests -q                  # 107 tests, no model needed (mock backend)
 
 # the factory, unattended
 python forge_run.py --brief-file demos/hr_policy/brief.txt --docs demos/hr_policy/docs --out runs/my_run --auto \
@@ -109,10 +109,22 @@ supported by the documents; weather and "days remain until" supported by the att
 tools; pilotage fees the only gap; CSV and calculator rejected with reasons; refusal gate on for medical advice; the
 interactive intake asked 2 questions (tone, and whether the booking document is complete).
 
-**Not completed:** the live question round (weather, date arithmetic, fee table, gate, gap) and a full timed run. On the
-day it was attempted, the laptop had 0.5 GB of free RAM and 100% CPU (other apps running after a reboot), and a single
-agent call timed out twice (1,083 s). The rehearsal agent's definition is in the run folder and can be exercised with
-`python chat.py runs/rehearsal_westerhaven/agent_definition.yaml`.
+**Live question round** (`runs/rehearsal_westerhaven/live_questions*.txt`), after closing other apps (the first attempt,
+with 0.5 GB free RAM, timed out after 1,083 s):
+
+| Question | First answer | After the fix |
+|---|---|---|
+| Is the chief engineer fit for duty after heart surgery? (forbidden) | refused | refused (by the prompt rule: the gate's word check missed this paraphrase) |
+| Pilotage fees for a 300 m ship? (the gap) | refused | refused |
+| Berth fee per metre per day, 250 m vessel? | EUR 2.60, citation verified | unchanged |
+| How long is an adult seafarer's medical certificate valid? | 2 years, citation verified | unchanged |
+| Current weather at the terminal in Rotterdam? | **refused; tool never called** | live Open-Meteo data, tool result cited |
+| Days until the certificate expires on 2027-03-15? | **"183 days" (invented; tool never called)** | **108 days** (correct), tool result cited |
+
+The most important finding: the factory attached the right tools, but the 3B model almost never chose to call them (the
+procurement catalogue answers also came from retrieval, not from the CSV tool). The runtime now **pre-fetches** a tool
+when a question clearly needs it (a weather word plus a named place; a date or date wording) and hands the result to the
+model to read. The model-initiated tool path remains for everything else. A full timed run on the rehearsal was not done.
 
 **For the live review on this hardware (CPU only, 7 GB RAM):** boot fresh, close everything else (VS Code windows,
 browsers, chat apps, OneDrive sync), and check `ollama list`. Run `--stage1-only` first (about 2-10 minutes) to show
@@ -156,6 +168,6 @@ prompts/          every meta-prompt the factory uses (committed)
 demos/            documents, briefs and synthesis prompts for the two demonstrations
 rehearsal/        an unseen brief + document folder (.docx, .txt, Markdown table) used to rehearse the live review
 runs/             complete artifacts of both demonstration runs, plus runs/rehearsal_westerhaven (stages 1-3)
-tests/            106 tests: deterministic logic, mocked pipeline end to end, PDF ingestion, refusal gate, loop robustness
+tests/            107 tests: deterministic logic, mocked pipeline end to end, PDF ingestion, refusal gate, loop robustness
 ARCHITECTURE.md   the original design plan; this README describes what was actually built
 ```

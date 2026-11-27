@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import re
 import time
+from datetime import date
 from pathlib import Path
 
 import yaml
@@ -125,6 +126,34 @@ class Agent:
         best = max(topics, key=lambda t: max(coverage(named, t), coverage(t, named)))
         return best if max(coverage(named, best), coverage(best, named)) >= 0.5 else ""
 
+    # ---- deterministic tool pre-fetch ------------------------------------------------------------------------------
+    # Rehearsal on an unseen brief: the right tools were attached, but the 3B model almost never chose to call them
+    # (it refused a weather question and invented "183 days" for a date that was 108 days away). When a question
+    # clearly needs an attached tool, the runtime calls it first and hands the result to the model to read.
+    _ISO_DATE = re.compile(r"\b(\d{4}-\d{2}-\d{2})\b")
+    _DATE_NEED = re.compile(r"\b(today|days? (remain|remaining|left|until)|until it expires|expir\w*|"
+                            r"deadline|overdue|due date)\b", re.I)
+    _WEATHER_NEED = re.compile(r"\b(weather|wind|temperature|rain\w*|storm|sea state)\b", re.I)
+    _PLACE = re.compile(r"\b(?:in|at|near|for|of)\s+([A-Z][A-Za-z\-]+(?:\s+[A-Z][A-Za-z\-]+)?)")
+
+    def _prefetch_tools(self, question: str) -> list[tuple[str, dict, str]]:
+        out: list[tuple[str, dict, str]] = []
+        if "current_date" in self.tools and (self._ISO_DATE.search(question) or self._DATE_NEED.search(question)):
+            out.append(("current_date", {}, "today is " + self.tools["current_date"].run({})))
+            for d in self._ISO_DATE.findall(question):
+                try:
+                    days = (date.fromisoformat(d) - date.today()).days
+                except ValueError:
+                    continue
+                when = f"{days} days from today until {d}" if days >= 0 else f"{d} was {-days} days ago"
+                out.append(("current_date", {"until": d}, when))
+        if "open_meteo" in self.tools and self._WEATHER_NEED.search(question):
+            places = [p for p in self._PLACE.findall(question) if p.split()[0] not in {"The", "This", "That", "Our"}]
+            if places:
+                loc = places[-1]
+                out.append(("open_meteo", {"location": loc}, self.tools["open_meteo"].run({"location": loc})))
+        return out
+
     def ask(self, question: str, history: list[tuple[str, str]] | None = None) -> AgentTrace:
         t0 = time.time()
         trace = AgentTrace(question=question)
@@ -149,10 +178,18 @@ class Agent:
         messages = [{"role": "system", "content": system}]
         for q, a in (history or [])[-3:]:
             messages += [{"role": "user", "content": q}, {"role": "assistant", "content": a}]
-        messages.append({"role": "user", "content":
-                         f"CONTEXT:\n{self._context_block(trace.retrieved)}\n\nQUESTION: {question}"})
-        schema = TOOL_SCHEMA if self.tools else ANSWER_SCHEMA
         tool_texts: list[str] = []
+        fetched = self._prefetch_tools(question)
+        tool_block = ""
+        if fetched:
+            for name, args, res in fetched:
+                trace.tool_calls.append({"tool": name, "args": args, "result": res, "prefetched": True})
+                tool_texts.append(res)
+            tool_block = ("TOOL RESULTS (already fetched for you; use them, and cite them with doc \"tool\"):\n"
+                          + "\n".join(f"- {n}: {r}" for n, _, r in fetched) + "\n\n")
+        messages.append({"role": "user", "content":
+                         f"CONTEXT:\n{self._context_block(trace.retrieved)}\n\n{tool_block}QUESTION: {question}"})
+        schema = TOOL_SCHEMA if self.tools else ANSWER_SCHEMA
 
         try:
             for step in range(MAX_TOOL_STEPS + 1):
