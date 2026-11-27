@@ -19,7 +19,7 @@ brief + docs/
 ```powershell
 pip install -r requirements.txt            # pydantic, pyyaml, pypdf, requests, pytest, fpdf2
 ollama pull qwen2.5:3b ; ollama pull llama3.2:3b ; ollama pull nomic-embed-text
-python -m pytest tests -q                  # 102 tests, no model needed (mock backend)
+python -m pytest tests -q                  # 106 tests, no model needed (mock backend)
 
 # the factory, unattended
 python forge_run.py --brief-file demos/hr_policy/brief.txt --docs demos/hr_policy/docs --out runs/my_run --auto \
@@ -87,6 +87,39 @@ past, and borderline questions can be blocked. The optimizer reverts the gate if
 
 Neither demo claims 100% on held-out data. With 20 cases (about 14 dev / 6 holdout), every rate has a wide confidence interval and one-case differences are noise.
 
+## Rehearsal on an unseen brief (preparing for the live review)
+
+The review uses a brief and documents ForgeAI has never seen, so the factory was rehearsed on a new case built to differ
+from both demos: a ship-agent assistant for a fictional container terminal (`rehearsal/westerhaven/`), with file types
+the demos never used (a Word .docx without detectable headings, a plain .txt, Markdown with a fee table), a brief that
+needs the weather and date tools, a planted gap (pilotage fees) and an explicit refusal (medical advice about crew).
+
+**What the first attempt exposed, and what was fixed (generic fixes, each with a regression test):**
+- Markdown table rows were dropped as "headings", so the fee table could never be tested or cited. Pipe tables are now
+  turned into self-describing rows ("Vessel length: over 300 metres; Fee per metre per day: EUR 3.20").
+- Three **false gaps** became refusal rules, so the agent would have refused the brief's own core questions:
+  "Certificate Validity" (no stemming link between *validity* and *valid*), "many days remain until" (the date tool's
+  job was treated as a document gap), and the junk topic "report" (a verb taken from "...and report the weather").
+  Fixed with -ity stemming, letting helper tools support topics that explicitly name their job, and excluding request
+  verbs from topics.
+- The refusal gate now checks only what the requester explicitly forbade, so a false gap can never become a hard block.
+
+**After the fixes** (`runs/rehearsal_westerhaven/`): 8 topics from the brief; certificate validity and expiry dates
+supported by the documents; weather and "days remain until" supported by the attached `open_meteo` and `current_date`
+tools; pilotage fees the only gap; CSV and calculator rejected with reasons; refusal gate on for medical advice; the
+interactive intake asked 2 questions (tone, and whether the booking document is complete).
+
+**Not completed:** the live question round (weather, date arithmetic, fee table, gate, gap) and a full timed run. On the
+day it was attempted, the laptop had 0.5 GB of free RAM and 100% CPU (other apps running after a reboot), and a single
+agent call timed out twice (1,083 s). The rehearsal agent's definition is in the run folder and can be exercised with
+`python chat.py runs/rehearsal_westerhaven/agent_definition.yaml`.
+
+**For the live review on this hardware (CPU only, 7 GB RAM):** boot fresh, close everything else (VS Code windows,
+browsers, chat apps, OneDrive sync), and check `ollama list`. Run `--stage1-only` first (about 2-10 minutes) to show
+requirements, groundability and tool choices, then the full run with a time box, for example
+`--min-cases 20 --budget-minutes 45`; the loop stops iterating when the budget is spent and the report says so. A first,
+uncached full run takes one to three hours here; a machine with more RAM or a GPU is far faster.
+
 ## Limits you should know about
 
 - **Eval sets are still small.** Each demo has 20 cases, the brief's minimum, split about 14 dev / 6 holdout, so the
@@ -99,7 +132,8 @@ Neither demo claims 100% on held-out data. With 20 cases (about 14 dev / 6 holdo
 - **Reported run times are mostly cache replays.** The demo reports show fresh model time and replayed time separately;
   a first, uncached run of either demo takes one to three hours on this CPU (the slowest single agent answer seen was
   about 8 minutes, for a question that needed several tool calls).
-- Reruns change results (model sampling and prompt edits); the committed runs are one sample each.
+- Reruns change results (model sampling and prompt edits); the committed runs are one sample each. The two demo runs were produced before the rehearsal fixes (stemming, table rows, gate topics); those fixes were verified by tests and by the rehearsal's stages 1-3, not by re-running the demos.
+- **Hardware is the practical limit.** With other apps open, the 3B model can time out entirely (seen in the rehearsal). See the live-review checklist above.
 - `runs/_dev_history/` holds earlier development runs, including a procurement run whose loop never executed because
   one call stalled for 2.6 hours (the budget now counts compute time), and procurement runs interrupted by a model-server outage (agent errors are now
   retried with backoff, and an iteration with unresolved server errors is reported as INCONCLUSIVE).
@@ -120,7 +154,8 @@ forge/            the factory (intake, groundability, generator, evalgen, judge,
 forge/tools/      registry: csv_lookup, calculator, open_meteo, current_date (manifests + gating metadata)
 prompts/          every meta-prompt the factory uses (committed)
 demos/            documents, briefs and synthesis prompts for the two demonstrations
-runs/             complete artifacts of both demonstration runs
-tests/            102 tests: deterministic logic, mocked pipeline end to end, PDF ingestion, refusal gate, loop robustness
+rehearsal/        an unseen brief + document folder (.docx, .txt, Markdown table) used to rehearse the live review
+runs/             complete artifacts of both demonstration runs, plus runs/rehearsal_westerhaven (stages 1-3)
+tests/            106 tests: deterministic logic, mocked pipeline end to end, PDF ingestion, refusal gate, loop robustness
 ARCHITECTURE.md   the original design plan; this README describes what was actually built
 ```

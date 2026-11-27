@@ -345,3 +345,29 @@ def test_guard_skips_the_model_when_one_sentence_has_every_topic_word_and_picks_
     assert e["status"] == "supported" and e["model"] is None and "30 days" in e["evidence"]   # not the title-matching intro
     e = check_topic("travel expenses", r, L(verdicts={"travel expenses": "yes"}))
     assert "Effective" not in e["evidence"]                                                    # real sentence, not the opener
+
+
+# ---------------------------------------------------------------- regressions from the rehearsal on an unseen brief
+def test_rehearsal_false_gaps_do_not_happen_again(tmp_path):
+    from forge.retrieval import stem
+    assert stem("validity") == stem("valid") and stem("security") == stem("secure")
+    d = tmp_path / "docs"
+    d.mkdir()
+    (d / "certs.txt").write_text("SHIP CERTIFICATES\n\nThe Safety Management Certificate is valid for 5 years. "
+                                 "A certificate is treated as expired from the day after its expiry date.\n", encoding="utf-8")
+    req = Requirements(brief="x", must_answer=["Certificate Validity", "many days remain until", "current weather"])
+    rep = check_groundability(req, str(d), L(verdicts={"Certificate Validity": "yes"}))
+    st = {e["topic"]: e["status"] for e in rep["entries"]}
+    assert st["Certificate Validity"] == "supported"                       # validity ~ valid
+    assert st["many days remain until"] == "supported_by_tool"            # the date tool's job, not a document gap
+    assert st["current weather"] == "supported_by_tool"
+    assert rep["gaps"] == []                                               # so no harmful refusal rules
+    assert tool_support("supplier price list", inventory(DOCS)) is None    # a loose 'price' still grounds nothing
+
+
+def test_request_verbs_never_become_topics():
+    from forge.intake import backstop_topics, corpus_vocab
+    r = Requirements(brief="x", audience="ship agents", must_answer=["terminal regulations"])
+    brief = "It should tell the agent the terminal regulations and report the current weather at the port."
+    topics = [t for t, _ in backstop_topics(brief, r, corpus_vocab(DOCS))]
+    assert "report" not in topics and not any(t.split()[0] == "report" for t in topics)

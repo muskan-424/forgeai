@@ -1,0 +1,6 @@
+today is 2026-11-26 | tools: ['open_meteo', 'current_date'] | gate: True ['medical advice about crew fitness']
+
+[weather tool] 1083s  Q: What is the current weather at the terminal in Rotterdam?
+   A: 
+   refused=False gate_blocked='' cites_verified=[] err="Ollama call failed (HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=300)). Is `ollama serve` running and `ollama pull qwen2.5:3b` done?"
+

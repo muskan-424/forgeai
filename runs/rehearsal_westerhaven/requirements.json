@@ -1,0 +1,114 @@
+{
+  "brief": "We need an assistant for ship agents calling at Westerhaven Container Terminal. It should answer questions about the terminal regulations, berth booking and berth fees, and certificate validity. It should tell the agent how many days remain until a certificate's expiry date and report the current weather at the port. It should also explain the pilotage fees. It must not give medical advice about crew fitness.",
+  "scope": "The document-based assistant answers questions about Westerhaven Container Terminal regulations, berth booking and fees, certificate validity, pilotage fees, and current weather, without giving medical advice.",
+  "audience": "Ship agents calling at Westerhaven Container Terminal",
+  "tone": "professional, clear and concise",
+  "must_answer": [
+    "Terminal Regulations",
+    "Berth Booking",
+    "Berth Fees",
+    "Certificate Validity",
+    "Pilotage Fees",
+    "Current Weather",
+    "many days remain until",
+    "expiry date"
+  ],
+  "must_refuse": [
+    "medical advice about crew fitness",
+    "Pilotage Fees (not covered by the documents)"
+  ],
+  "assumptions": [
+    "Refusal 'medical advice about crew fitness' taken verbatim from the brief (the model's list had missed it).",
+    "Topic 'many days remain until' taken verbatim from the brief sentence \"It should tell the agent how many days remain until a certificate's expiry date and report\" (the model's topic list had missed it).",
+    "Topic 'expiry date' taken verbatim from the brief sentence \"It should tell the agent how many days remain until a certificate's expiry date and report\" (the model's topic list had missed it).",
+    "Clarification: Does the document 'berth_booking_procedure.md' cover all aspects of berth booking, including priority and changes and cancellations, or are there additional procedures not covered in this document that the assistant should be aware of? -> They apply to every vessel calling at the terminal"
+  ],
+  "clarifications": [
+    {
+      "q": "What tone should the assistant use (for example formal, friendly, concise)?",
+      "a": "professional, clear and concise",
+      "slot": "tone"
+    },
+    {
+      "q": "Does the document 'berth_booking_procedure.md' cover all aspects of berth booking, including priority and changes and cancellations, or are there additional procedures not covered in this document that the assistant should be aware of?",
+      "a": "They apply to every vessel calling at the terminal",
+      "slot": "extra"
+    }
+  ],
+  "groundability": [
+    {
+      "topic": "Terminal Regulations",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "These regulations apply to every vessel calling at Westerhaven Container Terminal, Maasvlakte, Rotterdam.",
+      "doc": "terminal_regulations.docx",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "Berth Booking",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "Berth windows are requested through the terminal's booking portal by the ship agent.",
+      "doc": "berth_booking_procedure.md",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "Berth Fees",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "Berth fees are charged per metre of vessel length per started day alongside.",
+      "doc": "berth_booking_procedure.md",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "Certificate Validity",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "This guide summarises which certificates the terminal checks and how long they are valid.",
+      "doc": "certificates_guide.txt",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "Pilotage Fees",
+      "status": "unsupported",
+      "lexical": 0.28,
+      "model": "no",
+      "evidence": "Berth fees are charged per metre of vessel length per started day alongside.",
+      "doc": "berth_booking_procedure.md",
+      "note": "model said 'no', lexical coverage 0.28"
+    },
+    {
+      "topic": "Current Weather",
+      "status": "supported_by_tool",
+      "lexical": 0.0,
+      "model": null,
+      "evidence": "",
+      "doc": "",
+      "note": "documents weak; tool 'open_meteo' can serve this",
+      "tool": "open_meteo"
+    },
+    {
+      "topic": "many days remain until",
+      "status": "supported_by_tool",
+      "lexical": 0.25,
+      "model": "no",
+      "evidence": "expires during a call, cargo operations stop until a valid certificate or a written extension from the flag state is",
+      "doc": "certificates_guide.txt",
+      "note": "documents weak; tool 'current_date' can serve this",
+      "tool": "current_date"
+    },
+    {
+      "topic": "expiry date",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "expired from the day after its expiry date.",
+      "doc": "certificates_guide.txt",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    }
+  ]
+}

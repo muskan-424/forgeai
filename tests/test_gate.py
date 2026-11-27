@@ -68,10 +68,10 @@ def test_gate_ignores_a_yes_that_names_no_listed_topic_and_fails_open_on_errors(
 
 
 # ---------------------------------------------------------------- generator, critic, report
-def test_refusal_topics_are_the_forbidden_topics_and_gaps_without_the_generic_default():
+def test_refusal_topics_are_only_what_the_requester_forbade():
     req = Requirements(brief="b", must_refuse=["anything not covered by the provided documents", "legal advice about contracts",
                                                "pension contributions (not covered by the documents)"])
-    assert refusal_topics(req) == ["legal advice about contracts", "pension contributions"]
+    assert refusal_topics(req) == ["legal advice about contracts"]          # gaps stay prompt rules, not gate topics
     assert refusal_topics(Requirements(brief="b", must_refuse=["anything not covered by the provided documents"])) == []
 
 
@@ -197,10 +197,10 @@ def test_gate_starts_on_only_when_the_brief_explicitly_forbids_something(tmp_pat
     assert explicit_refusals(stated) == ["legal advice about contracts"]
     d, notes = generate_definition(stated, DOCS, L(), out_dir=str(tmp_path))
     assert d.refusal_gate is True and "explicitly forbids legal advice about contracts" in notes["refusal_gate"]
-    assert d.refusal_topics == ["legal advice about contracts", "pension"]
+    assert d.refusal_topics == ["legal advice about contracts"]
     gaps_only = Requirements(brief="b", scope="s", audience="a", tone="t", must_answer=["annual leave"],
                              must_refuse=["anything not covered by the provided documents",
                                           "pension contributions (not covered by the documents)"])
     d2, notes2 = generate_definition(gaps_only, DOCS, L(), out_dir=str(tmp_path))
-    assert d2.refusal_gate is False and d2.refusal_topics == ["pension contributions"]      # gaps alone: gate stays off
+    assert d2.refusal_gate is False and d2.refusal_topics == []                           # gaps alone: no gate topics
     assert notes2["refusal_gate"].startswith("off")

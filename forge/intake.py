@@ -50,7 +50,8 @@ _REQUEST_CUE = re.compile(r"\b(tell|answer|answers|explain|explains|help|helps|p
 _META = {"assistant", "answer", "question", "help", "need", "want", "tone", "friendly", "formal", "clear", "concise",
          "polite", "keep", "also", "should", "would", "must", "please", "provide", "explain", "tell", "give", "look",
          "find", "show", "document", "based", "system", "tool", "new", "build", "able", "like", "make", "use",
-         "calculate", "compute", "include", "including", "includes", "lookup"}
+         "calculate", "compute", "include", "including", "includes", "lookup", "report", "reports", "describe",
+         "state", "list", "answer", "answers", "say", "inform", "check", "remind", "advise", "assist"}
 _GENERIC = {"rules", "rule", "terms", "details", "information", "things", "process", "procedure", "procedures", "policy", "policies", "matters", "issues", "topics", "guidance", "support", "requirements", "conditions", "questions"}
 _FUNC = {"about", "regarding", "from", "into", "over", "under", "between", "through", "during", "before", "after",
          "just", "only", "very", "any", "some", "each", "every", "other", "such", "than", "then", "there", "these",

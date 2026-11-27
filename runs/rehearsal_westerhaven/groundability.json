@@ -1,0 +1,86 @@
+{
+  "entries": [
+    {
+      "topic": "Terminal Regulations",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "These regulations apply to every vessel calling at Westerhaven Container Terminal, Maasvlakte, Rotterdam.",
+      "doc": "terminal_regulations.docx",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "Berth Booking",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "Berth windows are requested through the terminal's booking portal by the ship agent.",
+      "doc": "berth_booking_procedure.md",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "Berth Fees",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "Berth fees are charged per metre of vessel length per started day alongside.",
+      "doc": "berth_booking_procedure.md",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "Certificate Validity",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "This guide summarises which certificates the terminal checks and how long they are valid.",
+      "doc": "certificates_guide.txt",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    },
+    {
+      "topic": "Pilotage Fees",
+      "status": "unsupported",
+      "lexical": 0.28,
+      "model": "no",
+      "evidence": "Berth fees are charged per metre of vessel length per started day alongside.",
+      "doc": "berth_booking_procedure.md",
+      "note": "model said 'no', lexical coverage 0.28"
+    },
+    {
+      "topic": "Current Weather",
+      "status": "supported_by_tool",
+      "lexical": 0.0,
+      "model": null,
+      "evidence": "",
+      "doc": "",
+      "note": "documents weak; tool 'open_meteo' can serve this",
+      "tool": "open_meteo"
+    },
+    {
+      "topic": "many days remain until",
+      "status": "supported_by_tool",
+      "lexical": 0.25,
+      "model": "no",
+      "evidence": "expires during a call, cargo operations stop until a valid certificate or a written extension from the flag state is",
+      "doc": "certificates_guide.txt",
+      "note": "documents weak; tool 'current_date' can serve this",
+      "tool": "current_date"
+    },
+    {
+      "topic": "expiry date",
+      "status": "supported",
+      "lexical": 1.0,
+      "model": null,
+      "evidence": "expired from the day after its expiry date.",
+      "doc": "certificates_guide.txt",
+      "note": "every word of the topic occurs in one sentence of the documents"
+    }
+  ],
+  "gaps": [
+    "Pilotage Fees"
+  ],
+  "partial": [],
+  "warnings": [
+    "UNSUPPORTED: the documents do not cover 'Pilotage Fees'. The agent will refuse it instead of guessing."
+  ],
+  "blocking": false
+}

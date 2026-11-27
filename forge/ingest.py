@@ -17,10 +17,35 @@ def list_docs(folder: str | Path) -> list[Path]:
     return sorted(p for p in Path(folder).rglob("*") if p.is_file() and p.suffix.lower() in SUPPORTED)
 
 
+def _cells(line: str) -> list[str]:
+    return [c.strip() for c in line.strip().strip("|").split("|")]
+
+
+def normalize_pipe_tables(text: str) -> str:
+    """Markdown pipe tables -> one self-describing line per row ('Vessel length: up to 200 metres; Fee: EUR 2.10'),
+    like CSV rows. Found in a rehearsal on unseen documents: raw rows ('| up to 200 metres | EUR 2.10 |') have no
+    closing punctuation, were treated as headings, and the fee table could never be tested or cited."""
+    lines, out, i = text.split("\n"), [], 0
+    sep = re.compile(r"^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)+\|?\s*$")
+    while i < len(lines):
+        if "|" in lines[i] and i + 1 < len(lines) and sep.match(lines[i + 1]):
+            header = _cells(lines[i])
+            i += 2
+            while i < len(lines) and lines[i].strip().startswith("|") or (i < len(lines) and lines[i].count("|") >= 2):
+                row = _cells(lines[i])
+                if any(row):
+                    out.append("; ".join(f"{h}: {v}" for h, v in zip(header, row) if h or v))
+                i += 1
+            continue
+        out.append(lines[i])
+        i += 1
+    return "\n".join(out)
+
+
 def load_text(path: Path) -> str:
     ext = path.suffix.lower()
     if ext in {".md", ".txt"}:
-        return path.read_text(encoding="utf-8", errors="replace")
+        return normalize_pipe_tables(path.read_text(encoding="utf-8", errors="replace"))
     if ext == ".csv":
         return path.read_text(encoding="utf-8-sig", errors="replace")
     if ext == ".pdf":

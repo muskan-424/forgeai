@@ -136,13 +136,14 @@ def build_rules(req: Requirements, tools: list[ToolRef]) -> list[str]:
 
 
 def refusal_topics(req: Requirements) -> list[str]:
-    """What the runtime refusal gate checks against: the brief's forbidden topics and the unsupported gaps
-    (without the generic 'anything not covered' default, which is not a topic)."""
+    """What the runtime refusal gate checks against: ONLY the topics the requester explicitly forbade.
+    Gaps found by the groundability guard stay prompt rules: in the rehearsal a false gap ('Certificate Validity')
+    would have made the gate block the brief's own core questions."""
     generic = SLOT_QUESTIONS["must_refuse"][1]
     out = []
     for t in req.must_refuse:
-        t = t.replace(" (not covered by the documents)", "").strip()
-        if t and t != generic and t not in out:
+        t = t.strip()
+        if t and t != generic and "(not covered by the documents)" not in t and t not in out:
             out.append(t)
     return out
 

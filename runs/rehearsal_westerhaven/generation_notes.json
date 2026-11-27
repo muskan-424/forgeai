@@ -1,0 +1,30 @@
+{
+  "tool_decisions": [
+    {
+      "tool": "csv_lookup",
+      "attached": false,
+      "reason": "precondition failed: no .csv document provided"
+    },
+    {
+      "tool": "calculator",
+      "attached": false,
+      "reason": "no evidence in the brief that this tool is needed"
+    },
+    {
+      "tool": "open_meteo",
+      "attached": true,
+      "reason": "the brief explicitly mentions 'weather'; model: explicitly requested in the brief"
+    },
+    {
+      "tool": "current_date",
+      "attached": true,
+      "reason": "the brief explicitly mentions 'days remain'; model: explicitly requested in the brief"
+    }
+  ],
+  "persona_source": "model",
+  "refusal_gate": "ON from the start: the brief explicitly forbids medical advice about crew fitness",
+  "retrieval_basis": {
+    "documents": 3,
+    "chunks": 11
+  }
+}

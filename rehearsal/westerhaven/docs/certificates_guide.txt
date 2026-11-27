@@ -1,0 +1,23 @@
+CERTIFICATES GUIDE FOR SHIP AGENTS
+
+This guide summarises which certificates the terminal checks and how long they are valid. It is a summary for agents and
+does not replace the requirements of the flag state.
+
+SHIP CERTIFICATES
+
+The Safety Management Certificate under the ISM Code is valid for 5 years, with an intermediate verification between the
+second and third anniversary. The International Ship Security Certificate under the ISPS Code is valid for 5 years. The
+International Oil Pollution Prevention Certificate is valid for 5 years, with annual surveys. A certificate is treated as
+expired from the day after its expiry date.
+
+CREW CERTIFICATES
+
+Certificates of competency issued under the STCW Convention are valid for 5 years. Seafarer medical certificates are valid
+for 2 years, or for 1 year if the seafarer is under 18 years old. The terminal does not assess whether a seafarer is fit
+for duty; questions about health or fitness are for the ship's doctor or a recognised medical practitioner.
+
+RENEWAL
+
+Agents should remind the vessel to start renewing a certificate at least 3 months before it expires. If a certificate
+expires during a call, cargo operations stop until a valid certificate or a written extension from the flag state is
+shown to the terminal duty officer.

@@ -34,11 +34,13 @@ class GroundabilityError(RuntimeError):
 def tool_support(topic: str, inv: list[dict]) -> str | None:
     """A tool that can serve the topic: keyword evidence in the topic AND its precondition (e.g. a CSV exists)."""
     for m in manifests():
-        if not m.provides_facts:      # helpers like the calculator cannot make a topic answerable
-            continue
         if m.requires_file_type and not any(d["type"] == m.requires_file_type for d in inv):
             continue
-        if any(re.search(rf"\b{re.escape(k)}\b", topic.lower()) for k in m.keywords):
+        # Helpers (calculator, date) cannot make a topic answerable by themselves, so a loose word like 'price' does
+        # not count; but a topic that explicitly names their job ('how many days remain until') IS what they serve
+        # (rehearsal: the date capability was flagged as a document gap and became a refusal rule).
+        words = m.keywords if m.provides_facts else m.strong_keywords
+        if any(re.search(rf"\b{re.escape(k)}\b", topic.lower()) for k in words):
             return m.name
     return None
 

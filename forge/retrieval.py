@@ -17,7 +17,7 @@ def stem(t: str) -> str:
     allowances/allowance -> allowanc, claiming/claims -> claim, travelling/travel -> travel, policies/policy -> policy."""
     if not t.isalpha() or len(t) <= 3:
         return t
-    for suf, repl in (("ings", ""), ("ing", ""), ("ied", "y"), ("ies", "y"), ("edly", ""), ("ed", ""),
+    for suf, repl in (("ities", ""), ("ity", ""), ("ings", ""), ("ing", ""), ("ied", "y"), ("ies", "y"), ("edly", ""), ("ed", ""),
                       ("es", ""), ("s", ""), ("ly", "")):
         if suf == "es" and t.endswith("ees"):
             continue                            # employees -> (s) -> employee, not employe

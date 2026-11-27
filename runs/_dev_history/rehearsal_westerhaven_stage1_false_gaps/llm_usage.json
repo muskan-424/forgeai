@@ -1,0 +1,8 @@
+{
+  "calls": 6,
+  "cache_hits": 0,
+  "prompt_tokens": 1604,
+  "completion_tokens": 269,
+  "seconds": 604.9153518676758,
+  "cached_seconds": 0.0
+}

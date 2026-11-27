@@ -44,3 +44,17 @@ def test_demo_catalogue_is_reproducible_and_consistent_with_the_supplier_terms()
     # the PDFs never mention pensions: the HR demo relies on that gap
     hr = " ".join(load_text(p) for p in (DEMOS / "hr_policy" / "docs").glob("*.pdf")).lower()
     assert "pension" not in hr and "retirement" not in hr
+
+
+def test_markdown_tables_become_self_describing_rows(tmp_path):
+    from forge.ingest import normalize_pipe_tables
+    md = ("## Berth fees\n\nFees are charged per metre.\n\n| Vessel length | Fee per metre per day |\n|---|---|\n"
+          "| up to 200 metres | EUR 2.10 |\n| over 300 metres | EUR 3.20 |\n\nA minimum charge of EUR 400 applies.\n")
+    out = normalize_pipe_tables(md)
+    assert "Vessel length: up to 200 metres; Fee per metre per day: EUR 2.10" in out
+    assert "Vessel length: over 300 metres; Fee per metre per day: EUR 3.20" in out
+    assert "|---|" not in out and "A minimum charge of EUR 400 applies." in out and "## Berth fees" in out
+    (tmp_path / "fees.md").write_text(md, encoding="utf-8")
+    sents = [x for c in build_chunks(tmp_path, 500, 60) for x in split_sentences(c.text)]
+    assert "Vessel length: over 300 metres; Fee per metre per day: EUR 3.20" in sents          # now testable and citable
+    assert normalize_pipe_tables("a | b is not a table\nplain text") == "a | b is not a table\nplain text"
